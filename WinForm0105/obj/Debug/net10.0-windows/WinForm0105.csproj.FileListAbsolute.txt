@@ -1,0 +1,16 @@
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\bin\Debug\net10.0-windows\WinForm0105.exe
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\bin\Debug\net10.0-windows\WinForm0105.deps.json
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\bin\Debug\net10.0-windows\WinForm0105.runtimeconfig.json
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\bin\Debug\net10.0-windows\WinForm0105.dll
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\bin\Debug\net10.0-windows\WinForm0105.pdb
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.MainForm.resources
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.csproj.GenerateResource.cache
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.AssemblyInfoInputs.cache
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.AssemblyInfo.cs
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.csproj.CoreCompileInputs.cache
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.dll
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\refint\WinForm0105.dll
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.pdb
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\WinForm0105.genruntimeconfig.cache
+C:\Users\7_1\Desktop\수강생401\변지온\WinForm0105\WinForm0105\obj\Debug\net10.0-windows\ref\WinForm0105.dll
