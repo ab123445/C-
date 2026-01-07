@@ -28,13 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             textBox1 = new TextBox();
             listBox1 = new ListBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            RightAnswer = new Label();
+            WrongAnswer = new Label();
+            pgAccuracy = new ProgressBar();
+            lblAccuracy = new Label();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(217, 292);
+            textBox1.Location = new Point(70, 276);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(222, 23);
             textBox1.TabIndex = 1;
@@ -43,17 +51,84 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.Items.AddRange(new object[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" });
-            listBox1.Location = new Point(217, 42);
+            listBox1.Location = new Point(70, 26);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(222, 214);
             listBox1.TabIndex = 2;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
+            // RightAnswer
+            // 
+            RightAnswer.AutoSize = true;
+            RightAnswer.Font = new Font("맑은 고딕", 18F);
+            RightAnswer.ForeColor = SystemColors.HotTrack;
+            RightAnswer.Location = new Point(70, 323);
+            RightAnswer.Name = "RightAnswer";
+            RightAnswer.Size = new Size(27, 32);
+            RightAnswer.TabIndex = 3;
+            RightAnswer.Text = "0";
+            // 
+            // WrongAnswer
+            // 
+            WrongAnswer.AutoSize = true;
+            WrongAnswer.Font = new Font("맑은 고딕", 18F);
+            WrongAnswer.ForeColor = SystemColors.Desktop;
+            WrongAnswer.Location = new Point(214, 323);
+            WrongAnswer.Name = "WrongAnswer";
+            WrongAnswer.Size = new Size(27, 32);
+            WrongAnswer.TabIndex = 4;
+            WrongAnswer.Text = "0";
+            // 
+            // pgAccuracy
+            // 
+            pgAccuracy.Location = new Point(70, 378);
+            pgAccuracy.Name = "pgAccuracy";
+            pgAccuracy.Size = new Size(222, 23);
+            pgAccuracy.TabIndex = 5;
+            // 
+            // lblAccuracy
+            // 
+            lblAccuracy.AutoSize = true;
+            lblAccuracy.Font = new Font("맑은 고딕", 14F);
+            lblAccuracy.Location = new Point(10, 378);
+            lblAccuracy.Name = "lblAccuracy";
+            lblAccuracy.Size = new Size(58, 25);
+            lblAccuracy.TabIndex = 6;
+            lblAccuracy.Text = "100%";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(412, 53);
+            label1.Name = "label1";
+            label1.Size = new Size(36, 15);
+            label1.TabIndex = 7;
+            label1.Text = "apple";
+            label1.Visible = false;
+            // 
+            // label2
+            // 
+            label2.BackColor = SystemColors.ActiveCaptionText;
+            label2.Location = new Point(377, 232);
+            label2.Name = "label2";
+            label2.Size = new Size(378, 41);
+            label2.TabIndex = 8;
+            label2.Text = "label2";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(lblAccuracy);
+            Controls.Add(pgAccuracy);
+            Controls.Add(WrongAnswer);
+            Controls.Add(RightAnswer);
             Controls.Add(listBox1);
             Controls.Add(textBox1);
             Name = "MainForm";
@@ -66,5 +141,12 @@
         #endregion
         private TextBox textBox1;
         private ListBox listBox1;
+        private System.Windows.Forms.Timer timer1;
+        private Label RightAnswer;
+        private Label WrongAnswer;
+        private ProgressBar pgAccuracy;
+        private Label lblAccuracy;
+        private Label label1;
+        private Label label2;
     }
 }
