@@ -36,8 +36,10 @@
             WrongAnswer = new Label();
             pgAccuracy = new ProgressBar();
             lblAccuracy = new Label();
-            label1 = new Label();
+            lblWord = new Label();
             label2 = new Label();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            txtWord = new TextBox();
             SuspendLayout();
             // 
             // textBox1
@@ -99,15 +101,14 @@
             lblAccuracy.TabIndex = 6;
             lblAccuracy.Text = "100%";
             // 
-            // label1
+            // lblWord
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(412, 53);
-            label1.Name = "label1";
-            label1.Size = new Size(36, 15);
-            label1.TabIndex = 7;
-            label1.Text = "apple";
-            label1.Visible = false;
+            lblWord.AutoSize = true;
+            lblWord.Location = new Point(412, 53);
+            lblWord.Name = "lblWord";
+            lblWord.Size = new Size(36, 15);
+            lblWord.TabIndex = 7;
+            lblWord.Text = "apple";
             // 
             // label2
             // 
@@ -118,13 +119,27 @@
             label2.TabIndex = 8;
             label2.Text = "label2";
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // txtWord
+            // 
+            txtWord.Location = new Point(377, 297);
+            txtWord.Name = "txtWord";
+            txtWord.Size = new Size(378, 23);
+            txtWord.TabIndex = 10;
+            txtWord.KeyDown += txtWord_KeyDown;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtWord);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(lblWord);
             Controls.Add(lblAccuracy);
             Controls.Add(pgAccuracy);
             Controls.Add(WrongAnswer);
@@ -146,7 +161,9 @@
         private Label WrongAnswer;
         private ProgressBar pgAccuracy;
         private Label lblAccuracy;
-        private Label label1;
+        private Label lblWord;
         private Label label2;
+        private ContextMenuStrip contextMenuStrip1;
+        private TextBox txtWord;
     }
 }

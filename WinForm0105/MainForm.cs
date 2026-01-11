@@ -5,7 +5,7 @@ namespace WinForm0105
         int Wrong_Ans = 0;
         int Right_Ans = 0;
         int Accuracy_Rate = 100;
-        
+
 
         public MainForm()
         {
@@ -32,7 +32,7 @@ namespace WinForm0105
 
             Accuracy_Rate = (int)((double)Right_Ans / (double)(Wrong_Ans + Right_Ans) * 100);
 
-            lblAccuracy.Text = $"{Accuracy_Rate}%"; 
+            lblAccuracy.Text = $"{Accuracy_Rate}%";
             pgAccuracy.Value = Accuracy_Rate;
 
             if (Accuracy_Rate < 70 || Wrong_Ans > 10)
@@ -59,6 +59,20 @@ namespace WinForm0105
         {
             char randch = (char)rand.Next('A', 'Z' + 1);
             listBox1.Items.Add(randch);
+        }
+
+        private void txtWord_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtWord.Text.Equals("apple"))
+                {
+                    lblWord.Visible = false;
+                }
+
+                    txtWord.Clear();
+                return;
+            }
         }
     }
 }
