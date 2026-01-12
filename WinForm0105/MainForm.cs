@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace WinForm0105
 {
     public partial class MainForm : Form
@@ -50,8 +52,12 @@ namespace WinForm0105
         Random rand = new Random();
         private void MainForm_Load(object sender, EventArgs e)
         {
+
+
             timer1.Interval = 1000;
-            timer1.Start();
+            //timer1.Start();
+            timer2.Interval = 1700;
+            timer2.Start();
             pgAccuracy.Value = 100;
         }
 
@@ -63,16 +69,52 @@ namespace WinForm0105
 
         private void txtWord_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (txtWord.Text.Equals("apple"))
-                {
-                    lblWord.Visible = false;
-                }
+            if (e.KeyCode != Keys.Enter) return;
 
-                    txtWord.Clear();
-                return;
+
+            for (int i = 0; i < lblWords.Count; i++)
+            {
+                if (lblWords[i].Text.Equals(txtWord.Text))
+                {
+                    Label lblWord = lblWords[i];
+                    lblWords.Remove(lblWord);
+                    Controls.Remove(lblWord);
+                    break;
+                }
             }
+        }
+
+        int stamina = 3;
+        List<Label> lblWords = new List<Label>();
+        string[] fruits = { "apple", "banana", "grape", "watermelon", "pineapple"};
+        private void makelabel()
+        {
+            Label lblWord = new();
+            lblWord.AutoSize = true;
+            int[] RandPos = {rand.Next(label2.Left, label2.Right),
+                53 };
+            lblWord.Location = new Point(RandPos[0], RandPos[1]);
+            lblWord.Name = "lblWord";
+            lblWord.Size = new Size(36, 15);
+            lblWord.TabIndex = 7;
+            int RandFruit = rand.Next(0, fruits.Length);
+            lblWord.Text = fruits[RandFruit];
+            lblWords.Add(lblWord);
+            Controls.Add(lblWord);
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            makelabel();
+            for (int i = 0; i < lblWords.Count; i++)
+            {
+                lblWords[i].Top += 20;
+                if (lblWords[i].Bottom > label2.Top)
+                {
+
+                }
+            }
+            pgStamina.Value = stamina;
         }
     }
 }

@@ -36,10 +36,14 @@
             WrongAnswer = new Label();
             pgAccuracy = new ProgressBar();
             lblAccuracy = new Label();
-            lblWord = new Label();
             label2 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
             txtWord = new TextBox();
+            timer2 = new System.Windows.Forms.Timer(components);
+            statusStrip1 = new StatusStrip();
+            pgStamina = new ToolStripProgressBar();
+            lblPoint = new ToolStripStatusLabel();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // textBox1
@@ -101,19 +105,10 @@
             lblAccuracy.TabIndex = 6;
             lblAccuracy.Text = "100%";
             // 
-            // lblWord
-            // 
-            lblWord.AutoSize = true;
-            lblWord.Location = new Point(412, 53);
-            lblWord.Name = "lblWord";
-            lblWord.Size = new Size(36, 15);
-            lblWord.TabIndex = 7;
-            lblWord.Text = "apple";
-            // 
             // label2
             // 
             label2.BackColor = SystemColors.ActiveCaptionText;
-            label2.Location = new Point(377, 232);
+            label2.Location = new Point(377, 279);
             label2.Name = "label2";
             label2.Size = new Size(378, 41);
             label2.TabIndex = 8;
@@ -126,20 +121,49 @@
             // 
             // txtWord
             // 
-            txtWord.Location = new Point(377, 297);
+            txtWord.Location = new Point(377, 348);
             txtWord.Name = "txtWord";
             txtWord.Size = new Size(378, 23);
             txtWord.TabIndex = 10;
             txtWord.KeyDown += txtWord_KeyDown;
+            // 
+            // timer2
+            // 
+            timer2.Tick += timer2_Tick;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new ToolStripItem[] { pgStamina, lblPoint });
+            statusStrip1.Location = new Point(0, 428);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(800, 22);
+            statusStrip1.TabIndex = 11;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // pgStamina
+            // 
+            pgStamina.Margin = new Padding(500, 3, 1, 3);
+            pgStamina.Maximum = 3;
+            pgStamina.Name = "pgStamina";
+            pgStamina.Overflow = ToolStripItemOverflow.Always;
+            pgStamina.Size = new Size(100, 16);
+            pgStamina.Step = 1;
+            pgStamina.Value = 3;
+            // 
+            // lblPoint
+            // 
+            lblPoint.Name = "lblPoint";
+            lblPoint.Size = new Size(14, 17);
+            lblPoint.Text = "0";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(statusStrip1);
             Controls.Add(txtWord);
             Controls.Add(label2);
-            Controls.Add(lblWord);
             Controls.Add(lblAccuracy);
             Controls.Add(pgAccuracy);
             Controls.Add(WrongAnswer);
@@ -149,6 +173,8 @@
             Name = "MainForm";
             Text = "Form1";
             Load += MainForm_Load;
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,9 +187,12 @@
         private Label WrongAnswer;
         private ProgressBar pgAccuracy;
         private Label lblAccuracy;
-        private Label lblWord;
         private Label label2;
         private ContextMenuStrip contextMenuStrip1;
         private TextBox txtWord;
+        private System.Windows.Forms.Timer timer2;
+        private StatusStrip statusStrip1;
+        private ToolStripProgressBar pgStamina;
+        private ToolStripStatusLabel lblPoint;
     }
 }
