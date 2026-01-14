@@ -79,11 +79,16 @@ namespace WinForm0105
                     Label lblWord = lblWords[i];
                     lblWords.Remove(lblWord);
                     Controls.Remove(lblWord);
+                    point += 100;
+                    lblPoint.Text = $"{point}";
+                    txtWord.Clear();
+                    
                     break;
                 }
+
             }
         }
-
+        int point = 0;
         int stamina = 3;
         List<Label> lblWords = new List<Label>();
         string[] fruits = { "apple", "banana", "grape", "watermelon", "pineapple"};
@@ -108,13 +113,20 @@ namespace WinForm0105
             makelabel();
             for (int i = 0; i < lblWords.Count; i++)
             {
-                lblWords[i].Top += 20;
-                if (lblWords[i].Bottom > label2.Top)
+                lblWords[i].Top += 30;
+                if (lblWords[i].Top >= label2.Top)
                 {
-
+                    lblWords.Remove(lblWords[i]);
+                    Controls.Remove(lblWords[i]);
+                    stamina -= 1;
                 }
             }
             pgStamina.Value = stamina;
+            if (stamina <= 0)
+            {
+                timer2.Stop();
+                MessageBox.Show("Game Over");
+            }
         }
     }
 }
