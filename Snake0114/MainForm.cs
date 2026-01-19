@@ -8,6 +8,10 @@ namespace Snake0114
     {
         Dir NowDir;
         Snake snake;
+        List<Food> Foods = new List<Food>();
+        Random rand = new();
+        public const int MENU_HEIGHT = 24;
+
         public MainForm()
         {
             InitializeComponent();
@@ -25,9 +29,11 @@ namespace Snake0114
         private void Form1_Load(object sender, EventArgs e)
         {
             NowDir = Dir.None;
-
+            snake = new Snake(Controls, 2 * Snake.X, MENU_HEIGHT + 2 * Snake.Y);
             timer1.Start();
-            snake = new Snake(Controls);
+            timer2.Start();
+            timer1.Interval = 200;
+            timer2.Interval = 2000;
         }
 
 
@@ -61,13 +67,20 @@ namespace Snake0114
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (NowDir == Dir.Left)
-                snake.moveX(-10);
+                snake.moveX(-Snake.X);
             else if (NowDir == Dir.Right)
-                snake.moveX(+10);
+                snake.moveX(+Snake.X);
             else if (NowDir == Dir.Up)
-                snake.moveY(-10);
+                snake.moveY(-Snake.Y);
             else if (NowDir == Dir.Down)
-                snake.moveY(10);
+                snake.moveY(+Snake.Y);
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            int[] pos = [rand.Next(0, 25), rand.Next(0, 15)];
+            Food food = new(Controls, pos[0] * Snake.X, MENU_HEIGHT + pos[1] * Snake.Y);
+            Foods.Add(food);
         }
     }
 }
