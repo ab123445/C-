@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
 
@@ -13,7 +15,7 @@ namespace Snake0114
         public Snake(Control.ControlCollection Controls, int x, int y)
         {
             lblHead.AutoSize = false;
-            lblHead.Location = new Point(x, y);
+            lblHead.Location = new Point(x * X, MainForm.MENU_HEIGHT + y * Y);
             lblHead.Name = "lblHead";
             lblHead.Size = new Size(X, Y);
             lblHead.TabIndex = 7;
@@ -29,6 +31,15 @@ namespace Snake0114
         public void moveY(int y)
         {
             lblHead.Top += y;
+        }
+        public bool Reach(Food food)
+        {
+            if (lblHead.Left == food.food_x && lblHead.Top == food.food_y)
+            {
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

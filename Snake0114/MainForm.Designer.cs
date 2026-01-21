@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
-            점ToolStripMenuItem = new ToolStripMenuItem();
+            Menu_Point = new ToolStripMenuItem();
             timer2 = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -42,19 +42,19 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { 점ToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { Menu_Point });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(794, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
-            // 점ToolStripMenuItem
+            // Menu_Point
             // 
-            점ToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
-            점ToolStripMenuItem.Name = "점ToolStripMenuItem";
-            점ToolStripMenuItem.Size = new Size(38, 20);
-            점ToolStripMenuItem.Text = "0점";
+            Menu_Point.Alignment = ToolStripItemAlignment.Right;
+            Menu_Point.Name = "Menu_Point";
+            Menu_Point.Size = new Size(38, 20);
+            Menu_Point.Text = "0점";
             // 
             // timer2
             // 
@@ -81,7 +81,7 @@
         #endregion
         private System.Windows.Forms.Timer timer1;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem 점ToolStripMenuItem;
+        private ToolStripMenuItem Menu_Point;
         private System.Windows.Forms.Timer timer2;
     }
 }

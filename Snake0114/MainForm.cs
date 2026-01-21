@@ -11,6 +11,7 @@ namespace Snake0114
         List<Food> Foods = new List<Food>();
         Random rand = new();
         public const int MENU_HEIGHT = 24;
+        int point = 0;
 
         public MainForm()
         {
@@ -29,7 +30,7 @@ namespace Snake0114
         private void Form1_Load(object sender, EventArgs e)
         {
             NowDir = Dir.None;
-            snake = new Snake(Controls, 2 * Snake.X, MENU_HEIGHT + 2 * Snake.Y);
+            snake = new Snake(Controls, 2, 2);
             timer1.Start();
             timer2.Start();
             timer1.Interval = 200;
@@ -74,13 +75,25 @@ namespace Snake0114
                 snake.moveY(-Snake.Y);
             else if (NowDir == Dir.Down)
                 snake.moveY(+Snake.Y);
+            for (int i = 0; i < Foods.Count; i++)
+            {
+                if (snake.Reach(Foods[i]) == true)
+                {
+                    Controls.Remove(Foods[i]);
+                    Foods.Remove(Foods[i]);
+                    point += 100;
+                    break;
+                }
+            }
+            Menu_Point.Text = $"{point}Á¡";
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
             int[] pos = [rand.Next(0, 25), rand.Next(0, 15)];
-            Food food = new(Controls, pos[0] * Snake.X, MENU_HEIGHT + pos[1] * Snake.Y);
+            Food food = new(Controls, pos[0], pos[1]);
             Foods.Add(food);
+
         }
     }
 }
