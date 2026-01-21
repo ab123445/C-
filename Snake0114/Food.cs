@@ -20,8 +20,8 @@ namespace Snake0114
             this.BackColor = SystemColors.Desktop;
             this.TextAlign = ContentAlignment.MiddleCenter;
             Controls.Add(this);
-            food_x = x * Snake.X;
-            food_y = y * Snake.Y + MainForm.MENU_HEIGHT;
+            food_x = x;
+            food_y = y;
         }
     }
 }

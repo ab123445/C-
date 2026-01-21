@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net.NetworkInformation;
+using System.Security.Permissions;
 using System.Text;
 using System.Windows.Forms;
 
@@ -12,6 +13,10 @@ namespace Snake0114
         public const int X = 30;
         public const int Y = 30;
         Label lblHead = new();
+        List<Label> lblBodies = new List<Label>();
+        List<Point> MovingLine = new List<Point>();
+
+
         public Snake(Control.ControlCollection Controls, int x, int y)
         {
             lblHead.AutoSize = false;
@@ -24,6 +29,34 @@ namespace Snake0114
             lblHead.TextAlign = ContentAlignment.MiddleCenter;
             Controls.Add(lblHead);
         }
+        public void MakeBody(Control.ControlCollection Controls, int x, int y)
+        {
+            Label lblBody = new();
+            lblBody.AutoSize = false;
+            lblBody.Location = new Point(x * X, MainForm.MENU_HEIGHT + y * Y);
+            lblBody.Name = "lblBody";
+            lblBody.Size = new Size(X, Y);
+            lblBody.TabIndex = 7;
+            lblBody.Text = "";
+            lblBody.BackColor = SystemColors.ActiveCaption;
+            lblBody.TextAlign = ContentAlignment.MiddleCenter;
+            Controls.Add(lblBody);
+            lblBodies.Add(lblBody);
+        }
+
+        public void moveBody()
+        {
+            MovingLine.Add(lblHead.Location);
+            for (int i = MovingLine.Count - lblBodies.Count - 1; i >= 0; i--)
+            {
+                MovingLine.Remove(MovingLine[i]);
+            }
+            for (int i = 0; i < lblBodies.Count; i++)
+            {
+                lblBodies[i].Location = MovingLine[i];
+            }
+        }
+
         public void moveX(int x)
         {
             lblHead.Left += x;
@@ -34,7 +67,7 @@ namespace Snake0114
         }
         public bool Reach(Food food)
         {
-            if (lblHead.Left == food.food_x && lblHead.Top == food.food_y)
+            if (lblHead.Left == food.food_x * Snake.X && lblHead.Top == food.food_y * Snake.Y + MainForm.MENU_HEIGHT)
             {
                 return true;
             }

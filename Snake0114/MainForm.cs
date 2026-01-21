@@ -29,6 +29,9 @@ namespace Snake0114
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Width += 30 * Snake.X - ClientRectangle.Width;
+            this.Height += 16 *Snake.Y - ClientRectangle.Height + MENU_HEIGHT;
+
             NowDir = Dir.None;
             snake = new Snake(Controls, 2, 2);
             timer1.Start();
@@ -67,6 +70,7 @@ namespace Snake0114
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            snake.moveBody();
             if (NowDir == Dir.Left)
                 snake.moveX(-Snake.X);
             else if (NowDir == Dir.Right)
@@ -75,22 +79,25 @@ namespace Snake0114
                 snake.moveY(-Snake.Y);
             else if (NowDir == Dir.Down)
                 snake.moveY(+Snake.Y);
+
             for (int i = 0; i < Foods.Count; i++)
             {
                 if (snake.Reach(Foods[i]) == true)
                 {
+                    snake.MakeBody(Controls, Foods[i].food_x, Foods[i].food_y);
                     Controls.Remove(Foods[i]);
                     Foods.Remove(Foods[i]);
                     point += 100;
                     break;
                 }
             }
+
             Menu_Point.Text = $"{point}Á¡";
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            int[] pos = [rand.Next(0, 25), rand.Next(0, 15)];
+            int[] pos = [rand.Next(0, 30), rand.Next(0, 16)];
             Food food = new(Controls, pos[0], pos[1]);
             Foods.Add(food);
 
