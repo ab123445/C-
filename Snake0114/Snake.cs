@@ -74,5 +74,16 @@ namespace Snake0114
             else
                 return false;
         }
+        public bool ReachBody()
+        {
+            for (int i = 0; i < lblBodies.Count; i++)
+            {
+                if (lblHead.Location == lblBodies[i].Location)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

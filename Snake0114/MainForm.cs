@@ -43,22 +43,22 @@ namespace Snake0114
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Left)
+            if (keyData == Keys.Left && NowDir != Dir.Right)
             {
                 NowDir = Dir.Left;
                 return true;
             }
-            else if (keyData == Keys.Right)
+            else if (keyData == Keys.Right && NowDir != Dir.Left)
             {
                 NowDir = Dir.Right;
                 return true;
             }
-            else if (keyData == Keys.Up)
+            else if (keyData == Keys.Up && NowDir != Dir.Down)
             {
                 NowDir = Dir.Up;
                 return true;
             }
-            else if (keyData == Keys.Down)
+            else if (keyData == Keys.Down && NowDir != Dir.Up)
             {
                 NowDir = Dir.Down;
                 return true;
@@ -80,6 +80,12 @@ namespace Snake0114
             else if (NowDir == Dir.Down)
                 snake.moveY(+Snake.Y);
 
+            if (snake.ReachBody() == true)
+            {
+                timer1.Stop();
+                timer2.Stop();
+                MessageBox.Show("Game Over");
+            }
             for (int i = 0; i < Foods.Count; i++)
             {
                 if (snake.Reach(Foods[i]) == true)
