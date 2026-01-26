@@ -74,6 +74,15 @@ namespace Snake0114
             else
                 return false;
         }
+
+        public bool ReachWall(Label wall)
+        {
+            if (lblHead.Location == wall.Location)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool ReachBody()
         {
             for (int i = 0; i < lblBodies.Count; i++)
