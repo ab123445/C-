@@ -17,10 +17,10 @@ namespace Snake0114
         List<Point> MovingLine = new List<Point>();
 
 
-        public Snake(Control.ControlCollection Controls, int x, int y)
+        public Snake(Control.ControlCollection Controls, int x, int y, MainForm main)
         {
             lblHead.AutoSize = false;
-            lblHead.Location = new Point(x * X, MainForm.MENU_HEIGHT + y * Y);
+            lblHead.Location = new Point(x * X, main.menuStrip1.Height + y * Y);
             lblHead.Name = "lblHead";
             lblHead.Size = new Size(X, Y);
             lblHead.TabIndex = 7;
@@ -29,11 +29,11 @@ namespace Snake0114
             lblHead.TextAlign = ContentAlignment.MiddleCenter;
             Controls.Add(lblHead);
         }
-        public void MakeBody(Control.ControlCollection Controls, int x, int y)
+        public void MakeBody(Control.ControlCollection Controls, int x, int y, MainForm main)
         {
             Label lblBody = new();
             lblBody.AutoSize = false;
-            lblBody.Location = new Point(x * X, MainForm.MENU_HEIGHT + y * Y);
+            lblBody.Location = new Point(x * X, main.menuStrip1.Height + y * Y);
             lblBody.Name = "lblBody";
             lblBody.Size = new Size(X, Y);
             lblBody.TabIndex = 7;
@@ -44,6 +44,14 @@ namespace Snake0114
             lblBodies.Add(lblBody);
         }
 
+        public bool ReachBorder()
+        {
+            if (lblHead.Top < 0 || lblHead.Left < 0)
+            {
+                return true;
+            }
+            return false;
+        }
         public void moveBody()
         {
             MovingLine.Add(lblHead.Location);
@@ -57,6 +65,23 @@ namespace Snake0114
             }
         }
 
+        public List<Point> getMovingLine()
+        {
+            return MovingLine;
+        }
+
+        public bool OverlapFood(Point foodPoint)
+        {
+            for (int i = 0; i < MovingLine.Count; i++)
+            {
+                if (MovingLine[i] == foodPoint)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void moveX(int x)
         {
             lblHead.Left += x;
@@ -65,9 +90,10 @@ namespace Snake0114
         {
             lblHead.Top += y;
         }
-        public bool Reach(Food food)
+        public bool Reach(Food food, MainForm main)
         {
-            if (lblHead.Left == food.food_x * Snake.X && lblHead.Top == food.food_y * Snake.Y + MainForm.MENU_HEIGHT)
+            if (lblHead.Left == food.food_x * Snake.X &&
+                lblHead.Top == food.food_y * Snake.Y + main.menuStrip1.Height)
             {
                 return true;
             }

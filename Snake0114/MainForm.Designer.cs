@@ -80,8 +80,8 @@
 
         #endregion
         private System.Windows.Forms.Timer timer1;
-        private MenuStrip menuStrip1;
         private ToolStripMenuItem Menu_Point;
         private System.Windows.Forms.Timer timer2;
+        public MenuStrip menuStrip1;
     }
 }

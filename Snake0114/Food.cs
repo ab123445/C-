@@ -9,10 +9,10 @@ namespace Snake0114
     {
         public int food_x;
         public int food_y;
-        public Food(Control.ControlCollection Controls, int x, int y)
+        public Food(Control.ControlCollection Controls, int x, int y, MainForm main)
         {
             this.AutoSize = false;
-            this.Location = new Point(x * Snake.X + 5, MainForm.MENU_HEIGHT + y * Snake.Y + 5);
+            this.Location = new Point(x * Snake.X + 5, main.menuStrip1.Height + y * Snake.Y + 5);
             this.Name = "lblFood";
             this.Size = new Size(20, 20);
             this.TabIndex = 7;
