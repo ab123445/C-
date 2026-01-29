@@ -266,8 +266,16 @@ namespace Snake0114
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            int[] pos = [rand.Next(0, MAX_WIDTH), rand.Next(0, MAX_HEIGHT)];
-            Food food = new(Controls, pos[0], pos[1], this);
+            int[] pos;
+            Point FoodPoint;
+            Food food;
+            do
+            {
+                pos = [rand.Next(0, MAX_WIDTH), rand.Next(0, MAX_HEIGHT)];
+                food = new(Controls, pos[0], pos[1], this);
+                FoodPoint = new Point(pos[0], pos[1]);
+            }
+            while (snake.OverlapFood(FoodPoint) == true);
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
