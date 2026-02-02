@@ -6,8 +6,8 @@ namespace Snake0114
 
     public partial class MainForm : Form
     {
-        const int MAX_WIDTH = 30;
-        const int MAX_HEIGHT = 16;
+        public const int MAX_WIDTH = 30;
+        public const int MAX_HEIGHT = 16;
 
         Dir NowDir;
         Snake snake;
@@ -44,7 +44,7 @@ namespace Snake0114
             timer1.Start();
             timer2.Start();
             timer1.Interval = 200;
-            timer2.Interval = 2000;
+            timer2.Interval = 400;
         }
 
 
@@ -112,123 +112,123 @@ namespace Snake0114
                     break;
                 }
             }
-            if (point % 1500 == 500 && Stage != point)
-            {
-                for (int i = 0; i < MAX_WIDTH; i++)
-                {
-                    for (int j = 0; j < MAX_HEIGHT; j++)
-                    {
-                        field[i, j, 1] = 0;
-                    }
-                }
-                for (int i = 0; i < Walls.Count; i++)
-                {
-                    Controls.Remove(Walls[i]);
-                }
-                Walls.Clear();
-                WallPosX = [1, 2, 27, 28];
-                WallPosY = [1, 2, 13, 14];
+            //if (point % 1500 == 500 && Stage != point)
+            //{
+            //    for (int i = 0; i < MAX_WIDTH; i++)
+            //    {
+            //        for (int j = 0; j < MAX_HEIGHT; j++)
+            //        {
+            //            field[i, j, 1] = 0;
+            //        }
+            //    }
+            //    for (int i = 0; i < Walls.Count; i++)
+            //    {
+            //        Controls.Remove(Walls[i]);
+            //    }
+            //    Walls.Clear();
+            //    WallPosX = [1, 2, 27, 28];
+            //    WallPosY = [1, 2, 13, 14];
 
-                for (int i = 0; i < WallPosX.Length; i++)
-                {
-                    for (int j = 0; j < WallPosY.Length; j++)
-                    {
-                        Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-                        Walls.Add(wall);
-                        Controls.Add(wall);
-                        field[WallPosX[i], WallPosY[j], 1] = 1;
-                    }
-                }
-                Stage = point;
-            }
+            //    for (int i = 0; i < WallPosX.Length; i++)
+            //    {
+            //        for (int j = 0; j < WallPosY.Length; j++)
+            //        {
+            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+            //            Walls.Add(wall);
+            //            Controls.Add(wall);
+            //            field[WallPosX[i], WallPosY[j], 1] = 1;
+            //        }
+            //    }
+            //    Stage = point;
+            //}
 
-            else if (point % 1500 == 1000 && Stage != point)
-            {
-                for (int i = 0; i < MAX_WIDTH; i++)
-                {
-                    for (int j = 0; j < MAX_HEIGHT; j++)
-                    {
-                        field[i, j, 1] = 0;
-                    }
-                }
-                for (int i = 0; i < Walls.Count; i++)
-                {
-                    Controls.Remove(Walls[i]);
-                }
-                Walls.Clear();
-                WallPosX = [5, 6, 23, 24];
-                WallPosY = [1, 2, 3, 4, 11, 12, 13, 14];
+            //else if (point % 1500 == 1000 && Stage != point)
+            //{
+            //    for (int i = 0; i < MAX_WIDTH; i++)
+            //    {
+            //        for (int j = 0; j < MAX_HEIGHT; j++)
+            //        {
+            //            field[i, j, 1] = 0;
+            //        }
+            //    }
+            //    for (int i = 0; i < Walls.Count; i++)
+            //    {
+            //        Controls.Remove(Walls[i]);
+            //    }
+            //    Walls.Clear();
+            //    WallPosX = [5, 6, 23, 24];
+            //    WallPosY = [1, 2, 3, 4, 11, 12, 13, 14];
 
-                for (int i = 0; i < WallPosX.Length; i++)
-                {
-                    for (int j = 0; j < WallPosY.Length; j++)
-                    {
-                        Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-                        Walls.Add(wall);
-                        Controls.Add(wall);
-                        field[WallPosX[i], WallPosY[j], 1] = 1;
-                    }
-                }
-                WallPosX = [3, 4, 5, 6, 7, 8, 21, 22, 23, 24, 25, 26];
-                WallPosY = [5, 10];
+            //    for (int i = 0; i < WallPosX.Length; i++)
+            //    {
+            //        for (int j = 0; j < WallPosY.Length; j++)
+            //        {
+            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+            //            Walls.Add(wall);
+            //            Controls.Add(wall);
+            //            field[WallPosX[i], WallPosY[j], 1] = 1;
+            //        }
+            //    }
+            //    WallPosX = [3, 4, 5, 6, 7, 8, 21, 22, 23, 24, 25, 26];
+            //    WallPosY = [5, 10];
 
-                for (int i = 0; i < WallPosX.Length; i++)
-                {
-                    for (int j = 0; j < WallPosY.Length; j++)
-                    {
-                        Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-                        Walls.Add(wall);
-                        Controls.Add(wall);
-                        field[WallPosX[i], WallPosY[j], 1] = 1;
-                    }
-                }
+            //    for (int i = 0; i < WallPosX.Length; i++)
+            //    {
+            //        for (int j = 0; j < WallPosY.Length; j++)
+            //        {
+            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+            //            Walls.Add(wall);
+            //            Controls.Add(wall);
+            //            field[WallPosX[i], WallPosY[j], 1] = 1;
+            //        }
+            //    }
 
-                Stage = point;
-            }
+            //    Stage = point;
+            //}
 
-            else if (point % 1500 == 0 && Stage != point)
-            {
-                for (int i = 0; i < MAX_WIDTH; i++)
-                {
-                    for (int j = 0; j < MAX_HEIGHT; j++)
-                    {
-                        field[i, j, 1] = 0;
-                    }
-                }
-                for (int i = 0; i < Walls.Count; i++)
-                {
-                    Controls.Remove(Walls[i]);
-                }
-                Walls.Clear();
-                WallPosX = [12, 13, 14, 15, 16, 17, 18];
-                WallPosY = [5, 6, 7, 8, 9, 10, 11];
+            //else if (point % 1500 == 0 && Stage != point)
+            //{
+            //    for (int i = 0; i < MAX_WIDTH; i++)
+            //    {
+            //        for (int j = 0; j < MAX_HEIGHT; j++)
+            //        {
+            //            field[i, j, 1] = 0;
+            //        }
+            //    }
+            //    for (int i = 0; i < Walls.Count; i++)
+            //    {
+            //        Controls.Remove(Walls[i]);
+            //    }
+            //    Walls.Clear();
+            //    WallPosX = [12, 13, 14, 15, 16, 17, 18];
+            //    WallPosY = [5, 6, 7, 8, 9, 10, 11];
 
-                for (int i = 0; i < WallPosX.Length; i++)
-                {
-                    for (int j = 0; j < WallPosY.Length; j++)
-                    {
-                        Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-                        Walls.Add(wall);
-                        Controls.Add(wall);
-                        field[WallPosX[i], WallPosY[j], 1] = 1;
-                    }
-                }
+            //    for (int i = 0; i < WallPosX.Length; i++)
+            //    {
+            //        for (int j = 0; j < WallPosY.Length; j++)
+            //        {
+            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+            //            Walls.Add(wall);
+            //            Controls.Add(wall);
+            //            field[WallPosX[i], WallPosY[j], 1] = 1;
+            //        }
+            //    }
 
-                WallPosX = [1, 2, 3, 26, 27, 28];
-                WallPosY = [1, 2, 13, 14];
+            //    WallPosX = [1, 2, 3, 26, 27, 28];
+            //    WallPosY = [1, 2, 13, 14];
 
-                for (int i = 0; i < WallPosX.Length; i++)
-                {
-                    for (int j = 0; j < WallPosY.Length; j++)
-                    {
-                        Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-                        Walls.Add(wall);
-                        Controls.Add(wall);
-                        field[WallPosX[i], WallPosY[j], 1] = 1;
-                    }
-                }
-                Stage = point;
-            }
+            //    for (int i = 0; i < WallPosX.Length; i++)
+            //    {
+            //        for (int j = 0; j < WallPosY.Length; j++)
+            //        {
+            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+            //            Walls.Add(wall);
+            //            Controls.Add(wall);
+            //            field[WallPosX[i], WallPosY[j], 1] = 1;
+            //        }
+            //    }
+            //    Stage = point;
+            //}
 
             for (int i = 0; i < MAX_WIDTH; i++)
             {
@@ -266,18 +266,38 @@ namespace Snake0114
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            int[] pos;
-            Point FoodPoint;
+           
+            int[] pos = [0, 0];
+            getfieldPoint(out pos[0], out pos[1]);
             Food food;
-            do
-            {
-                pos = [rand.Next(0, MAX_WIDTH), rand.Next(0, MAX_HEIGHT)];
-                food = new(Controls, pos[0], pos[1], this);
-                FoodPoint = new Point(pos[0], pos[1]);
-            }
-            while (snake.OverlapFood(FoodPoint) == true);
+            food = new(Controls, pos[0], pos[1] ,this);
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
+
+        }
+
+
+        private void getfieldPoint(out int x, out int y)
+        {
+            List<Point> Bodies = snake.GetBody();
+            Point FoodPoint;
+            x = rand.Next(0, MAX_WIDTH);
+            y = rand.Next(0, MAX_HEIGHT);
+            FoodPoint = new Point(x, y);
+            for (int i = 0; i < Bodies.Count; i++)
+            {
+                if (FoodPoint == Bodies[i])
+                {
+                    x = rand.Next(0, MAX_WIDTH);
+                    y = rand.Next(0, MAX_HEIGHT);
+                    FoodPoint = new Point(x, y);
+                    i = 0;
+                }
+            }
+        }
+
+        private bool isfieldPoint(Point point)
+        {
 
         }
     }

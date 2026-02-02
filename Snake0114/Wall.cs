@@ -20,13 +20,5 @@ namespace Snake0114
             this.TextAlign = ContentAlignment.MiddleCenter;
             Controls.Add(this);
         }
-        //public void ClearWall(Control.ControlCollection Controls, List<Wall> Walls)
-        //{
-        //    for (int i = 0; i < Walls.Count; i++)
-        //    {
-        //        Controls.Remove(Walls[i]);
-        //    }
-        //    Walls.Clear();
-        //}
     }
 }

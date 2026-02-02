@@ -65,21 +65,9 @@ namespace Snake0114
             }
         }
 
-        public List<Point> getMovingLine()
+        public List<Point> GetBody()
         {
             return MovingLine;
-        }
-
-        public bool OverlapFood(Point foodPoint)
-        {
-            for (int i = 0; i < MovingLine.Count; i++)
-            {
-                if (MovingLine[i] == foodPoint)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public void moveX(int x)
