@@ -1,5 +1,6 @@
 
 using System.Windows.Forms;
+using System.IO;
 
 namespace Snake0114
 {
@@ -44,7 +45,7 @@ namespace Snake0114
             timer1.Start();
             timer2.Start();
             timer1.Interval = 200;
-            timer2.Interval = 400;
+            timer2.Interval = 1000;
         }
 
 
@@ -77,191 +78,207 @@ namespace Snake0114
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            snake.moveBody();
-            if (NowDir == Dir.Left)
-                snake.moveX(-Snake.X);
-            else if (NowDir == Dir.Right)
-                snake.moveX(+Snake.X);
-            else if (NowDir == Dir.Up)
-                snake.moveY(-Snake.Y);
-            else if (NowDir == Dir.Down)
-                snake.moveY(+Snake.Y);
+            StreamWriter sr =
+                new StreamWriter(new FileStream("record.txt", FileMode.Append));
 
-            if (snake.ReachBorder() == true)
-            {
-                timer1.Stop();
-                timer2.Stop();
-                MessageBox.Show("Game Over");
-            }
+                snake.moveBody();
+                if (NowDir == Dir.Left)
+                    snake.moveX(-Snake.X);
+                else if (NowDir == Dir.Right)
+                    snake.moveX(+Snake.X);
+                else if (NowDir == Dir.Up)
+                    snake.moveY(-Snake.Y);
+                else if (NowDir == Dir.Down)
+                    snake.moveY(+Snake.Y);
 
-            if (snake.ReachBody() == true)
-            {
-                timer1.Stop();
-                timer2.Stop();
-                MessageBox.Show("Game Over");
-            }
-            for (int i = 0; i < Foods.Count; i++)
-            {
-
-                if (snake.Reach(Foods[i], this) == true)
+                if (snake.ReachBorder() == true)
                 {
-                    snake.MakeBody(Controls, Foods[i].food_x, Foods[i].food_y, this);
-                    Controls.Remove(Foods[i]);
-                    Foods.Remove(Foods[i]);
-                    point += 100;
-                    break;
+                    timer1.Stop();
+                    timer2.Stop();
+                    sr.Write(point);
+                    MessageBox.Show("Game Over");
                 }
-            }
-            //if (point % 1500 == 500 && Stage != point)
-            //{
-            //    for (int i = 0; i < MAX_WIDTH; i++)
-            //    {
-            //        for (int j = 0; j < MAX_HEIGHT; j++)
-            //        {
-            //            field[i, j, 1] = 0;
-            //        }
-            //    }
-            //    for (int i = 0; i < Walls.Count; i++)
-            //    {
-            //        Controls.Remove(Walls[i]);
-            //    }
-            //    Walls.Clear();
-            //    WallPosX = [1, 2, 27, 28];
-            //    WallPosY = [1, 2, 13, 14];
 
-            //    for (int i = 0; i < WallPosX.Length; i++)
-            //    {
-            //        for (int j = 0; j < WallPosY.Length; j++)
-            //        {
-            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-            //            Walls.Add(wall);
-            //            Controls.Add(wall);
-            //            field[WallPosX[i], WallPosY[j], 1] = 1;
-            //        }
-            //    }
-            //    Stage = point;
-            //}
-
-            //else if (point % 1500 == 1000 && Stage != point)
-            //{
-            //    for (int i = 0; i < MAX_WIDTH; i++)
-            //    {
-            //        for (int j = 0; j < MAX_HEIGHT; j++)
-            //        {
-            //            field[i, j, 1] = 0;
-            //        }
-            //    }
-            //    for (int i = 0; i < Walls.Count; i++)
-            //    {
-            //        Controls.Remove(Walls[i]);
-            //    }
-            //    Walls.Clear();
-            //    WallPosX = [5, 6, 23, 24];
-            //    WallPosY = [1, 2, 3, 4, 11, 12, 13, 14];
-
-            //    for (int i = 0; i < WallPosX.Length; i++)
-            //    {
-            //        for (int j = 0; j < WallPosY.Length; j++)
-            //        {
-            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-            //            Walls.Add(wall);
-            //            Controls.Add(wall);
-            //            field[WallPosX[i], WallPosY[j], 1] = 1;
-            //        }
-            //    }
-            //    WallPosX = [3, 4, 5, 6, 7, 8, 21, 22, 23, 24, 25, 26];
-            //    WallPosY = [5, 10];
-
-            //    for (int i = 0; i < WallPosX.Length; i++)
-            //    {
-            //        for (int j = 0; j < WallPosY.Length; j++)
-            //        {
-            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-            //            Walls.Add(wall);
-            //            Controls.Add(wall);
-            //            field[WallPosX[i], WallPosY[j], 1] = 1;
-            //        }
-            //    }
-
-            //    Stage = point;
-            //}
-
-            //else if (point % 1500 == 0 && Stage != point)
-            //{
-            //    for (int i = 0; i < MAX_WIDTH; i++)
-            //    {
-            //        for (int j = 0; j < MAX_HEIGHT; j++)
-            //        {
-            //            field[i, j, 1] = 0;
-            //        }
-            //    }
-            //    for (int i = 0; i < Walls.Count; i++)
-            //    {
-            //        Controls.Remove(Walls[i]);
-            //    }
-            //    Walls.Clear();
-            //    WallPosX = [12, 13, 14, 15, 16, 17, 18];
-            //    WallPosY = [5, 6, 7, 8, 9, 10, 11];
-
-            //    for (int i = 0; i < WallPosX.Length; i++)
-            //    {
-            //        for (int j = 0; j < WallPosY.Length; j++)
-            //        {
-            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-            //            Walls.Add(wall);
-            //            Controls.Add(wall);
-            //            field[WallPosX[i], WallPosY[j], 1] = 1;
-            //        }
-            //    }
-
-            //    WallPosX = [1, 2, 3, 26, 27, 28];
-            //    WallPosY = [1, 2, 13, 14];
-
-            //    for (int i = 0; i < WallPosX.Length; i++)
-            //    {
-            //        for (int j = 0; j < WallPosY.Length; j++)
-            //        {
-            //            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
-            //            Walls.Add(wall);
-            //            Controls.Add(wall);
-            //            field[WallPosX[i], WallPosY[j], 1] = 1;
-            //        }
-            //    }
-            //    Stage = point;
-            //}
-
-            for (int i = 0; i < MAX_WIDTH; i++)
-            {
-                for (int j = 0; j < MAX_HEIGHT; j++)
+                if (snake.ReachBody() == true)
                 {
-                    if (field[i,j,0] == 1 && field[i,j,1] == 1)
+                    timer1.Stop();
+                    timer2.Stop();
+                    sr.Write(point);
+                    MessageBox.Show("Game Over");
+                }
+                for (int i = 0; i < Foods.Count; i++)
+                {
+
+                    if (snake.Reach(Foods[i], this) == true)
                     {
-                        field[i, j, 0] = 0;
-                        for (int k = 0; k < Foods.Count; k++)
+                        snake.MakeBody(Controls, Foods[i].food_x, Foods[i].food_y, this);
+                        Controls.Remove(Foods[i]);
+                        Foods.Remove(Foods[i]);
+                        point += 100;
+                        break;
+                    }
+                }
+                if (point % 1500 == 500 && Stage != point)
+                {
+                    for (int i = 0; i < MAX_WIDTH; i++)
+                    {
+                        for (int j = 0; j < MAX_HEIGHT; j++)
                         {
-                            if (Foods[k].food_x == i && Foods[k].food_y == j)
+                            field[i, j, 1] = 0;
+                        }
+                    }
+                    for (int i = 0; i < Walls.Count; i++)
+                    {
+                        Controls.Remove(Walls[i]);
+                    }
+                    Walls.Clear();
+                    WallPosX = [1, 2, 27, 28];
+                    WallPosY = [1, 2, 13, 14];
+
+                    for (int i = 0; i < WallPosX.Length; i++)
+                    {
+                        for (int j = 0; j < WallPosY.Length; j++)
+                        {
+                            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+                            Walls.Add(wall);
+                            Controls.Add(wall);
+                            field[WallPosX[i], WallPosY[j], 1] = 1;
+                        }
+                    }
+                    Stage = point;
+                }
+
+                else if (point % 1500 == 1000 && Stage != point)
+                {
+                    for (int i = 0; i < MAX_WIDTH; i++)
+                    {
+                        for (int j = 0; j < MAX_HEIGHT; j++)
+                        {
+                            field[i, j, 1] = 0;
+                        }
+                    }
+                    for (int i = 0; i < Walls.Count; i++)
+                    {
+                        Controls.Remove(Walls[i]);
+                    }
+                    Walls.Clear();
+                    WallPosX = [5, 6, 23, 24];
+                    WallPosY = [1, 2, 3, 4, 11, 12, 13, 14];
+
+                    for (int i = 0; i < WallPosX.Length; i++)
+                    {
+                        for (int j = 0; j < WallPosY.Length; j++)
+                        {
+                            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+                            Walls.Add(wall);
+                            Controls.Add(wall);
+                            field[WallPosX[i], WallPosY[j], 1] = 1;
+                        }
+                    }
+                    WallPosX = [3, 4, 5, 6, 7, 8, 21, 22, 23, 24, 25, 26];
+                    WallPosY = [5, 10];
+
+                    for (int i = 0; i < WallPosX.Length; i++)
+                    {
+                        for (int j = 0; j < WallPosY.Length; j++)
+                        {
+                            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+                            Walls.Add(wall);
+                            Controls.Add(wall);
+                            field[WallPosX[i], WallPosY[j], 1] = 1;
+                        }
+                    }
+
+                    Stage = point;
+                }
+
+                else if (point % 1500 == 0 && Stage != point)
+                {
+                    for (int i = 0; i < MAX_WIDTH; i++)
+                    {
+                        for (int j = 0; j < MAX_HEIGHT; j++)
+                        {
+                            field[i, j, 1] = 0;
+                        }
+                    }
+                    for (int i = 0; i < Walls.Count; i++)
+                    {
+                        Controls.Remove(Walls[i]);
+                    }
+                    Walls.Clear();
+                    WallPosX = [12, 13, 14, 15, 16, 17, 18];
+                    WallPosY = [5, 6, 7, 8, 9, 10, 11];
+
+                    for (int i = 0; i < WallPosX.Length; i++)
+                    {
+                        for (int j = 0; j < WallPosY.Length; j++)
+                        {
+                            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+                            Walls.Add(wall);
+                            Controls.Add(wall);
+                            field[WallPosX[i], WallPosY[j], 1] = 1;
+                        }
+                    }
+
+                    WallPosX = [1, 2, 3, 26, 27, 28];
+                    WallPosY = [1, 2, 13, 14];
+
+                    for (int i = 0; i < WallPosX.Length; i++)
+                    {
+                        for (int j = 0; j < WallPosY.Length; j++)
+                        {
+                            Wall wall = new(Controls, WallPosX[i], WallPosY[j], this);
+                            Walls.Add(wall);
+                            Controls.Add(wall);
+                            field[WallPosX[i], WallPosY[j], 1] = 1;
+                        }
+                    }
+                    Stage = point;
+                }
+
+                for (int i = 0; i < MAX_WIDTH; i++)
+                {
+                    for (int j = 0; j < MAX_HEIGHT; j++)
+                    {
+                        if (field[i, j, 0] == 1 && field[i, j, 1] == 1)
+                        {
+                            field[i, j, 0] = 0;
+                            for (int k = 0; k < Foods.Count; k++)
                             {
-                                Controls.Remove(Foods[k]);
-                                Foods.Remove(Foods[k]);
+                                if (Foods[k].food_x == i && Foods[k].food_y == j)
+                                {
+                                    Controls.Remove(Foods[k]);
+                                    Foods.Remove(Foods[k]);
+                                }
                             }
                         }
                     }
                 }
-            }
-
-            for (int i = 0; i < Walls.Count; i++)
-            {
-                if (snake.ReachWall(Walls[i]) == true)
+                for (int i = 0; i < Foods.Count; i++)
                 {
-                    timer1.Stop();
-                    timer2.Stop();
-                    MessageBox.Show("Game Over");
+                    if (isfieldPoint(Foods[i].Location) == true)
+                    {
+                        Controls.Remove(Foods[i]);
+                        Foods.Remove(Foods[i]);
+                    }
                 }
-            }
 
-            Menu_Point.Text = $"{point}Á¡";
+                for (int i = 0; i < Walls.Count; i++)
+                {
+                    if (snake.ReachWall(Walls[i]) == true)
+                    {
+                        {
+                            timer1.Stop();
+                            timer2.Stop();
+                            sr.Write(point);
+                            MessageBox.Show("Game Over");
+                        }
+                    }
+                }
 
-            
+                Menu_Point.Text = $"{point}Á¡";
+
+            sr.Close();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -291,14 +308,38 @@ namespace Snake0114
                     x = rand.Next(0, MAX_WIDTH);
                     y = rand.Next(0, MAX_HEIGHT);
                     FoodPoint = new Point(x, y);
-                    i = 0;
+                    i -= 1;
+                }
+            }
+            for (int i = 0; i < Foods.Count; i++)
+            {
+                if (FoodPoint == Foods[i].Location)
+                {
+                    x = rand.Next(0, MAX_WIDTH);
+                    y = rand.Next(0, MAX_HEIGHT);
+                    FoodPoint = new Point(x, y);
+                    i -= 1;
                 }
             }
         }
 
         private bool isfieldPoint(Point point)
         {
-
+            int Overlap = 0;
+            List<Point> Bodies = snake.GetBody();
+            for (int i = 0; i < Bodies.Count; i++)
+            {
+                if (point == Bodies[i])
+                    return true;
+            }
+            for (int i = 0; i < Foods.Count; i++)
+            {
+                if (point == Foods[i].Location)
+                    Overlap += 1;
+            }
+            if (Overlap == 2)
+                return true;
+            return false;
         }
     }
 }
