@@ -32,6 +32,8 @@
             timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             Menu_Point = new ToolStripMenuItem();
+            Menu_Record = new ToolStripMenuItem();
+            Menu_Restart = new ToolStripMenuItem();
             timer2 = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -42,7 +44,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { Menu_Point });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { Menu_Point, Menu_Record, Menu_Restart });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(794, 24);
@@ -55,6 +57,19 @@
             Menu_Point.Name = "Menu_Point";
             Menu_Point.Size = new Size(38, 20);
             Menu_Point.Text = "0점";
+            // 
+            // Menu_Record
+            // 
+            Menu_Record.Name = "Menu_Record";
+            Menu_Record.Size = new Size(71, 20);
+            Menu_Record.Text = "최고 기록";
+            // 
+            // Menu_Restart
+            // 
+            Menu_Restart.Name = "Menu_Restart";
+            Menu_Restart.Size = new Size(55, 20);
+            Menu_Restart.Text = "재시작";
+            Menu_Restart.Click += Menu_Restart_Click;
             // 
             // timer2
             // 
@@ -83,5 +98,7 @@
         private ToolStripMenuItem Menu_Point;
         private System.Windows.Forms.Timer timer2;
         public MenuStrip menuStrip1;
+        private ToolStripMenuItem Menu_Record;
+        private ToolStripMenuItem Menu_Restart;
     }
 }

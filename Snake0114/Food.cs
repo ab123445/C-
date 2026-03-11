@@ -17,7 +17,7 @@ namespace Snake0114
             this.Size = new Size(20, 20);
             this.TabIndex = 7;
             this.Text = "";
-            this.BackColor = SystemColors.Desktop;
+            this.BackColor = Color.Brown;
             this.TextAlign = ContentAlignment.MiddleCenter;
             Controls.Add(this);
             food_x = x;
