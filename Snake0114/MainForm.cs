@@ -106,7 +106,7 @@ namespace Snake0114
             else if (NowDir == Dir.Down)
                 snake.moveY(+Snake.Y);
 
-            if (snake.ReachBorder() == true)
+            if (snake.ReachBorder(this) == true)
             {
                 timer1.Stop();
                 timer2.Stop();
@@ -359,17 +359,22 @@ namespace Snake0114
 
         private void Menu_Restart_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < Walls.Count; i++)
+            timer1.Start();
+            timer2.Start();
+            for (int i = Walls.Count - 1; i >= 0; i--)
             {
+                Walls[i].Dispose();
                 Controls.Remove(Walls[i]);
+                Walls.Remove(Walls[i]);
             }
-            Walls.Clear();
-            for (int i = 0; i < Foods.Count; i++)
+            for (int i = Foods.Count - 1; i >= 0; i--)
             {
+                Foods[i].Dispose();
                 Controls.Remove(Foods[i]);
+                Foods.Remove(Foods[i]);
             }
-            Foods.Clear();
             NowDir = Dir.None;
+            snake.Reset(Controls);
             snake = new Snake(Controls, 2, 2, this);
             Stage = 0;
             rand = new();

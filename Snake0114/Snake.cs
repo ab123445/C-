@@ -44,9 +44,23 @@ namespace Snake0114
             lblBodies.Add(lblBody);
         }
 
-        public bool ReachBorder()
+        public void Reset(Control.ControlCollection Controls)
         {
-            if (lblHead.Top < 0 || lblHead.Left < 0)
+            for (int i = lblBodies.Count - 1; i >= 0; i--)
+            {
+                lblBodies[i].Dispose();
+                Controls.Remove(lblBodies[i]);
+                lblBodies.Remove(lblBodies[i]);
+            }
+            lblHead.Dispose();
+            Controls.Remove(lblHead);
+            //lblBodies.Clear();
+            
+        }
+        public bool ReachBorder(MainForm main)
+        {
+            if (lblHead.Top < 0 || lblHead.Left < 0
+                || lblHead.Top > MainForm.MAX_HEIGHT * Y + main.menuStrip1.Height || lblHead.Left > MainForm.MAX_WIDTH * X)
             {
                 return true;
             }
