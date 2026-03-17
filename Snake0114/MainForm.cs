@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Snake0114
 {
-
+    delegate void FieldGetter(out int x, out int y);
     public partial class MainForm : Form
     {
         public const int MAX_WIDTH = 30;
@@ -298,9 +298,10 @@ namespace Snake0114
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-
+            FieldGetter fieldgetter;
+            fieldgetter = new FieldGetter(getfieldPoint);
             int[] pos = [0, 0];
-            getfieldPoint(out pos[0], out pos[1]);
+            fieldgetter(out pos[0], out pos[1]);
             Food food;
             food = new(Controls, pos[0], pos[1], this);
             field[pos[0], pos[1], 0] = 1;
