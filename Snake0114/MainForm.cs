@@ -299,7 +299,34 @@ namespace Snake0114
         private void timer2_Tick(object sender, EventArgs e)
         {
             FieldGetter fieldgetter;
-            fieldgetter = new FieldGetter(getfieldPoint);
+            fieldgetter = delegate (out int x, out int y)
+            {
+                List<Point> Bodies = snake.GetBody();
+                Point FoodPoint;
+                x = rand.Next(0, MAX_WIDTH);
+                y = rand.Next(0, MAX_HEIGHT);
+                FoodPoint = new Point(x, y);
+                for (int i = 0; i < Bodies.Count; i++)
+                {
+                    if (FoodPoint == Bodies[i])
+                    {
+                        x = rand.Next(0, MAX_WIDTH);
+                        y = rand.Next(0, MAX_HEIGHT);
+                        FoodPoint = new Point(x, y);
+                        i -= 1;
+                    }
+                }
+                for (int i = 0; i < Foods.Count; i++)
+                {
+                    if (FoodPoint == Foods[i].Location)
+                    {
+                        x = rand.Next(0, MAX_WIDTH);
+                        y = rand.Next(0, MAX_HEIGHT);
+                        FoodPoint = new Point(x, y);
+                        i -= 1;
+                    }
+                }
+            };
             int[] pos = [0, 0];
             fieldgetter(out pos[0], out pos[1]);
             Food food;
@@ -307,36 +334,6 @@ namespace Snake0114
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
-        }
-
-
-        private void getfieldPoint(out int x, out int y)
-        {
-            List<Point> Bodies = snake.GetBody();
-            Point FoodPoint;
-            x = rand.Next(0, MAX_WIDTH);
-            y = rand.Next(0, MAX_HEIGHT);
-            FoodPoint = new Point(x, y);
-            for (int i = 0; i < Bodies.Count; i++)
-            {
-                if (FoodPoint == Bodies[i])
-                {
-                    x = rand.Next(0, MAX_WIDTH);
-                    y = rand.Next(0, MAX_HEIGHT);
-                    FoodPoint = new Point(x, y);
-                    i -= 1;
-                }
-            }
-            for (int i = 0; i < Foods.Count; i++)
-            {
-                if (FoodPoint == Foods[i].Location)
-                {
-                    x = rand.Next(0, MAX_WIDTH);
-                    y = rand.Next(0, MAX_HEIGHT);
-                    FoodPoint = new Point(x, y);
-                    i -= 1;
-                }
-            }
         }
 
         private bool isfieldPoint(Point point)
