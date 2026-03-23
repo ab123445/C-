@@ -93,6 +93,18 @@ namespace Snake0114
         {
             Menu_Record.Text = $"최고 기록 : {HighRecord}점";
 
+            Action clearWalls = () =>
+            {
+                for (int i = 0; i < MAX_WIDTH; i++)
+                    for (int j = 0; j < MAX_HEIGHT; j++)
+                        field[i, j, 1] = 0;
+
+                for (int i = 0; i < Walls.Count; i++)
+                    Controls.Remove(Walls[i]);
+
+                Walls.Clear();
+            };
+
             StreamWriter sr =
                 new StreamWriter(new FileStream("record.txt", FileMode.Append));
 
@@ -135,18 +147,7 @@ namespace Snake0114
             }
             if (point % 1500 == 500 && Stage != point)
             {
-                for (int i = 0; i < MAX_WIDTH; i++)
-                {
-                    for (int j = 0; j < MAX_HEIGHT; j++)
-                    {
-                        field[i, j, 1] = 0;
-                    }
-                }
-                for (int i = 0; i < Walls.Count; i++)
-                {
-                    Controls.Remove(Walls[i]);
-                }
-                Walls.Clear();
+                clearWalls();
                 WallPosX = [1, 2, 27, 28];
                 WallPosY = [1, 2, 13, 14];
 
@@ -165,18 +166,7 @@ namespace Snake0114
 
             else if (point % 1500 == 1000 && Stage != point)
             {
-                for (int i = 0; i < MAX_WIDTH; i++)
-                {
-                    for (int j = 0; j < MAX_HEIGHT; j++)
-                    {
-                        field[i, j, 1] = 0;
-                    }
-                }
-                for (int i = 0; i < Walls.Count; i++)
-                {
-                    Controls.Remove(Walls[i]);
-                }
-                Walls.Clear();
+                clearWalls();
                 WallPosX = [5, 6, 23, 24];
                 WallPosY = [1, 2, 3, 4, 11, 12, 13, 14];
 
@@ -209,18 +199,7 @@ namespace Snake0114
 
             else if (point % 1500 == 0 && Stage != point)
             {
-                for (int i = 0; i < MAX_WIDTH; i++)
-                {
-                    for (int j = 0; j < MAX_HEIGHT; j++)
-                    {
-                        field[i, j, 1] = 0;
-                    }
-                }
-                for (int i = 0; i < Walls.Count; i++)
-                {
-                    Controls.Remove(Walls[i]);
-                }
-                Walls.Clear();
+                clearWalls();
                 WallPosX = [12, 13, 14, 15, 16, 17, 18];
                 WallPosY = [5, 6, 7, 8, 9, 10, 11];
 
