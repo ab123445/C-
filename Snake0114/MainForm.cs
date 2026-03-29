@@ -259,15 +259,14 @@ namespace Snake0114
 
             for (int i = 0; i < Walls.Count; i++)
             {
-                if (snake.ReachWall(Walls[i]) == true)
+                if (Walls.Any(x => snake.ReachWall(x)))
                 {
-                    {
-                        timer1.Stop();
-                        timer2.Stop();
-                        sr.Write($"\n{point}");
-                        MessageBox.Show($"Game Over\n{point}Á¡");
-                    }
+                    timer1.Stop();
+                    timer2.Stop();
+                    sr.Write($"\n{point}");
+                    MessageBox.Show($"Game Over\n{point}Á¡");
                 }
+
             }
 
             Menu_Point.Text = $"{point}Á¡";
