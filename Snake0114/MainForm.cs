@@ -15,6 +15,7 @@ namespace Snake0114
         int HighRecord = 0;
         List<Food> Foods = new List<Food>();
         List<Wall> Walls = new List<Wall>();
+        List<Item> Items = new List<Item>();
         int Stage = 0;
         Random rand = new();
         int point = 0;
@@ -61,6 +62,10 @@ namespace Snake0114
             timer2.Interval = 1000;
         }
 
+        public void IncreaseSpeed()
+        {
+            timer1.Interval -= timer1.Interval / 10;
+        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -89,7 +94,7 @@ namespace Snake0114
             return base.ProcessCmdKey(ref msg, keyData);
 
         }
-        private void timer1_Tick(object sender, EventArgs e)
+        public void timer1_Tick(object sender, EventArgs e)
         {
             Menu_Record.Text = $"최고 기록 : {HighRecord}점";
 
@@ -136,12 +141,23 @@ namespace Snake0114
             for (int i = 0; i < Foods.Count; i++)
             {
 
-                if (snake.Reach(Foods[i], this) == true)
+                if (snake.ReachFood(Foods[i], this) == true)
                 {
                     snake.MakeBody(Controls, Foods[i].food_x, Foods[i].food_y, this);
                     Controls.Remove(Foods[i]);
                     Foods.Remove(Foods[i]);
                     point += 100;
+                    break;
+                }
+            }
+            for (int i = 0; i < Items.Count; i++)
+            {
+
+                if (snake.ReachItem(Items[i], this) == true)
+                {
+                    Items[i].OnEat(this);
+                    Controls.Remove(Items[i].GetLabel());
+                    Items.Remove(Items[i]);
                     break;
                 }
             }
@@ -256,18 +272,13 @@ namespace Snake0114
                     Foods.Remove(Foods[i]);
                 }
             }
-
-            for (int i = 0; i < Walls.Count; i++)
-            {
-                if (Walls.Any(x => snake.ReachWall(x)))
+            if (Walls.Any(x => snake.ReachWall(x)))
                 {
                     timer1.Stop();
                     timer2.Stop();
                     sr.Write($"\n{point}");
                     MessageBox.Show($"Game Over\n{point}점");
                 }
-
-            }
 
             Menu_Point.Text = $"{point}점";
 
@@ -312,7 +323,16 @@ namespace Snake0114
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
+            if (rand.Next(0, 100) < 20)
+            {
+                fieldgetter(out pos[0], out pos[1]);
+
+                SpeedUp item = new SpeedUp(Controls, pos[0], pos[1], this);
+                Items.Add(item);
+            }
         }
+
+
 
         private bool isfieldPoint(Point point)
         {
@@ -348,6 +368,12 @@ namespace Snake0114
                 Foods[i].Dispose();
                 Controls.Remove(Foods[i]);
                 Foods.Remove(Foods[i]);
+            }
+            for (int i = Items.Count - 1; i >= 0; i--)
+            {
+                Items[i].GetLabel().Dispose();
+                Controls.Remove(Items[i].GetLabel());
+                Items.Remove(Items[i]);
             }
             NowDir = Dir.None;
             snake.Reset(Controls);

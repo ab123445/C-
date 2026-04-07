@@ -92,10 +92,21 @@ namespace Snake0114
         {
             lblHead.Top += y;
         }
-        public bool Reach(Food food, MainForm main)
+        public bool ReachFood(Food food, MainForm main)
         {
             if (lblHead.Left == food.food_x * Snake.X &&
                 lblHead.Top == food.food_y * Snake.Y + main.menuStrip1.Height)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool ReachItem(Item item, MainForm main)
+        {
+            if (lblHead.Left == item.item_x * Snake.X &&
+                lblHead.Top == item.item_y * Snake.Y + main.menuStrip1.Height)
             {
                 return true;
             }
