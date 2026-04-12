@@ -9,6 +9,7 @@ namespace Snake0114
     {
         public const int MAX_WIDTH = 30;
         public const int MAX_HEIGHT = 16;
+        public int WallBreaks = 0;
 
         Dir NowDir;
         Snake snake;
@@ -62,6 +63,10 @@ namespace Snake0114
             timer2.Interval = 1000;
         }
 
+        public void AddPoint(int x)
+        {
+            point += x;
+        }
         public void IncreaseSpeed()
         {
             timer1.Interval -= timer1.Interval / 10;
@@ -97,6 +102,7 @@ namespace Snake0114
         public void timer1_Tick(object sender, EventArgs e)
         {
             Menu_Record.Text = $"최고 기록 : {HighRecord}점";
+            IgnoreWall_txt.Text = $"벽 넘어가기 : {WallBreaks}회";
 
             Action clearWalls = () =>
             {
@@ -274,10 +280,18 @@ namespace Snake0114
             }
             if (Walls.Any(x => snake.ReachWall(x)))
                 {
-                    timer1.Stop();
-                    timer2.Stop();
-                    sr.Write($"\n{point}");
-                    MessageBox.Show($"Game Over\n{point}점");
+                    if (WallBreaks > 0)
+                    {
+                        WallBreaks--;
+                    }
+                    else {
+
+                        timer1.Stop();
+                        timer2.Stop();
+                        sr.Write($"\n{point}");
+                        MessageBox.Show($"Game Over\n{point}점");
+                    }
+                    
                 }
 
             Menu_Point.Text = $"{point}점";
@@ -326,8 +340,13 @@ namespace Snake0114
             if (rand.Next(0, 100) < 20)
             {
                 fieldgetter(out pos[0], out pos[1]);
-
                 SpeedUp item = new SpeedUp(Controls, pos[0], pos[1], this);
+                Items.Add(item);
+            }
+            if (rand.Next(0, 100) < 20)
+            {
+                fieldgetter(out pos[0], out pos[1]);
+                WallBreaker item = new WallBreaker(Controls, pos[0], pos[1], this);
                 Items.Add(item);
             }
         }

@@ -15,6 +15,7 @@ namespace Snake0114
         public override void OnEat(MainForm main)
         {
             main.IncreaseSpeed();
+            main.AddPoint(200);
         }
     }
 }

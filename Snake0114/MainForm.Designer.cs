@@ -35,6 +35,7 @@
             Menu_Record = new ToolStripMenuItem();
             Menu_Restart = new ToolStripMenuItem();
             timer2 = new System.Windows.Forms.Timer(components);
+            IgnoreWall_txt = new ToolStripTextBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,10 +45,10 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { Menu_Point, Menu_Record, Menu_Restart });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { Menu_Point, Menu_Record, Menu_Restart, IgnoreWall_txt });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(794, 24);
+            menuStrip1.Size = new Size(794, 27);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -55,25 +56,31 @@
             // 
             Menu_Point.Alignment = ToolStripItemAlignment.Right;
             Menu_Point.Name = "Menu_Point";
-            Menu_Point.Size = new Size(38, 20);
+            Menu_Point.Size = new Size(38, 23);
             Menu_Point.Text = "0점";
             // 
             // Menu_Record
             // 
             Menu_Record.Name = "Menu_Record";
-            Menu_Record.Size = new Size(71, 20);
+            Menu_Record.Size = new Size(71, 23);
             Menu_Record.Text = "최고 기록";
             // 
             // Menu_Restart
             // 
             Menu_Restart.Name = "Menu_Restart";
-            Menu_Restart.Size = new Size(55, 20);
+            Menu_Restart.Size = new Size(55, 23);
             Menu_Restart.Text = "재시작";
             Menu_Restart.Click += Menu_Restart_Click;
             // 
             // timer2
             // 
             timer2.Tick += timer2_Tick;
+            // 
+            // IgnoreWall_txt
+            // 
+            IgnoreWall_txt.Name = "IgnoreWall_txt";
+            IgnoreWall_txt.Size = new Size(100, 23);
+            IgnoreWall_txt.Text = "벽 넘어가기 : 0회";
             // 
             // MainForm
             // 
@@ -100,5 +107,6 @@
         public MenuStrip menuStrip1;
         private ToolStripMenuItem Menu_Record;
         private ToolStripMenuItem Menu_Restart;
+        private ToolStripTextBox IgnoreWall_txt;
     }
 }
