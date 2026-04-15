@@ -337,13 +337,13 @@ namespace Snake0114
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
-            if (rand.Next(0, 100) < 20)
+            if (rand.Next(0, 100) < 10)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 SpeedUp item = new SpeedUp(Controls, pos[0], pos[1], this);
                 Items.Add(item);
             }
-            if (rand.Next(0, 100) < 20)
+            if (rand.Next(0, 100) < 10)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 WallBreaker item = new WallBreaker(Controls, pos[0], pos[1], this);
