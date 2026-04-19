@@ -4,13 +4,12 @@ using System.Text;
 
 namespace Snake0114
 {
-    internal class WallBreaker : Item
+    internal class Shorten : Item
     {
-        public WallBreaker(Control.ControlCollection Controls, int x, int y, MainForm main)
+        public Shorten(Control.ControlCollection Controls, int x, int y, MainForm main)
         {
             lblitem.Location = new Point(x * Snake.X, main.menuStrip1.Height + y * Snake.Y);
-            lblitem.Name = "lblWallBreaker";
-            lblitem.BackColor = Color.Blue;
+            lblitem.BackColor = Color.Purple;
             Controls.Add(lblitem);
             item_x = x;
             item_y = y;
@@ -18,8 +17,8 @@ namespace Snake0114
 
         public override void OnEat(MainForm main)
         {
-            main.AddWallBreaks(2);
-            main.AddPoint(200);
+            main.snake.RemoveTail(3);
         }
     }
+
 }

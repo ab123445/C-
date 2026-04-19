@@ -1,7 +1,3 @@
-
-using System.Windows.Forms;
-using System.IO;
-
 namespace Snake0114
 {
     delegate void FieldGetter(out int x, out int y);
@@ -9,7 +5,7 @@ namespace Snake0114
     {
         public const int MAX_WIDTH = 30;
         public const int MAX_HEIGHT = 16;
-        public int WallBreaks = 0;
+        int WallBreaks = 0;
 
         Dir NowDir;
         Snake snake;
@@ -23,10 +19,19 @@ namespace Snake0114
         int[,,] field = new int[MAX_WIDTH, MAX_HEIGHT, 2];
         int[] WallPosX;
         int[] WallPosY;
+        public void snakeRemoveTail()
+        {
+            snake.RemoveTail(1);
+        }
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        public void AddWallBreaks(int x)
+        {
+            WallBreaks += x;
         }
 
         enum Dir
@@ -337,13 +342,13 @@ namespace Snake0114
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
-            if (rand.Next(0, 100) < 10)
+            if (rand.Next(0, 100) < 30)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 SpeedUp item = new SpeedUp(Controls, pos[0], pos[1], this);
                 Items.Add(item);
             }
-            if (rand.Next(0, 100) < 10)
+            if (rand.Next(0, 100) < 30)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 WallBreaker item = new WallBreaker(Controls, pos[0], pos[1], this);

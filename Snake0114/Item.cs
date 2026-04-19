@@ -20,7 +20,7 @@ namespace Snake0114
             lblitem.TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        public void OnEat()
+        public virtual void OnEat(MainForm main)
         {
         }
 
