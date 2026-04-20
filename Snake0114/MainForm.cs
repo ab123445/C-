@@ -21,7 +21,7 @@ namespace Snake0114
         int[] WallPosY;
         public void snakeRemoveTail()
         {
-            snake.RemoveTail(1);
+            snake.ShortenTail(Controls);
         }
 
         public MainForm()
@@ -107,7 +107,19 @@ namespace Snake0114
         public void timer1_Tick(object sender, EventArgs e)
         {
             Menu_Record.Text = $"최고 기록 : {HighRecord}점";
-            IgnoreWall_txt.Text = $"벽 넘어가기 : {WallBreaks}회";
+            IgnoreWall_txt.Text = $"벽 넘어가기 : {snake.GetBodies()}회";
+            for (int i = 0; i < Items.Count; i++)
+            {
+
+                if (snake.ReachItem(Items[i], this) == true)
+                {
+                    Items[i].OnEat(this);
+                    Controls.Remove(Items[i].GetLabel());
+                    Items.Remove(Items[i]);
+                    break;
+                }
+            }
+
 
             Action clearWalls = () =>
             {
@@ -161,17 +173,17 @@ namespace Snake0114
                     break;
                 }
             }
-            for (int i = 0; i < Items.Count; i++)
-            {
+            //for (int i = 0; i < Items.Count; i++)
+            //{
 
-                if (snake.ReachItem(Items[i], this) == true)
-                {
-                    Items[i].OnEat(this);
-                    Controls.Remove(Items[i].GetLabel());
-                    Items.Remove(Items[i]);
-                    break;
-                }
-            }
+            //    if (snake.ReachItem(Items[i], this) == true)
+            //    {
+            //        Items[i].OnEat(this);
+            //        Controls.Remove(Items[i].GetLabel());
+            //        Items.Remove(Items[i]);
+            //        break;
+            //    }
+            //}
             if (point % 1500 == 500 && Stage != point)
             {
                 clearWalls();
@@ -342,13 +354,19 @@ namespace Snake0114
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
-            if (rand.Next(0, 100) < 30)
+            if (rand.Next(0, 100) < 0)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 SpeedUp item = new SpeedUp(Controls, pos[0], pos[1], this);
                 Items.Add(item);
             }
             if (rand.Next(0, 100) < 30)
+            {
+                fieldgetter(out pos[0], out pos[1]);
+                Shorten item = new Shorten(Controls, pos[0], pos[1], this);
+                Items.Add(item);
+            }
+            if (rand.Next(0, 100) < 0)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 WallBreaker item = new WallBreaker(Controls, pos[0], pos[1], this);

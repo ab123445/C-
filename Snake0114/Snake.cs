@@ -133,21 +133,18 @@ namespace Snake0114
             }
             return false;
         }
-        public void RemoveTail(int count)
+        public void ShortenTail(Control.ControlCollection Controls)
         {
-            for (int i = 0; i < count; i++)
-            {
-                if (lblBodies.Count == 0)
-                    return;
+            var last = lblBodies[lblBodies.Count - 1];
+            Controls.Remove(last);
+            lblBodies.Remove(last);
 
-                int last = lblBodies.Count - 1;
-
-                lblBodies[last].Dispose();
-                lblBodies.RemoveAt(last);
-
-                if (MovingLine.Count > 0)
-                    MovingLine.RemoveAt(MovingLine.Count - 1);
-            }
+            last.Dispose();
+            
+        }
+        public int GetBodies()
+        {
+            return lblBodies.Count;
         }
     }
 }
