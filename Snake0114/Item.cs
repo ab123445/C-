@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Snake0114
 {
-    internal class Item
+    public class Item
     {
         public int item_x;
         public int item_y;
         protected Label lblitem = new();
+        protected Action OnEatAction;
         public Item()
         {
             lblitem.AutoSize = false;
@@ -20,8 +21,9 @@ namespace Snake0114
             lblitem.TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        public virtual void OnEat(MainForm main)
+        public virtual void OnEat()
         {
+            OnEatAction?.Invoke();
         }
 
         public Label GetLabel()

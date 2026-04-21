@@ -7,6 +7,7 @@ namespace Snake0114
     internal class Shorten : Item
     {
 
+        
         public Shorten(Control.ControlCollection Controls, int x, int y, MainForm main)
         {
             lblitem.Location = new Point(x * Snake.X, main.menuStrip1.Height + y * Snake.Y);
@@ -14,12 +15,18 @@ namespace Snake0114
             Controls.Add(lblitem);
             item_x = x;
             item_y = y;
+            OnEatAction = () =>
+            {
+                main.Snake.ShortenTail(Controls);
+            };
         }
 
-        public override void OnEat(Snake snake, Control.ControlCollection Controls)
+        
+
+        public override void OnEat()
         {
-            
-            snake.ShortenTail(Controls);
+
+            OnEatAction();
         }
     }
 

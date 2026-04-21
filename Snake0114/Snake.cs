@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Snake0114
 {
-    internal class Snake
+    public class Snake
     {
         public const int X = 30;
         public const int Y = 30;
@@ -135,16 +135,16 @@ namespace Snake0114
         }
         public void ShortenTail(Control.ControlCollection Controls)
         {
-            var last = lblBodies[lblBodies.Count - 1];
-            Controls.Remove(last);
-            lblBodies.Remove(last);
+            if (lblBodies.Count > 0)
+            {
+                var last = lblBodies[lblBodies.Count - 1];
+                Controls.Remove(last);
+                lblBodies.Remove(last);
 
-            last.Dispose();
+                last.Dispose();
+            }
+
             
-        }
-        public int GetBodies()
-        {
-            return lblBodies.Count;
         }
     }
 }

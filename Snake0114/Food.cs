@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Snake0114
 {
-    internal class Food: Label
+    public class Food: Label
     {
         public int food_x;
         public int food_y;

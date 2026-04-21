@@ -14,12 +14,16 @@ namespace Snake0114
             Controls.Add(lblitem);
             item_x = x;
             item_y = y;
+            OnEatAction = () =>
+            {
+                main.AddWallBreaks(2);
+                main.AddPoint(200);
+            };
         }
 
-        public override void OnEat(MainForm main)
+        public override void OnEat()
         {
-            main.AddWallBreaks(2);
-            main.AddPoint(200);
+            OnEatAction();
         }
     }
 }

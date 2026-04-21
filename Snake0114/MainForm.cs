@@ -9,6 +9,10 @@ namespace Snake0114
 
         Dir NowDir;
         Snake snake;
+        public Snake Snake
+        {
+            get { return snake; }
+        }
         int HighRecord = 0;
         List<Food> Foods = new List<Food>();
         List<Wall> Walls = new List<Wall>();
@@ -19,10 +23,6 @@ namespace Snake0114
         int[,,] field = new int[MAX_WIDTH, MAX_HEIGHT, 2];
         int[] WallPosX;
         int[] WallPosY;
-        public void snakeRemoveTail()
-        {
-            snake.ShortenTail(Controls);
-        }
 
         public MainForm()
         {
@@ -107,13 +107,13 @@ namespace Snake0114
         public void timer1_Tick(object sender, EventArgs e)
         {
             Menu_Record.Text = $"최고 기록 : {HighRecord}점";
-            IgnoreWall_txt.Text = $"벽 넘어가기 : {snake.GetBodies()}회";
+            IgnoreWall_txt.Text = $"벽 넘어가기 : {WallBreaks}회";
             for (int i = 0; i < Items.Count; i++)
             {
 
                 if (snake.ReachItem(Items[i], this) == true)
                 {
-                    Items[i].OnEat(this);
+                    Items[i].OnEat();
                     Controls.Remove(Items[i].GetLabel());
                     Items.Remove(Items[i]);
                     break;
@@ -354,19 +354,19 @@ namespace Snake0114
             field[pos[0], pos[1], 0] = 1;
             Foods.Add(food);
 
-            if (rand.Next(0, 100) < 0)
+            if (rand.Next(0, 100) < 20)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 SpeedUp item = new SpeedUp(Controls, pos[0], pos[1], this);
                 Items.Add(item);
             }
-            if (rand.Next(0, 100) < 30)
+            if (rand.Next(0, 100) < 20)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 Shorten item = new Shorten(Controls, pos[0], pos[1], this);
                 Items.Add(item);
             }
-            if (rand.Next(0, 100) < 0)
+            if (rand.Next(0, 100) < 20)
             {
                 fieldgetter(out pos[0], out pos[1]);
                 WallBreaker item = new WallBreaker(Controls, pos[0], pos[1], this);
