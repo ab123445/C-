@@ -4,20 +4,25 @@ using System.Text;
 
 namespace MineSearch
 {
-    internal class mine
+    public class Mine : Button
     {
         public const int X = 60;
         public const int Y = 60;
-        Button btnMine = new();
 
-        public mine(int x, int y)
+        public Mine(int x, int y)
         {
-            btnMine.Location = new Point(x*X, y*Y);
-            btnMine.Name = "btnMine";
-            btnMine.Size = new Size(X, Y);
-            btnMine.TabIndex = 0;
-            btnMine.Text = "a";
-            btnMine.UseVisualStyleBackColor = true;
+            this.Location = new Point(x*X, y*Y);
+            this.Name = "btnMine";
+            this.Size = new Size(X, Y);
+            this.TabIndex = 0;
+            this.Text = "";
+            this.UseVisualStyleBackColor = true;
+            this.Click += Mine_Click;
+        }
+
+        private void Mine_Click(object sender, EventArgs e)
+        {
+            this.Text = "X";
         }
     }
 }
