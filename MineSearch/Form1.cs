@@ -2,7 +2,9 @@ namespace MineSearch
 {
     public partial class Form1 : Form
     {
+        public const int MENU_HIGHT = 30;
         List<List<Mine>> Mines = new();
+
         Random rand = new();
         public Form1()
         {
@@ -13,7 +15,7 @@ namespace MineSearch
         {
             //ClientRectangle.Width
             this.Width += 9 * Mine.X - ClientRectangle.Width;
-            this.Height += 9 * Mine.Y - ClientRectangle.Height;
+            this.Height += 9 * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
 
 
             for (int i = 0; i < 9; i++)
@@ -21,14 +23,16 @@ namespace MineSearch
                 Mines.Add(new List<Mine>());
                 for (int j = 0; j < 9; j++)
                 {
-                    int r = rand.Next(0, 100);
-                    Mine mine = new(i, j, r, button_MouseDown);
+                    Mine mine = new(i, j, button_MouseDown);
+                    mine.GetMine();
                     Controls.Add(mine);
                     Mines[i].Add(mine);
                 }
             }
 
         }
+
+       // public void Mine
 
         public void button_MouseDown(object sender, MouseEventArgs e)
         {
@@ -37,6 +41,7 @@ namespace MineSearch
             Mine me = button.Tag as Mine;
             if (me == null) return;
 
+            //Mines[me.Idx_X][me.Idx_Y]
 
             if (e.Button == MouseButtons.Left)
             {
