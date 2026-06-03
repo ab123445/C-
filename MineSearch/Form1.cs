@@ -32,8 +32,48 @@ namespace MineSearch
 
         }
 
-       // public void Mine
+        public int Mines_Count(Mine me)
+        {
+            int mines_count = 0;
+            for (int x = -1; x < 2; x++)
+            {
+                for (int y = -1; y < 2; y++)
+                {
+                    if (me.getIdxX() + x >= 0 && me.getIdxY() + y >= 0 &&
+                        me.getIdxX() + x <= 8 && me.getIdxY() + y <=8)
+                    {
+                        if (Mines[me.getIdxX() + x][me.getIdxY() + y].IsMine == true)
+                            mines_count++;
+                    }
+                    
+                }
+            }
+            return mines_count;
+        }
+        public void auto_open(Mine me)
+        {
+            Mine m;
+            if (Mines_Count(me) == 0)
+            {
+                //txtRuleBox.Text = "Success"; //
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        if (me.getIdxX() + x >= 0 && me.getIdxY() + y >= 0 &&
+                            me.getIdxX() + x <= 8 && me.getIdxY() + y <= 8) // && m.Enabled == true 수정해야 함
+                        {
+                            txtRuleBox.Text = "Success2"; //
+                            m = Mines[me.getIdxX() + x][me.getIdxY() + y];
+                            m.Mine_Open(Mines_Count(m));
+                            if (Mines_Count(m) == 0)
+                                auto_open(m);
+                        }
 
+                    }
+                }
+            }
+        }
         public void button_MouseDown(object sender, MouseEventArgs e)
         {
             Button button = sender as Button;
@@ -41,11 +81,12 @@ namespace MineSearch
             Mine me = button.Tag as Mine;
             if (me == null) return;
 
-            //Mines[me.Idx_X][me.Idx_Y]
+            
 
             if (e.Button == MouseButtons.Left)
             {
-                me.Text_Change();
+                me.Mine_Open(Mines_Count(me));
+                //auto_open(me);
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -55,7 +96,11 @@ namespace MineSearch
 
         private void txtRulebox_Click(object sender, EventArgs e)
         {
-            
+            Rules frm = new();
+            frm.Text = "Rules";
+            frm.Width = 600;
+            frm.Height = 600;
+            frm.ShowDialog();
         }
     }
 }

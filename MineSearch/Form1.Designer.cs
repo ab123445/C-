@@ -44,10 +44,12 @@
             // 
             // txtRuleBox
             // 
-            txtRuleBox.Enabled = false;
+            txtRuleBox.BackColor = SystemColors.ActiveBorder;
             txtRuleBox.Name = "txtRuleBox";
+            txtRuleBox.ReadOnly = true;
             txtRuleBox.Size = new Size(100, 23);
             txtRuleBox.Text = "규칙";
+            txtRuleBox.Click += txtRulebox_Click;
             // 
             // Form1
             // 

@@ -10,18 +10,40 @@ namespace MineSearch
     {
         public const int X = 60;
         public const int Y = 60;
-        bool IsMine;
+        public bool IsMine;
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int Idx_Y { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int Idx_X { get; set; }
+
+        private int idx_y;
+        public int getIdxY()
+        {
+            return idx_y;
+        }
+        public void setIdxY(int y)
+        {
+            idx_y = y;
+        }
+
+        private int idx_x;
+        public int getIdxX()
+        {
+            return idx_x;
+        }
+        public void setIdxX(int x)
+        {
+            idx_x = x;
+        }
+
+
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        //public int Idx_Y { get; set; }
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        //public int Idx_X { get; set; }
 
         public Mine(int x, int y, MineClick click)
         {
             this.Tag = this;
-            Idx_Y = y;
-            Idx_X = x;
+            idx_y = y;
+            idx_x = x;
             this.Location = new Point(x*X, y*Y + Form1.MENU_HIGHT);
             this.Name = "btnMine";
             this.Size = new Size(X, Y);
@@ -43,19 +65,20 @@ namespace MineSearch
                 IsMine = false;
         }
 
-        public void Text_Change()
+        public void Mine_Open(int count)
         {
             if (this.Text != "Flag")
             {
                 if (IsMine == false)
                 {
-                    this.Text = "X";
+                    this.Text = $"{count}";
                     this.BackColor = Color.FromArgb(212, 225, 225, 225);
+                    //this.FlatStyle = FlatStyle.Flat;
                 }
                 if (IsMine == true)
                 {
-                    this.Text = "O";
-                    this.BackColor = Color.FromArgb(212, 225, 225, 225);
+                    this.Text = "!!!";
+                    this.BackColor = Color.Yellow;
                 }
                 this.Enabled = false;
             }
