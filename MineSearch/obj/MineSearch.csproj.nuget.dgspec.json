@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\OneDrive\\바탕 화면\\MineSearch\\MineSearch.csproj": {}
+    "C:\\Users\\D410\\Desktop\\수강생207\\변지온\\MineSearch\\MineSearch.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\OneDrive\\바탕 화면\\MineSearch\\MineSearch.csproj": {
+    "C:\\Users\\D410\\Desktop\\수강생207\\변지온\\MineSearch\\MineSearch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\OneDrive\\바탕 화면\\MineSearch\\MineSearch.csproj",
+        "projectUniqueName": "C:\\Users\\D410\\Desktop\\수강생207\\변지온\\MineSearch\\MineSearch.csproj",
         "projectName": "MineSearch",
-        "projectPath": "C:\\Users\\USER\\OneDrive\\바탕 화면\\MineSearch\\MineSearch.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\OneDrive\\바탕 화면\\MineSearch\\obj\\",
+        "projectPath": "C:\\Users\\D410\\Desktop\\수강생207\\변지온\\MineSearch\\MineSearch.csproj",
+        "packagesPath": "C:\\Users\\D410\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\D410\\Desktop\\수강생207\\변지온\\MineSearch\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\D410\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -29,8 +29,7 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net10.0-windows": {
-            "framework": "net10.0-windows7.0",
+          "net10.0-windows7.0": {
             "targetAlias": "net10.0-windows",
             "projectReferences": {}
           }
@@ -48,8 +47,7 @@
         "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
-        "net10.0-windows": {
-          "framework": "net10.0-windows7.0",
+        "net10.0-windows7.0": {
           "targetAlias": "net10.0-windows",
           "imports": [
             "net461",
@@ -70,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

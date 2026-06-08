@@ -30,12 +30,13 @@
         {
             menuStrip1 = new MenuStrip();
             txtRuleBox = new ToolStripTextBox();
+            txtRestartBox = new ToolStripTextBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { txtRuleBox });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { txtRuleBox, txtRestartBox });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(524, 27);
@@ -50,6 +51,15 @@
             txtRuleBox.Size = new Size(100, 23);
             txtRuleBox.Text = "규칙";
             txtRuleBox.Click += txtRulebox_Click;
+            // 
+            // txtRestartBox
+            // 
+            txtRestartBox.BackColor = SystemColors.ActiveBorder;
+            txtRestartBox.Name = "txtRestartBox";
+            txtRestartBox.ReadOnly = true;
+            txtRestartBox.Size = new Size(100, 23);
+            txtRestartBox.Text = "다시하기";
+            txtRestartBox.Click += txtRestartBox_Click;
             // 
             // Form1
             // 
@@ -71,5 +81,6 @@
 
         private MenuStrip menuStrip1;
         private ToolStripTextBox txtRuleBox;
+        private ToolStripTextBox txtRestartBox;
     }
 }

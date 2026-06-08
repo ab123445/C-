@@ -5,7 +5,7 @@ namespace MineSearch
         public const int MENU_HIGHT = 30;
         List<List<Mine>> Mines = new();
 
-        Random rand = new();
+        
         public Form1()
         {
             InitializeComponent();
@@ -16,8 +16,12 @@ namespace MineSearch
             //ClientRectangle.Width
             this.Width += 9 * Mine.X - ClientRectangle.Width;
             this.Height += 9 * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
+            CreateMine();
 
+        }
 
+        private void CreateMine()
+        {
             for (int i = 0; i < 9; i++)
             {
                 Mines.Add(new List<Mine>());
@@ -29,7 +33,6 @@ namespace MineSearch
                     Mines[i].Add(mine);
                 }
             }
-
         }
 
         public int Mines_Count(Mine me)
@@ -40,12 +43,12 @@ namespace MineSearch
                 for (int y = -1; y < 2; y++)
                 {
                     if (me.getIdxX() + x >= 0 && me.getIdxY() + y >= 0 &&
-                        me.getIdxX() + x <= 8 && me.getIdxY() + y <=8)
+                        me.getIdxX() + x <= 8 && me.getIdxY() + y <= 8)
                     {
                         if (Mines[me.getIdxX() + x][me.getIdxY() + y].IsMine == true)
                             mines_count++;
                     }
-                    
+
                 }
             }
             return mines_count;
@@ -61,10 +64,14 @@ namespace MineSearch
                     for (int y = -1; y < 2; y++)
                     {
                         if (me.getIdxX() + x >= 0 && me.getIdxY() + y >= 0 &&
-                            me.getIdxX() + x <= 8 && me.getIdxY() + y <= 8) // && m.Enabled == true 수정해야 함
+                            me.getIdxX() + x <= 8 && me.getIdxY() + y <= 8)
                         {
+                            if (x == 0 && y == 0)
+                                continue;
                             txtRuleBox.Text = "Success2"; //
                             m = Mines[me.getIdxX() + x][me.getIdxY() + y];
+                            if (m.Enabled == false)
+                                continue;
                             m.Mine_Open(Mines_Count(m));
                             if (Mines_Count(m) == 0)
                                 auto_open(m);
@@ -81,17 +88,27 @@ namespace MineSearch
             Mine me = button.Tag as Mine;
             if (me == null) return;
 
-            
+
 
             if (e.Button == MouseButtons.Left)
             {
                 me.Mine_Open(Mines_Count(me));
-                //auto_open(me);
+                auto_open(me);
+                //if (me.IsMine == true) 패배 만들기
+                //{
+                //    lose();
+                //}
+
             }
             else if (e.Button == MouseButtons.Right)
             {
                 me.Set_Flag();
             }
+        }
+
+        private void lose()
+        {
+            
         }
 
         private void txtRulebox_Click(object sender, EventArgs e)
@@ -101,6 +118,21 @@ namespace MineSearch
             frm.Width = 600;
             frm.Height = 600;
             frm.ShowDialog();
+        }
+
+        private void txtRestartBox_Click(object sender, EventArgs e)
+        {
+            for (int i = Mines.Count - 1; i >= 0; i--)
+            {
+                for (int j = Mines[i].Count - 1; j >= 0 ; j--)
+                {
+                    Controls.Remove(Mines[i][j]);
+                    Mines[i][j].Dispose();
+                    Mines[i].RemoveAt(j);
+                }
+                Mines.Remove(Mines[i]);
+            }
+            CreateMine();
         }
     }
 }
