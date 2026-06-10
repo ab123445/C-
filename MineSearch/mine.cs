@@ -11,7 +11,7 @@ namespace MineSearch
         public const int X = 60;
         public const int Y = 60;
         public bool IsMine;
-
+        public bool solved; 
 
         private int idx_y;
         public int getIdxY()
@@ -51,14 +51,11 @@ namespace MineSearch
             this.Text = "";
             this.UseVisualStyleBackColor = true;
             this.MouseDown += new MouseEventHandler(click);
-            
         }
 
-        public void GetMine()
+        public void GetMine(int random)
         {
-            int random;
-            Random rand = new();
-            random = rand.Next(0, 100);
+            
             if (random > 70)
                 IsMine = true;
             else
@@ -69,16 +66,17 @@ namespace MineSearch
         {
             if (this.Text != "Flag")
             {
-                if (IsMine == false)
-                {
-                    this.Text = $"{count}";
-                    this.BackColor = Color.FromArgb(212, 225, 225, 225);
-                    //this.FlatStyle = FlatStyle.Flat;
-                }
                 if (IsMine == true)
                 {
                     this.Text = "!!!";
                     this.BackColor = Color.Yellow;
+                }
+                else
+                {
+                    this.Text = $"{count}";
+                    this.BackColor = Color.FromArgb(212, 225, 225, 225);
+                    this.solved = true;
+                    //this.FlatStyle = FlatStyle.Flat;
                 }
                 this.Enabled = false;
             }
@@ -89,11 +87,13 @@ namespace MineSearch
             {
                 this.BackColor = Color.Red;
                 this.Text = "Flag";
+                this.solved = true;
             }
             else
             {
                 this.BackColor = Color.FromArgb(212, 225, 225, 225);
                 this.Text = "";
+                this.solved = false;
             }
                 
 
