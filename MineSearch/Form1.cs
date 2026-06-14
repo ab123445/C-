@@ -28,16 +28,32 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         private void CreateMine()
         {
             Random rand = new();
+
             for (int i = 0; i < 9; i++)
             {
                 Mines.Add(new List<Mine>());
+
                 for (int j = 0; j < 9; j++)
                 {
-                    int random = rand.Next(0, 100);
                     Mine mine = new(i, j, button_MouseDown);
-                    mine.GetMine(random);
+                    mine.GetMine(false);
+
                     Controls.Add(mine);
                     Mines[i].Add(mine);
+                }
+            }
+
+            int mineCount = 0;
+
+            while (mineCount < 15)
+            {
+                int x = rand.Next(9);
+                int y = rand.Next(9);
+
+                if (Mines[x][y].IsMine == false)
+                {
+                    Mines[x][y].IsMine = true;
+                    mineCount++;
                 }
             }
         }
@@ -72,8 +88,8 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                     {
                         int nowX = me.getIdxX() + x;
                         int nowY = me.getIdxY() + y;
-                        if (nowX >= 0 && nowY + y >= 0 &&
-                            nowX + x <= 8 && nowY <= 8)
+                        if (nowX >= 0 && nowY >= 0 &&
+                            nowX <= 8 && nowY <= 8)
                         {
                             if (x == 0 && y == 0)
                                 continue;
@@ -103,22 +119,45 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                 if (firstTouched == false)
                 {
                     int deleted = 0;
-                    for (int x = -1; x <=1; x++)
+
+                    for (int x = -1; x <= 1; x++)
                     {
-                        for (int y = -1; y <=1; y++)
+                        for (int y = -1; y <= 1; y++)
                         {
                             int nowX = me.getIdxX() + x;
                             int nowY = me.getIdxY() + y;
+
                             if (nowX >= 0 && nowY >= 0 &&
                                 nowX <= 8 && nowY <= 8)
                             {
                                 if (Mines[nowX][nowY].IsMine == true)
                                     deleted++;
-                                Mines[nowX][nowY].IsMine = false; // 지뢰개수 보정 필요 enable == true && isMine == false 인 곳에 없어진 지뢰만큼 심기
-                            }
 
+                                Mines[nowX][nowY].IsMine = false;
+                            }
                         }
                     }
+
+                    Random rand = new();
+
+                    while (deleted > 0)
+                    {
+                        int x = rand.Next(9);
+                        int y = rand.Next(9);
+
+                        if (x >= me.getIdxX() - 1 &&
+                            x <= me.getIdxX() + 1 &&
+                            y >= me.getIdxY() - 1 &&
+                            y <= me.getIdxY() + 1)
+                            continue;
+
+                        if (Mines[x][y].IsMine == false)
+                        {
+                            Mines[x][y].IsMine = true;
+                            deleted--;
+                        }
+                    }
+
                     firstTouched = true;
                 }
                 me.Mine_Open(Mines_Count(me));

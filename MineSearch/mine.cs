@@ -6,12 +6,13 @@ using System.ComponentModel;
 namespace MineSearch
 {
     public delegate void MineClick(object sender, MouseEventArgs e);
+
     public class Mine : Button
     {
         public const int X = 60;
         public const int Y = 60;
         public bool IsMine;
-        public bool solved; 
+        public bool solved;
 
         private int idx_y;
         public int getIdxY()
@@ -33,18 +34,12 @@ namespace MineSearch
             idx_x = x;
         }
 
-
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        //public int Idx_Y { get; set; }
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        //public int Idx_X { get; set; }
-
         public Mine(int x, int y, MineClick click)
         {
             this.Tag = this;
             idx_y = y;
             idx_x = x;
-            this.Location = new Point(x*X, y*Y + Form1.MENU_HIGHT);
+            this.Location = new Point(x * X, y * Y + Form1.MENU_HIGHT);
             this.Name = "btnMine";
             this.Size = new Size(X, Y);
             this.TabIndex = 0;
@@ -53,13 +48,9 @@ namespace MineSearch
             this.MouseDown += new MouseEventHandler(click);
         }
 
-        public void GetMine(int random)
+        public void GetMine(bool isMine)
         {
-            
-            if (random > 70)
-                IsMine = true;
-            else
-                IsMine = false;
+            IsMine = isMine;
         }
 
         public void Mine_Open(int count)
@@ -76,11 +67,11 @@ namespace MineSearch
                     this.Text = $"{count}";
                     this.BackColor = Color.FromArgb(212, 225, 225, 225);
                     this.solved = true;
-                    //this.FlatStyle = FlatStyle.Flat;
                 }
                 this.Enabled = false;
             }
         }
+
         public void Set_Flag()
         {
             if (this.Text != "Flag")
@@ -95,8 +86,6 @@ namespace MineSearch
                 this.Text = "";
                 this.solved = false;
             }
-                
-
         }
     }
 }
