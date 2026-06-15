@@ -72,19 +72,22 @@ namespace MineSearch
             }
         }
 
-        public void Set_Flag()
+        public void Set_Flag(ref int Left)
         {
             if (this.Text != "Flag")
             {
                 this.BackColor = Color.Red;
                 this.Text = "Flag";
-                this.solved = true;
+                if (this.IsMine == true)
+                    this.solved = true;
+                Left = Left - 1;
             }
             else
             {
                 this.BackColor = Color.FromArgb(212, 225, 225, 225);
                 this.Text = "";
                 this.solved = false;
+                Left = Left + 1;
             }
         }
     }

@@ -10,7 +10,11 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         List<List<Mine>> Mines = new();
         private int point = 0;
         bool firstTouched = false;
-        
+        bool lost = false;
+        int Left_Mines = 15;
+        int seconds = 0;
+        int minute = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +26,9 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
             this.Width += 9 * Mine.X - ClientRectangle.Width;
             this.Height += 9 * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
             CreateMine();
-
+            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+            timer1.Interval = 1000;
+            timer1.Start();
         }
 
         private void CreateMine()
@@ -165,14 +171,17 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                 if (me.IsMine == true)
                 {
                     lose();
+                    lost = true;
                 }
                 point++;
-                win();
+                win(lost);
             }
             else if (e.Button == MouseButtons.Right)
             {
-                me.Set_Flag();
-                win();
+
+                me.Set_Flag(ref Left_Mines);
+                count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+                win(lost);
             }
         }
 
@@ -183,11 +192,11 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    Mines[i][j].Enabled = false;
+                    Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
                 }
             }
         }
-        private void win()
+        private void win(bool lost)
         {
             int total = 0;
             for (int i = 0; i < 9; i++)
@@ -200,7 +209,7 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                     }
                 }
             }
-            if (total == 81)
+            if (total == 81 && lost == false)
             {
                 MessageBox.Show("clear!");
                 for (int i = 0; i < 9; i++)
@@ -212,20 +221,24 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                 }
             }
         }
-        private void txtRulebox_Click(object sender, EventArgs e)
+
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            Rules frm = new();
-            frm.Text = "Rules";
-            frm.Width = 600;
-            frm.Height = 600;
-            frm.ShowDialog();
+            seconds += 1;
+
+            if (seconds == 60)
+            {
+                seconds = 0;
+                minute++;
+            }
+            time_txtbox.Text = $"{minute}m {seconds}s";
         }
 
-        private void txtRestartBox_Click(object sender, EventArgs e)
+        private void RestartButton_Click(object sender, EventArgs e)
         {
             for (int i = Mines.Count - 1; i >= 0; i--)
             {
-                for (int j = Mines[i].Count - 1; j >= 0 ; j--)
+                for (int j = Mines[i].Count - 1; j >= 0; j--)
                 {
                     Controls.Remove(Mines[i][j]);
                     Mines[i][j].Dispose();
@@ -235,6 +248,18 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
             }
             CreateMine();
             firstTouched = false;
+            lost = false;
+            Left_Mines = 15;
+            point = 0;
+        }
+
+        private void RuleButton_Click(object sender, EventArgs e)
+        {
+            Rules frm = new();
+            frm.Text = "Rules";
+            frm.Width = 600;
+            frm.Height = 600;
+            frm.ShowDialog();
         }
     }
 }

@@ -28,38 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
-            txtRuleBox = new ToolStripTextBox();
-            txtRestartBox = new ToolStripTextBox();
+            time_txtbox = new ToolStripTextBox();
+            RestartButton = new ToolStripMenuItem();
+            RuleButton = new ToolStripMenuItem();
+            count_txtbox = new ToolStripTextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { txtRuleBox, txtRestartBox });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(524, 27);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
-            // txtRuleBox
+            // time_txtbox
             // 
-            txtRuleBox.BackColor = SystemColors.ActiveBorder;
-            txtRuleBox.Name = "txtRuleBox";
-            txtRuleBox.ReadOnly = true;
-            txtRuleBox.Size = new Size(100, 23);
-            txtRuleBox.Text = "규칙";
-            txtRuleBox.Click += txtRulebox_Click;
+            time_txtbox.Alignment = ToolStripItemAlignment.Right;
+            time_txtbox.BackColor = Color.FromArgb(224, 224, 224);
+            time_txtbox.Margin = new Padding(0, 0, 1, 0);
+            time_txtbox.Name = "time_txtbox";
+            time_txtbox.Size = new Size(100, 23);
             // 
-            // txtRestartBox
+            // RestartButton
             // 
-            txtRestartBox.BackColor = SystemColors.ActiveBorder;
-            txtRestartBox.Name = "txtRestartBox";
-            txtRestartBox.ReadOnly = true;
-            txtRestartBox.Size = new Size(100, 23);
-            txtRestartBox.Text = "다시하기";
-            txtRestartBox.Click += txtRestartBox_Click;
+            RestartButton.BackColor = Color.FromArgb(224, 224, 224);
+            RestartButton.Name = "RestartButton";
+            RestartButton.Size = new Size(55, 23);
+            RestartButton.Text = "재시작";
+            RestartButton.Click += RestartButton_Click;
+            // 
+            // RuleButton
+            // 
+            RuleButton.BackColor = Color.FromArgb(224, 224, 224);
+            RuleButton.Margin = new Padding(10, 0, 0, 0);
+            RuleButton.Name = "RuleButton";
+            RuleButton.Size = new Size(43, 23);
+            RuleButton.Text = "규칙";
+            RuleButton.Click += RuleButton_Click;
+            // 
+            // count_txtbox
+            // 
+            count_txtbox.Alignment = ToolStripItemAlignment.Right;
+            count_txtbox.BackColor = Color.FromArgb(224, 224, 224);
+            count_txtbox.Name = "count_txtbox";
+            count_txtbox.Size = new Size(100, 23);
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
             // 
             // Form1
             // 
@@ -80,7 +102,10 @@
         #endregion
 
         private MenuStrip menuStrip1;
-        private ToolStripTextBox txtRuleBox;
-        private ToolStripTextBox txtRestartBox;
+        private ToolStripTextBox time_txtbox;
+        private System.Windows.Forms.Timer timer1;
+        private ToolStripMenuItem RestartButton;
+        private ToolStripMenuItem RuleButton;
+        private ToolStripTextBox count_txtbox;
     }
 }
