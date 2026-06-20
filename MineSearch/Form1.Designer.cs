@@ -34,13 +34,14 @@
             RestartButton = new ToolStripMenuItem();
             RuleButton = new ToolStripMenuItem();
             count_txtbox = new ToolStripTextBox();
+            difficultybutton = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(524, 27);
@@ -79,6 +80,15 @@
             count_txtbox.Name = "count_txtbox";
             count_txtbox.Size = new Size(100, 23);
             // 
+            // difficultybutton
+            // 
+            difficultybutton.BackColor = Color.FromArgb(224, 224, 224);
+            difficultybutton.Margin = new Padding(10, 0, 0, 0);
+            difficultybutton.Name = "difficultybutton";
+            difficultybutton.Size = new Size(83, 23);
+            difficultybutton.Text = "난이도 조절";
+            difficultybutton.Click += difficultybutton_Click;
+            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
@@ -107,5 +117,6 @@
         private ToolStripMenuItem RestartButton;
         private ToolStripMenuItem RuleButton;
         private ToolStripTextBox count_txtbox;
+        private ToolStripMenuItem difficultybutton;
     }
 }

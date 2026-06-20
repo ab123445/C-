@@ -11,9 +11,13 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         private int point = 0;
         bool firstTouched = false;
         bool lost = false;
-        int Left_Mines = 15;
+        int difficulty = 0;
+        int total_Mine = 12;
+        int size = 7;
+        int Left_Mines;
         int seconds = 0;
         int minute = 0;
+        
 
         public Form1()
         {
@@ -23,9 +27,10 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         private void Form1_Load(object sender, EventArgs e)
         {
             //ClientRectangle.Width
-            this.Width += 9 * Mine.X - ClientRectangle.Width;
-            this.Height += 9 * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
+            this.Width += size * Mine.X - ClientRectangle.Width;
+            this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
             CreateMine();
+            Left_Mines = total_Mine;
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
             timer1.Interval = 1000;
             timer1.Start();
@@ -35,11 +40,11 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         {
             Random rand = new();
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < size; i++)
             {
                 Mines.Add(new List<Mine>());
 
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < size; j++)
                 {
                     Mine mine = new(i, j, button_MouseDown);
                     mine.GetMine(false);
@@ -51,10 +56,10 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
 
             int mineCount = 0;
 
-            while (mineCount < 15)
+            while (mineCount < total_Mine)
             {
-                int x = rand.Next(9);
-                int y = rand.Next(9);
+                int x = rand.Next(size);
+                int y = rand.Next(size);
 
                 if (Mines[x][y].IsMine == false)
                 {
@@ -73,7 +78,8 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                 for (int y = -1; y < 2; y++)
                 {
                     if (me.getIdxX() + x >= 0 && me.getIdxY() + y >= 0 &&
-                        me.getIdxX() + x <= 8 && me.getIdxY() + y <= 8)
+                        me.getIdxX() + x < size &&
+                        me.getIdxY() + y < size)
                     {
                         if (Mines[me.getIdxX() + x][me.getIdxY() + y].IsMine == true)
                             mines_count++;
@@ -95,12 +101,12 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                         int nowX = me.getIdxX() + x;
                         int nowY = me.getIdxY() + y;
                         if (nowX >= 0 && nowY >= 0 &&
-                            nowX <= 8 && nowY <= 8)
+                            nowX < size && nowY < size)
                         {
                             if (x == 0 && y == 0)
                                 continue;
                             m = Mines[nowX][nowY];
-                            if (m.Enabled == false)
+                            if (m.opened == false)
                                 continue;
                             m.Mine_Open(Mines_Count(m));
                             if (Mines_Count(m) == 0)
@@ -134,7 +140,8 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                             int nowY = me.getIdxY() + y;
 
                             if (nowX >= 0 && nowY >= 0 &&
-                                nowX <= 8 && nowY <= 8)
+                                nowX < size &&
+                                nowY < size)
                             {
                                 if (Mines[nowX][nowY].IsMine == true)
                                     deleted++;
@@ -148,8 +155,8 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
 
                     while (deleted > 0)
                     {
-                        int x = rand.Next(9);
-                        int y = rand.Next(9);
+                        int x = rand.Next(size);
+                        int y = rand.Next(size);
 
                         if (x >= me.getIdxX() - 1 &&
                             x <= me.getIdxX() + 1 &&
@@ -168,7 +175,7 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                 }
                 me.Mine_Open(Mines_Count(me));
                 auto_open(me);
-                if (me.IsMine == true)
+                if (me.IsMine == true && me.Text != "Flag")
                 {
                     lose();
                     lost = true;
@@ -188,9 +195,9 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         private void lose()
         {
             MessageBox.Show($"Game Over\npoint : {point}점");
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < size; j++)
                 {
                     Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
                 }
@@ -199,9 +206,9 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
         private void win(bool lost)
         {
             int total = 0;
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < size; j++)
                 {
                     if (Mines[i][j].solved == true)
                     {
@@ -209,14 +216,14 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
                     }
                 }
             }
-            if (total == 81 && lost == false)
+            if (total == size*size && lost == false)
             {
                 MessageBox.Show("clear!");
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < size; i++)
                 {
-                    for (int j = 0; j < 9; j++)
+                    for (int j = 0; j < size; j++)
                     {
-                        Mines[i][j].Enabled = false;
+                        Mines[i][j].opened = false;
                     }
                 }
             }
@@ -249,7 +256,7 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
             CreateMine();
             firstTouched = false;
             lost = false;
-            Left_Mines = 15;
+            Left_Mines = total_Mine;
             point = 0;
         }
 
@@ -260,6 +267,58 @@ namespace MineSearch //지뢰 개수 고정 구현 필요(15 / 81)
             frm.Width = 600;
             frm.Height = 600;
             frm.ShowDialog();
+        }
+
+        private void difficultybutton_Click(object sender, EventArgs e)
+        {
+            if (difficulty == 0)
+            {
+                size = 9;
+                total_Mine = 20;
+                difficulty++;
+                difficultybutton.Text = "2단계";
+            }
+            else if (difficulty == 1)
+            {
+                size = 11;
+                total_Mine = 30;
+                difficulty++;
+                difficultybutton.Text = "3단계";
+            }
+            else if (difficulty == 2)
+            {
+                size = 13;
+                total_Mine = 35;
+                difficulty++;
+                difficultybutton.Text = "4단계";
+            }
+            else if (difficulty == 3)
+            {
+                size = 7;
+                total_Mine = 12;
+                difficulty = 0;
+                difficultybutton.Text = "1단계";
+            }
+
+            
+            this.Width += size * Mine.X - ClientRectangle.Width;
+            this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
+            for (int i = Mines.Count - 1; i >= 0; i--)
+                {
+                    for (int j = Mines[i].Count - 1; j >= 0; j--)
+                    {
+                        Controls.Remove(Mines[i][j]);
+                        Mines[i][j].Dispose();
+                        Mines[i].RemoveAt(j);
+                    }
+                    Mines.Remove(Mines[i]);
+                }
+            CreateMine();
+            firstTouched = false;
+            lost = false;
+            Left_Mines = total_Mine;
+            point = 0;
+            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
         }
     }
 }

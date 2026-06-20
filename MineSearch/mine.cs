@@ -13,7 +13,7 @@ namespace MineSearch
         public const int Y = 60;
         public bool IsMine;
         public bool solved;
-
+        public bool opened = true;
         private int idx_y;
         public int getIdxY()
         {
@@ -65,10 +65,11 @@ namespace MineSearch
                 else
                 {
                     this.Text = $"{count}";
-                    this.BackColor = Color.FromArgb(212, 225, 225, 225);
+                    //this.BackColor = Color.FromArgb(212, 225, 225, 225);
+                    this.BackColor = Color.LightGray;
                     this.solved = true;
                 }
-                this.Enabled = false;
+                this.opened = false;
             }
         }
 
