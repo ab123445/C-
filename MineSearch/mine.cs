@@ -13,7 +13,7 @@ namespace MineSearch
         public const int Y = 60;
         public bool IsMine;
         public bool solved;
-        public bool opened = true;
+        public bool opened = false;
         private int idx_y;
         public int getIdxY()
         {
@@ -69,13 +69,13 @@ namespace MineSearch
                     this.BackColor = Color.LightGray;
                     this.solved = true;
                 }
-                this.opened = false;
+                this.opened = true;
             }
         }
 
         public void Set_Flag(ref int Left)
         {
-            if (this.Text != "Flag")
+            if (this.Text != "Flag" && opened == false)
             {
                 this.BackColor = Color.Red;
                 this.Text = "Flag";
@@ -83,7 +83,7 @@ namespace MineSearch
                     this.solved = true;
                 Left = Left - 1;
             }
-            else
+            else if (this.Text == "Flag" && opened == false)
             {
                 this.BackColor = Color.FromArgb(212, 225, 225, 225);
                 this.Text = "";
