@@ -6,6 +6,7 @@ namespace MineSearch
 {
     public partial class Form1 : Form
     {
+        //클리어 한번 뜨게 하고, 타이머 조정하기
         public const int MENU_HIGHT = 30;
         List<List<Mine>> Mines = new();
         private int point = 0;
@@ -17,7 +18,7 @@ namespace MineSearch
         int Left_Mines;
         int seconds = 0;
         int minute = 0;
-        
+
 
         public Form1()
         {
@@ -26,6 +27,11 @@ namespace MineSearch
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //DialogResult aaa = MessageBox.Show("test", "title", MessageBoxButtons.OKCancel);
+            //if(aaa == DialogResult.OK)
+            //{
+            //    MessageBox.Show("ok");
+            //}
 
             this.Width += size * Mine.X - ClientRectangle.Width;
             this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
@@ -104,7 +110,7 @@ namespace MineSearch
                         if (x == 0 && y == 0)
                             continue;
                         m = Mines[nowX][nowY];
-                        if (m.opened == true)
+                        if (m.Enabled == false)
                             continue;
                         if (m.Text == "Flag")
                             continue;
@@ -130,7 +136,7 @@ namespace MineSearch
                             if (x == 0 && y == 0)
                                 continue;
                             m = Mines[nowX][nowY];
-                            if (m.opened == true)
+                            if (m.Enabled == false)
                                 continue;
                             m.Mine_Open(Mines_Count(m));
                             if (Mines_Count(m) == 0)
@@ -231,7 +237,7 @@ namespace MineSearch
         }
         public void right_click(Mine me)
         {
-            if (me.opened == true)
+            if (me.Enabled == false)
             {
                 Mine m;
                 if (check_surround_flags(me) == Mines_Count(me))
@@ -257,7 +263,7 @@ namespace MineSearch
                     }
                 }
             }
-            else if (me.opened == false)
+            else if (me.Enabled == true)
             {
                 me.Set_Flag(ref Left_Mines);
                 count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
@@ -286,6 +292,7 @@ namespace MineSearch
         private void lose()
         {
             MessageBox.Show($"Game Over\npoint : {point}점");
+            timer1.Stop();
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -307,14 +314,15 @@ namespace MineSearch
                     }
                 }
             }
-            if (total == size*size && lost == false)
+            if (total == size * size - total_Mine && lost == false)
             {
+                timer1.Stop();
                 MessageBox.Show("clear!");
                 for (int i = 0; i < size; i++)
                 {
                     for (int j = 0; j < size; j++)
                     {
-                        Mines[i][j].opened = true;
+                        Mines[i][j].Enabled = false;
                     }
                 }
             }
@@ -350,6 +358,9 @@ namespace MineSearch
             Left_Mines = total_Mine;
             point = 0;
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+            minute = 0;
+            seconds = 0;
+            timer1.Start();
         }
 
         private void RuleButton_Click(object sender, EventArgs e)
@@ -392,25 +403,62 @@ namespace MineSearch
                 difficultybutton.Text = "1단계";
             }
 
-            
+
             this.Width += size * Mine.X - ClientRectangle.Width;
             this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
             for (int i = Mines.Count - 1; i >= 0; i--)
+            {
+                for (int j = Mines[i].Count - 1; j >= 0; j--)
                 {
-                    for (int j = Mines[i].Count - 1; j >= 0; j--)
-                    {
-                        Controls.Remove(Mines[i][j]);
-                        Mines[i][j].Dispose();
-                        Mines[i].RemoveAt(j);
-                    }
-                    Mines.Remove(Mines[i]);
+                    Controls.Remove(Mines[i][j]);
+                    Mines[i][j].Dispose();
+                    Mines[i].RemoveAt(j);
                 }
+                Mines.Remove(Mines[i]);
+            }
             CreateMine();
             firstTouched = false;
             lost = false;
             Left_Mines = total_Mine;
             point = 0;
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+            minute = 0;
+            seconds = 0;
+            timer1.Start();
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            Control control = GetChildAtPoint(e.Location);
+            Mine me = control as Mine;
+            if (me == null) return;
+            if (me.Enabled == false)
+            {
+                Mine m;
+                if (check_surround_flags(me) == Mines_Count(me))
+                {
+                    for (int x = -1; x <= 1; x++)
+                    {
+                        for (int y = -1; y <= 1; y++)
+                        {
+                            int nowX = me.getIdxX() + x;
+                            int nowY = me.getIdxY() + y;
+
+                            if (nowX >= 0 && nowY >= 0 &&
+                                nowX < size && nowY < size)
+                            {
+                                m = Mines[nowX][nowY];
+                                if (x == 0 && y == 0)
+                                    continue;
+                                if (m.Text == "Flag")
+                                    continue;
+                                left_click(m);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
