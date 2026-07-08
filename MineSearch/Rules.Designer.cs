@@ -48,6 +48,7 @@
             ClientSize = new Size(584, 561);
             Controls.Add(richTextBox1);
             Name = "Rules";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Rules";
             Load += Rules_Load;
             ResumeLayout(false);
