@@ -1,23 +1,24 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace MineSearch
 {
     public partial class Form1 : Form
     {
         //클리어 한번 뜨게 하고, 타이머 조정하기
+        
         public const int MENU_HIGHT = 30;
         List<List<Mine>> Mines = new();
         private int point = 0;
         bool firstTouched = false;
-        bool lost = false;
+
         int difficulty = 0;
         int total_Mine = 12;
         int size = 7;
         int Left_Mines;
-        int seconds = 0;
-        int minute = 0;
+        double seconds = 0;
 
 
         public Form1()
@@ -27,19 +28,16 @@ namespace MineSearch
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //DialogResult aaa = MessageBox.Show("test", "title", MessageBoxButtons.OKCancel);
-            //if(aaa == DialogResult.OK)
-            //{
-            //    MessageBox.Show("ok");
-            //}
+
 
             this.Width += size * Mine.X - ClientRectangle.Width;
             this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
             CreateMine();
             Left_Mines = total_Mine;
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-            timer1.Interval = 1000;
-            timer1.Start();
+            time_txtbox.Text = $"{seconds}s";
+            timer1.Interval = 100;
+            //timer1.Start();
         }
 
         private void CreateMine()
@@ -173,6 +171,7 @@ namespace MineSearch
         }
         public void first_touch(Mine me)
         {
+            timer1.Start();
             int deleted = 0;
 
             for (int x = -1; x <= 1; x++)
@@ -226,14 +225,14 @@ namespace MineSearch
             me.Mine_Open(Mines_Count(me));
             auto_open(me);
 
-
+            point++;
             if (me.IsMine == true && me.Text != "Flag")
             {
                 lose();
-                lost = true;
             }
-            point++;
-            win(lost);
+            else
+                win();
+
         }
         public void right_click(Mine me)
         {
@@ -267,7 +266,7 @@ namespace MineSearch
             {
                 me.Set_Flag(ref Left_Mines);
                 count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-                win(lost);
+                win();
             }
         }
         public void button_MouseDown(object sender, MouseEventArgs e)
@@ -300,8 +299,13 @@ namespace MineSearch
                     Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
                 }
             }
+            DialogResult aaa = MessageBox.Show("다시 하시겠습니까?", "", MessageBoxButtons.YesNo);
+            if (aaa == DialogResult.Yes)
+            {
+                Restart();
+            }
         }
-        private void win(bool lost)
+        private void win()
         {
             int total = 0;
             for (int i = 0; i < size; i++)
@@ -314,7 +318,8 @@ namespace MineSearch
                     }
                 }
             }
-            if (total == size * size - total_Mine && lost == false)
+            
+            if (total == size * size - total_Mine)
             {
                 timer1.Stop();
                 MessageBox.Show("clear!");
@@ -325,22 +330,21 @@ namespace MineSearch
                         Mines[i][j].Enabled = false;
                     }
                 }
+                DialogResult aaa = MessageBox.Show("다시 하시겠습니까?", "", MessageBoxButtons.YesNo);
+                if (aaa == DialogResult.Yes)
+                {
+                    Restart();
+                }
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            seconds += 1;
-
-            if (seconds == 60)
-            {
-                seconds = 0;
-                minute++;
-            }
-            time_txtbox.Text = $"{minute}m {seconds}s";
+            seconds += 0.1;
+            time_txtbox.Text = $"{seconds:F1}s";
         }
 
-        private void RestartButton_Click(object sender, EventArgs e)
+        private void Restart()
         {
             for (int i = Mines.Count - 1; i >= 0; i--)
             {
@@ -354,13 +358,17 @@ namespace MineSearch
             }
             CreateMine();
             firstTouched = false;
-            lost = false;
             Left_Mines = total_Mine;
             point = 0;
-            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-            minute = 0;
             seconds = 0;
-            timer1.Start();
+            time_txtbox.Text = $"{seconds}s";
+            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+            timer1.Stop();
+        }
+
+        private void RestartButton_Click(object sender, EventArgs e)
+        {
+            Restart();
         }
 
         private void RuleButton_Click(object sender, EventArgs e)
@@ -418,13 +426,12 @@ namespace MineSearch
             }
             CreateMine();
             firstTouched = false;
-            lost = false;
             Left_Mines = total_Mine;
             point = 0;
-            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-            minute = 0;
             seconds = 0;
-            timer1.Start();
+            time_txtbox.Text = $"{seconds}s";
+            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+            timer1.Stop();
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)

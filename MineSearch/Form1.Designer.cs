@@ -102,7 +102,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "지뢰찾기";
             Load += Form1_Load;
             MouseClick += Form1_MouseClick;
             menuStrip1.ResumeLayout(false);
