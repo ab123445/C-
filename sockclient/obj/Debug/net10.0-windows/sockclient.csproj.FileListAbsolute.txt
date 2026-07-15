@@ -1,0 +1,16 @@
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\bin\Debug\net10.0-windows\sockclient.exe
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\bin\Debug\net10.0-windows\sockclient.deps.json
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\bin\Debug\net10.0-windows\sockclient.runtimeconfig.json
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\bin\Debug\net10.0-windows\sockclient.dll
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\bin\Debug\net10.0-windows\sockclient.pdb
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.Form1.resources
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.csproj.GenerateResource.cache
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.AssemblyInfoInputs.cache
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.AssemblyInfo.cs
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.csproj.CoreCompileInputs.cache
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.dll
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\refint\sockclient.dll
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.pdb
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.genruntimeconfig.cache
+C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\ref\sockclient.dll
