@@ -14,3 +14,19 @@ C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\
 C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.pdb
 C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\sockclient.genruntimeconfig.cache
 C:\Users\sw\Desktop\수강생204\변지온\sockclient\obj\Debug\net10.0-windows\ref\sockclient.dll
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.Form1.resources
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.csproj.GenerateResource.cache
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.AssemblyInfoInputs.cache
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.AssemblyInfo.cs
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.dll
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\refint\sockclient.dll
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.pdb
+C:\Users\USER\OneDrive\바탕 화면\sockclient\bin\Debug\net10.0-windows\sockclient.exe
+C:\Users\USER\OneDrive\바탕 화면\sockclient\bin\Debug\net10.0-windows\sockclient.deps.json
+C:\Users\USER\OneDrive\바탕 화면\sockclient\bin\Debug\net10.0-windows\sockclient.runtimeconfig.json
+C:\Users\USER\OneDrive\바탕 화면\sockclient\bin\Debug\net10.0-windows\sockclient.dll
+C:\Users\USER\OneDrive\바탕 화면\sockclient\bin\Debug\net10.0-windows\sockclient.pdb
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\sockclient.genruntimeconfig.cache
+C:\Users\USER\OneDrive\바탕 화면\sockclient\obj\Debug\net10.0-windows\ref\sockclient.dll

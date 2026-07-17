@@ -35,6 +35,7 @@
             // 
             // ConsoleListBox
             // 
+            ConsoleListBox.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
             ConsoleListBox.FormattingEnabled = true;
             ConsoleListBox.Location = new Point(12, 42);
             ConsoleListBox.Name = "ConsoleListBox";

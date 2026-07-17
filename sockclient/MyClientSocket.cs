@@ -3,61 +3,87 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms; // Application을 쓰기 위해 유지
 
 namespace sockclient
 {
-    //buff를 form1에서받자
     public class MyClientSocket
     {
         Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Form1 form1; // 선언만 위로 빼고, 대입은 start() 안에서 합니다.
+        bool connecting = false;
+
         public void start()
         {
-            // (1) 소켓 객체 생성 (TCP 소켓)
+            form1 = Application.OpenForms["Form1"] as Form1;
 
-
-            // (2) 서버에 연결
-            var ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
-            sock.Connect(ep);
-
-            string cmd = string.Empty;
-            byte[] receiverBuff = new byte[8192];
-
-            Console.WriteLine("Connected... Enter Q to exit");
-
-            // Q 를 누를 때까지 계속 Echo 실행
-            while ((cmd = Console.ReadLine()) != "Q")
+            try
             {
-                byte[] buff = Encoding.UTF8.GetBytes(cmd);
+                var ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
+                sock.Connect(ep);
 
-                // (3) 서버에 데이타 전송
-                socksend(sock, buff);
-
-                // (4) 서버에서 데이타 수신
-                Console.WriteLine(sockreceive(receiverBuff));
+                form1?.sendToMainThread("Connected... Enter Q to exit");
+                connecting = true;
+            }
+            catch (Exception ex)
+            {
+                form1?.sendToMainThread($"Connection Failed: {ex.Message}");
+                return;
             }
 
-            // (5) 소켓 닫기
+            byte[] receiverBuff = new byte[8192];
+
+            while (connecting == true)
+            {
+                sockreceive(receiverBuff);
+            }
+            form1?.sendToMainThread($"Disconnected.");
             clientclose();
         }
-        public void socksend(Socket client, byte[] buff)
+
+        public void socksend(byte[] buff)
         {
-            client.Send(buff, SocketFlags.None);
+            if (sock.Connected) sock.Send(buff, SocketFlags.None);
         }
+
         public void clientclose()
         {
+            connecting = false;
             sock.Close();
         }
+
+        public void SetConnecting(bool a)
+        {
+            connecting = a;
+        }
+
         public void sockreceive(byte[] receiverBuff)
         {
-            Form1 form1 = Application.OpenForms["Form1"] as Form1;
             if (form1 == null) return;
 
+            try
+            {
+                int n = sock.Receive(receiverBuff);
 
+                if (n == 0)
+                {
+                    connecting = false;
+                    form1.sendToMainThread("Server disconnected.");
+                    return;
+                }
 
-            int n = sock.Receive(receiverBuff);
-
-            string data = Encoding.UTF8.GetString(receiverBuff, 0, n);
-            form1.sendToMainThread(data);
+                string data = Encoding.UTF8.GetString(receiverBuff, 0, n);
+                form1.sendToMainThread($"Server: {data}");
+            }
+            catch
+            {
+                // 서버가 비정상 종료(강제 종료) 되었을 때 예외 처리
+                if (connecting)
+                {
+                    connecting = false;
+                    form1.sendToMainThread("Server lost connection broken.");
+                }
+            }
         }
     }
 }
