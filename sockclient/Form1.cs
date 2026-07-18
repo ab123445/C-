@@ -41,20 +41,43 @@ namespace sockclient
             {
                 sendText = SenderTxtBox.Text;
                 SenderTxtBox.Text = "";
-
+                string[] command = sendText.Split(' ');
                 // [상황 2] 우리가 Q로 연결을 끊었을 때
                 if (sendText == "Q")
                 {
-                    setListBox("[System] 'Q'를 입력하여 연결을 종료합니다.");
+                    setListBox("Client lost connection.");
                     client.SetConnecting(false);
                     client.clientclose(); // 소켓을 확실히 닫아 수신 루프를 탈출시킵니다.
                     return;
                 }
+                else if (command[0] == "/client")
+                {
+                    //lblClientCode.Text = parts[1];
+                    byte[] buff = Encoding.UTF8.GetBytes(sendText);
+                    client.socksend(buff);
+                }
+                else if (command[0] == "/echo")
+                {
 
-                byte[] buff = Encoding.UTF8.GetBytes(sendText);
-                client.socksend(buff);
-                setListBox(sendText);
+                    byte[] buff = Encoding.UTF8.GetBytes(sendText);
+                    byte[] senderInfo = Encoding.UTF8.GetBytes(
+                        $"/senderInfo {client.ClientCode}");
+                    client.socksend(senderInfo);
+                    client.socksend(buff);
+                    setListBox($"[To. {command[1]}] {command[2]}");
+                }
+                else
+                {
+                    byte[] buff = Encoding.UTF8.GetBytes(sendText);
+                    client.socksend(buff);
+                    setListBox($"[To. Server] {sendText}");
+                }
+
             }
+        }
+        public void setLabel(int s)
+        {
+            lblClientCode.Text = s.ToString();
         }
     }
 }

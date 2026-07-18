@@ -12,6 +12,7 @@ namespace sockclient
         Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         Form1 form1; // 선언만 위로 빼고, 대입은 start() 안에서 합니다.
         bool connecting = false;
+        public int ClientCode;
 
         public void start()
         {
@@ -25,9 +26,9 @@ namespace sockclient
                 form1?.sendToMainThread("Connected... Enter Q to exit");
                 connecting = true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                form1?.sendToMainThread($"Connection Failed: {ex.Message}");
+                form1?.sendToMainThread($"Connection Failed: {e.Message}");
                 return;
             }
 
@@ -73,7 +74,24 @@ namespace sockclient
                 }
 
                 string data = Encoding.UTF8.GetString(receiverBuff, 0, n);
-                form1.sendToMainThread($"Server: {data}");
+                string[] command = data.Split();
+                if (command[0] == "/SetClient")
+                {
+                    ClientCode = int.Parse(command[1]);
+                    form1.sendToMainThread($"Your code is {ClientCode}.");
+                    form1.setLabel(ClientCode);
+                }
+                if (command[0] == "/echo")
+                {
+                    if (command[1] == ClientCode.ToString())
+                    {
+                        form1.sendToMainThread($"[{command[3]}] {command[2]}");
+                    }
+                }
+                //else
+                //{
+                //    form1.sendToMainThread($"[Server] {data}");
+                //}
             }
             catch
             {
@@ -81,7 +99,7 @@ namespace sockclient
                 if (connecting)
                 {
                     connecting = false;
-                    form1.sendToMainThread("Server lost connection broken.");
+                    form1.sendToMainThread("Server lost connection.");
                 }
             }
         }

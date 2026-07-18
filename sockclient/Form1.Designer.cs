@@ -31,6 +31,7 @@
             ConsoleListBox = new ListBox();
             SenderTxtBox = new TextBox();
             SenderBtn = new Button();
+            lblClientCode = new Label();
             SuspendLayout();
             // 
             // ConsoleListBox
@@ -61,11 +62,22 @@
             SenderBtn.UseVisualStyleBackColor = true;
             SenderBtn.Click += SenderBtn_Click;
             // 
+            // lblClientCode
+            // 
+            lblClientCode.AutoSize = true;
+            lblClientCode.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            lblClientCode.Location = new Point(12, 9);
+            lblClientCode.Name = "lblClientCode";
+            lblClientCode.Size = new Size(17, 21);
+            lblClientCode.TabIndex = 3;
+            lblClientCode.Text = "?";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 461);
+            Controls.Add(lblClientCode);
             Controls.Add(SenderBtn);
             Controls.Add(SenderTxtBox);
             Controls.Add(ConsoleListBox);
@@ -81,5 +93,6 @@
         private ListBox ConsoleListBox;
         private TextBox SenderTxtBox;
         private Button SenderBtn;
+        private Label lblClientCode;
     }
 }
