@@ -53,28 +53,34 @@ namespace sockclient
                 else if (command[0] == "/client")
                 {
                     //lblClientCode.Text = parts[1];
-                    byte[] buff = Encoding.UTF8.GetBytes(sendText);
-                    client.socksend(buff);
+                    client.socksend(sendText);
                 }
                 else if (command[0] == "/echo")
                 {
 
-                    byte[] buff = Encoding.UTF8.GetBytes(sendText);
-                    byte[] senderInfo = Encoding.UTF8.GetBytes(
-                        $"/senderInfo {client.ClientCode}");
-                    client.socksend(senderInfo);
-                    client.socksend(buff);
-                    setListBox($"[To. {command[1]}] {command[2]}");
+                    string data = $"{sendText} {client.ClientCode}";
+                    client.socksend(data);
+                    string content = "";
+                    for (int i = 2; i < command.Length; i++)
+                    {
+                        content = $"{content} {command[i]}";
+                    }
+                    setListBox($"[To. {command[1]}]{content}");
                 }
-                else
+                else if (command[0] == "/makebtn") // /makebtn msg
                 {
-                    byte[] buff = Encoding.UTF8.GetBytes(sendText);
-                    client.socksend(buff);
-                    setListBox($"[To. Server] {sendText}");
+
+                }
+                
+                else
+                    {
+                        client.socksend(sendText);
+                        setListBox($"[To. Server] {sendText}");
+                    }
                 }
 
             }
-        }
+        
         public void setLabel(int s)
         {
             lblClientCode.Text = s.ToString();
