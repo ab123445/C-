@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sw\\Desktop\\수강생204\\변지온\\sockclient\\sockclient.csproj": {}
+    "C:\\Users\\USER\\OneDrive\\바탕 화면\\sockclient\\sockclient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sw\\Desktop\\수강생204\\변지온\\sockclient\\sockclient.csproj": {
+    "C:\\Users\\USER\\OneDrive\\바탕 화면\\sockclient\\sockclient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sw\\Desktop\\수강생204\\변지온\\sockclient\\sockclient.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\OneDrive\\바탕 화면\\sockclient\\sockclient.csproj",
         "projectName": "sockclient",
-        "projectPath": "C:\\Users\\sw\\Desktop\\수강생204\\변지온\\sockclient\\sockclient.csproj",
-        "packagesPath": "C:\\Users\\sw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sw\\Desktop\\수강생204\\변지온\\sockclient\\obj\\",
+        "projectPath": "C:\\Users\\USER\\OneDrive\\바탕 화면\\sockclient\\sockclient.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\OneDrive\\바탕 화면\\sockclient\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0-windows": {
@@ -66,7 +70,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

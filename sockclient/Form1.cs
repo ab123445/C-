@@ -57,7 +57,6 @@ namespace sockclient
                 }
                 else if (command[0] == "/echo")
                 {
-
                     string data = $"{sendText} {client.ClientCode}";
                     client.socksend(data);
                     string content = "";
@@ -67,20 +66,29 @@ namespace sockclient
                     }
                     setListBox($"[To. {command[1]}]{content}");
                 }
-                else if (command[0] == "/makebtn") // /makebtn msg
+                else if (command[0] == "/makebtn") // /makebtn tedsad
                 {
-
-                }
-                
-                else
+                    if (command.Length > 1)
                     {
-                        client.socksend(sendText);
-                        setListBox($"[To. Server] {sendText}");
+                        Button btn = new Button();
+                        btn.Text = command[1];
+                        btn.Location = new Point(12, 425);
+                        btn.Name = command[1];
+                        btn.Size = new Size(75, 23);
+                        btn.TabIndex = 4;
+                        btn.Text = command[1];
+                        btn.UseVisualStyleBackColor = true;
+                        this.Controls.Add(btn);
                     }
                 }
-
+                else
+                {
+                    client.socksend(sendText);
+                    setListBox($"[To. Server] {sendText}");
+                }
             }
-        
+        }
+
         public void setLabel(int s)
         {
             lblClientCode.Text = s.ToString();
