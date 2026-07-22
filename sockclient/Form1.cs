@@ -8,6 +8,8 @@ namespace sockclient
     {
         string sendText;
         MyClientSocket client = new();
+        int NowBtnX = 0;
+        int NowBtnY = 0;
         public Form1()
         {
             InitializeComponent();
@@ -33,6 +35,25 @@ namespace sockclient
         void setListBox(string data)
         {
             ConsoleListBox.Items.Add(data);
+        }
+
+        public void makeBtn(string str)
+        {
+            if (NowBtnX == 4)
+            {
+                NowBtnX = 0;
+                NowBtnY += 1;
+            }
+            Button btn = new Button();
+            btn.Text = str;
+            btn.Location = new Point(NowBtnX * 85 + 12, 425 + NowBtnY * 30);
+            btn.Name = str;
+            btn.Size = new Size(75, 23);
+            btn.TabIndex = 4;
+            btn.Text = str;
+            btn.UseVisualStyleBackColor = true;
+            this.Controls.Add(btn);
+            NowBtnX += 1;
         }
 
         private void SenderBtn_Click(object sender, EventArgs e)
@@ -66,20 +87,9 @@ namespace sockclient
                     }
                     setListBox($"[To. {command[1]}]{content}");
                 }
-                else if (command[0] == "/makebtn") // /makebtn tedsad
+                else if (command[0] == "/makebtn")
                 {
-                    if (command.Length > 1)
-                    {
-                        Button btn = new Button();
-                        btn.Text = command[1];
-                        btn.Location = new Point(12, 425);
-                        btn.Name = command[1];
-                        btn.Size = new Size(75, 23);
-                        btn.TabIndex = 4;
-                        btn.Text = command[1];
-                        btn.UseVisualStyleBackColor = true;
-                        this.Controls.Add(btn);
-                    }
+                    makeBtn(command[1]);
                 }
                 else
                 {

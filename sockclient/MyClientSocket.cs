@@ -64,7 +64,7 @@ namespace sockclient
             if (form1 == null) return;
 
             try
-            {
+            { 
                 int n = sock.Receive(receiverBuff);
 
                 //if (n == 0)
@@ -91,10 +91,11 @@ namespace sockclient
                     }
                     form1.sendToMainThread($"[{command[command.Length - 1]}]{content}");
                 }
-                //else
-                //{
-                //    form1.sendToMainThread($"[Server] {data}");
-                //}
+                if (command[0] == "/Join")
+                {
+                    form1.makeBtn(command[1]);
+                    form1.sendToMainThread($"Client {command[1]} Joined.");
+                }
             }
             catch
             {
