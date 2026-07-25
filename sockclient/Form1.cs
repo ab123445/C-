@@ -22,7 +22,7 @@ namespace sockclient
             t1.Start();
         }
 
-        public void sendToMainThread(string s)
+        public void sendToMainThread(string s) //수정필요
         {
             if (this.InvokeRequired)
             {

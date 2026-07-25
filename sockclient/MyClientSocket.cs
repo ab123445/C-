@@ -80,7 +80,7 @@ namespace sockclient
                 {
                     ClientCode = int.Parse(command[1]);
                     form1.sendToMainThread($"Your code is {ClientCode}.");
-                    form1.setLabel(ClientCode);
+                    form1.setLabel(ClientCode); //여기 함수들 다 sendToMainThread로 옮겨야함
                 }
                 if (command[0] == "/echo")
                 {
@@ -90,6 +90,10 @@ namespace sockclient
                         content = $"{content} {command[i]}";
                     }
                     form1.sendToMainThread($"[{command[command.Length - 1]}]{content}");
+                }
+                if (command[0] == "/makeBtn")
+                {
+                    form1.makeBtn(command[1]);
                 }
                 if (command[0] == "/Join")
                 {
