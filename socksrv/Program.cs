@@ -36,12 +36,10 @@ namespace socksrv
                     // (4) 연결을 받아들여 새 소켓 생성 (하나의 연결만 받아들임)
                     Socket clientSock = serverSock.Accept();
                     clientSocks.Add(client_number, clientSock);
-                    
-                    
-                    client_number += 1;
 
                     Thread t1 = new Thread(new ThreadStart(() => sockrecv(client_number)));
                     t1.Start();
+                    client_number += 1;
                 }
                 catch
                 {
@@ -83,9 +81,9 @@ namespace socksrv
             byte[] buff = new byte[8192];
 
             //클라이언트 번호 주기
-            socksend(client_number, $"/SetClient {client_number}");
+            socksend(num, $"/SetClient {num}");
             //나에게 원래 있던 클라이언트들 버튼 생성
-
+            socksend(num, $"/makeBtn {num}");
             //주변 클라이언트들에게 내 버튼 생성
 
 
@@ -122,8 +120,8 @@ namespace socksrv
         }
         void clientclose(int i)
         {
-            clientSocks.Remove(i);
             clientSocks[i].Close();
+            clientSocks.Remove(i);
         }
     }
 }
