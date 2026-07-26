@@ -23,12 +23,12 @@ namespace sockclient
                 var ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
                 sock.Connect(ep);
 
-                form1?.sendToMainThread("Connected... Enter Q to exit");
+                form1?.sendToMainThread("/msg" ,"Connected... Enter Q to exit");
                 connecting = true;
             }
             catch (Exception e)
             {
-                form1?.sendToMainThread($"Connection Failed: {e.Message}");
+                form1?.sendToMainThread("/msg", $"Connection Failed: {e.Message}");
                 return;
             }
 
@@ -38,7 +38,7 @@ namespace sockclient
             {
                 sockreceive(receiverBuff);
             }
-            form1?.sendToMainThread($"Disconnected.");
+            form1?.sendToMainThread("/msg", $"Disconnected.");
             clientclose();
         }
 
@@ -64,50 +64,52 @@ namespace sockclient
             if (form1 == null) return;
 
             try
-            { 
+            {
                 int n = sock.Receive(receiverBuff);
 
-                //if (n == 0)
-                //{
-                //    connecting = false;
-                //    form1.sendToMainThread("Server disconnected.");
-                //    return;
-                //}
-
                 string data = Encoding.UTF8.GetString(receiverBuff, 0, n);
-                string[] command = data.Split();
-                if (command[0] == "/SetClient")
+
+                string[] lines = data.Split('\n');
+
+                foreach (string line in lines)
                 {
-                    ClientCode = int.Parse(command[1]);
-                    form1.sendToMainThread($"Your code is {ClientCode}.");
-                    form1.setLabel(ClientCode); //여기 함수들 다 sendToMainThread로 옮겨야함
-                }
-                if (command[0] == "/echo")
-                {
-                    string content = "";
-                    for (int i = 2; i < command.Length - 1; i++)
+                    if (line == "")
+                        continue;
+
+                    string[] command = line.Trim().Split(' ');
+
+                    if (command[0] == "/Init")
                     {
-                        content = $"{content} {command[i]}";
+                        ClientCode = int.Parse(command[1]);
+                        form1.sendToMainThread("/msg", $"Your code is {ClientCode}.");
+                        form1.sendToMainThread("/setLabel", ClientCode.ToString());
                     }
-                    form1.sendToMainThread($"[{command[command.Length - 1]}]{content}");
-                }
-                if (command[0] == "/makeBtn")
-                {
-                    form1.makeBtn(command[1]);
-                }
-                if (command[0] == "/Join")
-                {
-                    form1.makeBtn(command[1]);
-                    form1.sendToMainThread($"Client {command[1]} Joined.");
+                    else if (command[0] == "/echo")
+                    {
+                        string content = "";
+                        for (int i = 2; i < command.Length - 1; i++)
+                        {
+                            content += " " + command[i];
+                        }
+                        form1.sendToMainThread("/msg", $"[{command[command.Length - 1]}]{content}");
+                    }
+                    else if (command[0] == "/makeBtn")
+                    {
+                        form1.sendToMainThread("/makeBtn", command[1]);
+                    }
+                    else if (command[0] == "/Join")
+                    {
+                        form1.sendToMainThread("/makeBtn", command[1]);
+                        form1.sendToMainThread("/msg", $"Client {command[1]} Joined.");
+                    }
                 }
             }
             catch
             {
-                // 서버가 비정상 종료(강제 종료) 되었을 때 예외 처리
                 if (connecting)
                 {
                     connecting = false;
-                    form1.sendToMainThread("Server lost connection.");
+                    form1.sendToMainThread("/msg", "Server lost connection.");
                 }
             }
         }

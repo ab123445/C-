@@ -22,14 +22,26 @@ namespace sockclient
             t1.Start();
         }
 
-        public void sendToMainThread(string s) //수정필요
+        public void sendToMainThread(string command, string data)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new Action(() => sendToMainThread(s)));
+                this.BeginInvoke(new Action(() => sendToMainThread(command, data)));
                 return;
             }
-            setListBox(s);
+
+            if (command == "/msg")
+            {
+                setListBox(data);
+            }
+            else if (command == "/makeBtn")
+            {
+                makeBtn(data);
+            }
+            else if (command == "/setLabel")
+            {
+                lblClientCode.Text = data;
+            }
         }
 
         void setListBox(string data)
