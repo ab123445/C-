@@ -35,11 +35,14 @@ namespace socksrv
                 {
                     // (4) 연결을 받아들여 새 소켓 생성 (하나의 연결만 받아들임)
                     Socket clientSock = serverSock.Accept();
-                    clientSocks.Add(client_number, clientSock);
 
-                    Thread t1 = new Thread(new ThreadStart(() => sockrecv(client_number)));
+                    int num = client_number;      // 현재 번호를 따로 저장
+                    clientSocks.Add(num, clientSock);
+
+                    Thread t1 = new Thread(() => sockrecv(num));
                     t1.Start();
-                    client_number += 1;
+
+                    client_number++;
                 }
                 catch
                 {
@@ -53,13 +56,13 @@ namespace socksrv
         void commandsRecv(int num, string data)
         {
             string[] command = data.Split(' ');
-            if (command[0] == "/client")
-            {
+            //if (command[0] == "/client")
+            //{
 
-                socksend(num, $"/SetClient {command[1]}");
-                clientSocks[int.Parse(command[1])] = clientSocks[num];
+            //    socksend(num, $"/SetClient {command[1]}");
+            //    clientSocks[int.Parse(command[1])] = clientSocks[num];
 
-            }
+            //}
             if (command[0] == "/echo")
             {
                 foreach (int i in clientSocks.Keys)
@@ -80,12 +83,25 @@ namespace socksrv
             Socket clientSock = clientSocks[num];
             byte[] buff = new byte[8192];
 
-            //클라이언트 번호 주기
-            socksend(num, $"/SetClient {num}");
-            //나에게 원래 있던 클라이언트들 버튼 생성
-            socksend(num, $"/makeBtn {num}");
-            //주변 클라이언트들에게 내 버튼 생성
+            //Init
+            socksend(num, $"/Init {num}\n");
+            // 새 클라이언트에게 기존 클라이언트 버튼 생성
+            foreach (int i in clientSocks.Keys)
+            {
+                if (i != num)
+                {
+                    socksend(num, $"/makeBtn {i}\n");
+                }
+            }
 
+            // 기존 클라이언트들에게 새 클라이언트 버튼 생성
+            foreach (int i in clientSocks.Keys)
+            {
+                if (i != num)
+                {
+                    socksend(i, $"/makeBtn {num}\n");
+                }
+            }
 
 
             while (true)

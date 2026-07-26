@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\D412\\OneDrive\\바탕 화면\\수강생203\\변지온\\socksrv\\socksrv.csproj": {}
+    "C:\\Users\\USER\\OneDrive\\바탕 화면\\socksrv\\socksrv.csproj": {}
   },
   "projects": {
-    "C:\\Users\\D412\\OneDrive\\바탕 화면\\수강생203\\변지온\\socksrv\\socksrv.csproj": {
+    "C:\\Users\\USER\\OneDrive\\바탕 화면\\socksrv\\socksrv.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\D412\\OneDrive\\바탕 화면\\수강생203\\변지온\\socksrv\\socksrv.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\OneDrive\\바탕 화면\\socksrv\\socksrv.csproj",
         "projectName": "socksrv",
-        "projectPath": "C:\\Users\\D412\\OneDrive\\바탕 화면\\수강생203\\변지온\\socksrv\\socksrv.csproj",
-        "packagesPath": "C:\\Users\\D412\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\D412\\OneDrive\\바탕 화면\\수강생203\\변지온\\socksrv\\obj\\",
+        "projectPath": "C:\\Users\\USER\\OneDrive\\바탕 화면\\socksrv\\socksrv.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\OneDrive\\바탕 화면\\socksrv\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\D412\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

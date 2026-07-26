@@ -26,3 +26,17 @@ C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\socksrv\obj\Debug\ne
 C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\socksrv\obj\Debug\net10.0\socksrv.pdb
 C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\socksrv\obj\Debug\net10.0\socksrv.genruntimeconfig.cache
 C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\socksrv\obj\Debug\net10.0\ref\socksrv.dll
+C:\Users\USER\OneDrive\바탕 화면\socksrv\bin\Debug\net10.0\socksrv.exe
+C:\Users\USER\OneDrive\바탕 화면\socksrv\bin\Debug\net10.0\socksrv.deps.json
+C:\Users\USER\OneDrive\바탕 화면\socksrv\bin\Debug\net10.0\socksrv.runtimeconfig.json
+C:\Users\USER\OneDrive\바탕 화면\socksrv\bin\Debug\net10.0\socksrv.dll
+C:\Users\USER\OneDrive\바탕 화면\socksrv\bin\Debug\net10.0\socksrv.pdb
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.AssemblyInfoInputs.cache
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.AssemblyInfo.cs
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.dll
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\refint\socksrv.dll
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.pdb
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\socksrv.genruntimeconfig.cache
+C:\Users\USER\OneDrive\바탕 화면\socksrv\obj\Debug\net10.0\ref\socksrv.dll
