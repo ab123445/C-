@@ -56,25 +56,14 @@ namespace socksrv
         void commandsRecv(int num, string data)
         {
             string[] command = data.Split(' ');
-            //if (command[0] == "/client")
+            //if (command[0] == "/echo")
             //{
-
-            //    socksend(num, $"/SetClient {command[1]}");
-            //    clientSocks[int.Parse(command[1])] = clientSocks[num];
-
+            //    socksend(num, data);
             //}
-            if (command[0] == "/echo")
+            if (command[0] == "/tell")
             {
-                foreach (int i in clientSocks.Keys)
-                {
-                    if (int.Parse(command[1]) == i)
-                    {
-                        socksend(i, data);
-                    }
-                }
-
+                socksend(int.Parse(command[1]), data);
             }
-
             Console.WriteLine(data);
         }
 
@@ -118,7 +107,14 @@ namespace socksrv
                     break;
                 }
             }
-            // (7) client 소켓 닫기
+            // (7) client 소켓 닫기, 기존 클라이언트들이 가지고 있던 버튼 지우기
+            foreach (int i in clientSocks.Keys)
+            {
+                if (i != num)
+                {
+                    socksend(i, $"/RemoveBtn {num}\n");
+                }
+            }
             clientclose(num);
         }
 
