@@ -76,7 +76,7 @@ namespace sockclient
                     if (line == "")
                         continue;
 
-                    string[] command = line.Trim().Split(' ');
+                    string[] command = line.Split(' ');
 
                     if (command[0] == "/Init")
                     {
@@ -84,7 +84,7 @@ namespace sockclient
                         form1.sendToMainThread("/msg", $"Your code is {ClientCode}.");
                         form1.sendToMainThread("/setLabel", ClientCode.ToString());
                     }
-                    else if (command[0] == "/echo")
+                    else if (command[0] == "/tell") // /tell 13 안녕하세요 ee 4
                     {
                         string content = "";
                         for (int i = 2; i < command.Length - 1; i++)
@@ -96,6 +96,10 @@ namespace sockclient
                     else if (command[0] == "/makeBtn")
                     {
                         form1.sendToMainThread("/makeBtn", command[1]);
+                    }
+                    else if (command[0] == "/RemoveBtn")
+                    {
+                        form1.sendToMainThread("/RemoveBtn", command[1]);
                     }
                     else if (command[0] == "/Join")
                     {

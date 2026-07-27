@@ -10,6 +10,7 @@ namespace sockclient
         MyClientSocket client = new();
         int NowBtnX = 0;
         int NowBtnY = 0;
+        Dictionary<int, Button> Buttons = new();
         public Form1()
         {
             InitializeComponent();
@@ -42,6 +43,10 @@ namespace sockclient
             {
                 lblClientCode.Text = data;
             }
+            else if (command == "/RemoveBtn")
+            {
+                RemoveBtn(int.Parse(data));
+            }
         }
 
         void setListBox(string data)
@@ -65,11 +70,43 @@ namespace sockclient
             btn.Text = str;
             btn.UseVisualStyleBackColor = true;
             this.Controls.Add(btn);
+            Buttons.Add(int.Parse(str), btn);
+            btn.Click += ClientBtn_Click;
             NowBtnX += 1;
         }
 
+        public void RemoveBtn(int num)
+        {
+            this.Controls.Remove(Buttons[num]);
+            Buttons[num].Dispose();
+            Buttons.Remove(num);
+        }
+        private void ClientBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn == null) return;
+            int ReceiverCode = int.Parse(btn.Name);
+
+            if (SenderTxtBox.Text != "")
+            {
+                sendText = SenderTxtBox.Text; // ¤¡ ¤¤ ¤§
+                SenderTxtBox.Text = "";
+                string[] command = sendText.Split(' ');
+
+                string data = $"/tell {ReceiverCode} {sendText} {client.ClientCode}";
+                client.socksend(data);
+                string content = "";
+                for (int i = 0; i < command.Length; i++)
+                {
+                    content = $"{content} {command[i]}";
+                }
+                setListBox($"[To. {ReceiverCode}]{content}");
+            }
+        }
         private void SenderBtn_Click(object sender, EventArgs e)
         {
+            
+
             if (SenderTxtBox.Text != "")
             {
                 sendText = SenderTxtBox.Text;
@@ -88,17 +125,17 @@ namespace sockclient
                     //lblClientCode.Text = parts[1];
                     client.socksend(sendText);
                 }
-                else if (command[0] == "/echo")
-                {
-                    string data = $"{sendText} {client.ClientCode}";
-                    client.socksend(data);
-                    string content = "";
-                    for (int i = 2; i < command.Length; i++)
-                    {
-                        content = $"{content} {command[i]}";
-                    }
-                    setListBox($"[To. {command[1]}]{content}");
-                }
+                //else if (command[0] == "/echo")
+                //{
+                //    string data = $"{sendText} {client.ClientCode}";
+                //    client.socksend(data);
+                //    string content = "";
+                //    for (int i = 2; i < command.Length; i++)
+                //    {
+                //        content = $"{content} {command[i]}";
+                //    }
+                //    setListBox($"[To. {command[1]}]{content}");
+                //}
                 else if (command[0] == "/makebtn")
                 {
                     makeBtn(command[1]);
