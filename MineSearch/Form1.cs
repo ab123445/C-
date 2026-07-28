@@ -20,6 +20,7 @@ namespace MineSearch
         int Left_Mines;
         double seconds = 0;
 
+        ClientSocket client = new();
 
         public Form1()
         {
@@ -28,8 +29,9 @@ namespace MineSearch
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
+            Thread t1 = new Thread(new ThreadStart(() => client.start()));
+            t1.IsBackground = true;
+            t1.Start();
             this.Width += size * Mine.X - ClientRectangle.Width;
             this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
             CreateMine();
@@ -38,6 +40,15 @@ namespace MineSearch
             time_txtbox.Text = $"{seconds}s";
             timer1.Interval = 100;
             //timer1.Start();
+        }
+
+        public void sendToMainThread(string command, string data)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => sendToMainThread(command, data)));
+                return;
+            }
         }
 
         private void CreateMine()
