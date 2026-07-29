@@ -35,16 +35,18 @@
             RuleButton = new ToolStripMenuItem();
             count_txtbox = new ToolStripTextBox();
             difficultybutton = new ToolStripMenuItem();
+            WaitingBtn = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
+            ConsoleListBox = new ListBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton, WaitingBtn });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(524, 27);
+            menuStrip1.Size = new Size(704, 27);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -89,15 +91,33 @@
             difficultybutton.Text = "난이도 조절";
             difficultybutton.Click += difficultybutton_Click;
             // 
+            // WaitingBtn
+            // 
+            WaitingBtn.BackColor = Color.FromArgb(224, 224, 224);
+            WaitingBtn.Margin = new Padding(10, 0, 0, 0);
+            WaitingBtn.Name = "WaitingBtn";
+            WaitingBtn.Size = new Size(107, 23);
+            WaitingBtn.Text = "대기실 입장하기";
+            WaitingBtn.Click += WaitingBtn_Click;
+            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
+            // 
+            // ConsoleListBox
+            // 
+            ConsoleListBox.FormattingEnabled = true;
+            ConsoleListBox.Location = new Point(430, 40);
+            ConsoleListBox.Name = "ConsoleListBox";
+            ConsoleListBox.Size = new Size(160, 394);
+            ConsoleListBox.TabIndex = 1;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(524, 501);
+            ClientSize = new Size(704, 501);
+            Controls.Add(ConsoleListBox);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
@@ -120,5 +140,7 @@
         private ToolStripMenuItem RuleButton;
         private ToolStripTextBox count_txtbox;
         private ToolStripMenuItem difficultybutton;
+        private ListBox ConsoleListBox;
+        private ToolStripMenuItem WaitingBtn;
     }
 }

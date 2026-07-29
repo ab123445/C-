@@ -76,6 +76,22 @@ namespace MineSearch
                         continue;
 
                     string[] command = line.Split(' ');
+
+                    if (command[0] == "/Init")
+                    {
+                        ClientCode = int.Parse(command[1]);
+                        form1.sendToMainThread("/msg", $"Your code is {ClientCode}.\n");
+                        form1.sendToMainThread("/setText", ClientCode.ToString());
+                    }
+                    if (command[0] == "/join")
+                    {
+                        form1.sendToMainThread("/msg", $"{command[1]} entered the waiting room.\n");
+                    }
+                    if (command[0] == "/matchConnect")
+                    {
+                        form1.sendToMainThread("/msg", "Match started!\n");
+                        form1.sendToMainThread("/matchStart", $"{command[1]}");
+                    }
                 }
             }
             catch

@@ -39,7 +39,7 @@ namespace MineSearch
             this.Tag = this;
             idx_y = y;
             idx_x = x;
-            this.Location = new Point(x * X, y * Y + Form1.MENU_HIGHT);
+            this.Location = new Point(x * X, y * Y + Form1.MENU_HEIGHT);
             this.Name = "btnMine";
             this.Size = new Size(X, Y);
             this.TabIndex = 0;

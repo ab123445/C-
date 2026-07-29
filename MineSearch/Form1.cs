@@ -8,12 +8,13 @@ namespace MineSearch
     public partial class Form1 : Form
     {
         //클리어 한번 뜨게 하고, 타이머 조정하기
-        
-        public const int MENU_HIGHT = 30;
+
+        public const int MENU_HEIGHT = 30;
         List<List<Mine>> Mines = new();
         private int point = 0;
         bool firstTouched = false;
-
+        int opponent;
+        bool isMatch = false;
         int difficulty = 0;
         int total_Mine = 12;
         int size = 7;
@@ -32,8 +33,8 @@ namespace MineSearch
             Thread t1 = new Thread(new ThreadStart(() => client.start()));
             t1.IsBackground = true;
             t1.Start();
-            this.Width += size * Mine.X - ClientRectangle.Width;
-            this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
+            this.Width += (size + 3) * Mine.X - ClientRectangle.Width;
+            this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HEIGHT;
             CreateMine();
             Left_Mines = total_Mine;
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
@@ -49,8 +50,38 @@ namespace MineSearch
                 this.BeginInvoke(new Action(() => sendToMainThread(command, data)));
                 return;
             }
+            if (command == "/msg")
+            {
+                setListBox(data);
+            }
+            if (command == "/setText")
+            {
+                this.Text = $"지뢰찾기 - {data}";
+            }
+            if (command == "/matchStart")
+            {
+                opponent = int.Parse(data);
+                isMatch = true;
+                size = 9;
+                total_Mine = 20;
+                difficulty++;
+                difficultybutton.Text = "match";
+                setConsole(size, size * Mine.Y - 20);
+                this.Width += (size + 3) * Mine.X - ClientRectangle.Width;
+                this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HEIGHT;
+                Restart();
+            }
+        }
+        void setListBox(string data)
+        {
+            ConsoleListBox.Items.Add(data);
         }
 
+        void setConsole(int x, int height)
+        {
+            ConsoleListBox.Location = new Point(x * Mine.X + 10, 10 + Form1.MENU_HEIGHT);
+            ConsoleListBox.Height = height;
+        }
         private void CreateMine()
         {
             Random rand = new();
@@ -329,7 +360,7 @@ namespace MineSearch
                     }
                 }
             }
-            
+
             if (total == size * size - total_Mine)
             {
                 timer1.Stop();
@@ -393,56 +424,63 @@ namespace MineSearch
 
         private void difficultybutton_Click(object sender, EventArgs e)
         {
-            if (difficulty == 0)
+            if (isMatch == false)
             {
-                size = 9;
-                total_Mine = 20;
-                difficulty++;
-                difficultybutton.Text = "2단계";
-            }
-            else if (difficulty == 1)
-            {
-                size = 11;
-                total_Mine = 30;
-                difficulty++;
-                difficultybutton.Text = "3단계";
-            }
-            else if (difficulty == 2)
-            {
-                size = 13;
-                total_Mine = 35;
-                difficulty++;
-                difficultybutton.Text = "4단계";
-            }
-            else if (difficulty == 3)
-            {
-                size = 7;
-                total_Mine = 12;
-                difficulty = 0;
-                difficultybutton.Text = "1단계";
-            }
-
-
-            this.Width += size * Mine.X - ClientRectangle.Width;
-            this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HIGHT;
-            for (int i = Mines.Count - 1; i >= 0; i--)
-            {
-                for (int j = Mines[i].Count - 1; j >= 0; j--)
+                if (difficulty == 0)
                 {
-                    Controls.Remove(Mines[i][j]);
-                    Mines[i][j].Dispose();
-                    Mines[i].RemoveAt(j);
+                    size = 9;
+                    total_Mine = 20;
+                    difficulty++;
+                    difficultybutton.Text = "2단계";
                 }
-                Mines.Remove(Mines[i]);
+                else if (difficulty == 1)
+                {
+                    size = 11;
+                    total_Mine = 30;
+                    difficulty++;
+                    difficultybutton.Text = "3단계";
+                }
+                else if (difficulty == 2)
+                {
+                    size = 13;
+                    total_Mine = 35;
+                    difficulty++;
+                    difficultybutton.Text = "4단계";
+                }
+                else if (difficulty == 3)
+                {
+                    size = 7;
+                    total_Mine = 12;
+                    difficulty = 0;
+                    difficultybutton.Text = "1단계";
+                }
+
+                setConsole(size, size * Mine.Y - 20);
+                this.Width += (size + 3) * Mine.X - ClientRectangle.Width;
+                this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HEIGHT;
+                for (int i = Mines.Count - 1; i >= 0; i--)
+                {
+                    for (int j = Mines[i].Count - 1; j >= 0; j--)
+                    {
+                        Controls.Remove(Mines[i][j]);
+                        Mines[i][j].Dispose();
+                        Mines[i].RemoveAt(j);
+                    }
+                    Mines.Remove(Mines[i]);
+                }
+                CreateMine();
+                firstTouched = false;
+                Left_Mines = total_Mine;
+                point = 0;
+                seconds = 0;
+                time_txtbox.Text = $"{seconds}s";
+                count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+                timer1.Stop();
             }
-            CreateMine();
-            firstTouched = false;
-            Left_Mines = total_Mine;
-            point = 0;
-            seconds = 0;
-            time_txtbox.Text = $"{seconds}s";
-            count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-            timer1.Stop();
+            else if (isMatch == true)
+            {
+                sendToMainThread("/msg", "매치 도중에 난이도를 변경할 수 없습니다. ");
+            }
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -477,6 +515,11 @@ namespace MineSearch
                 }
             }
 
+        }
+
+        private void WaitingBtn_Click(object sender, EventArgs e)
+        {
+            client.socksend($"/join {client.ClientCode}");
         }
     }
 }
