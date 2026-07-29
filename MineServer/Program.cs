@@ -15,8 +15,10 @@ namespace MineServer
         }
 
         Socket serverSock;
+        const int MAX = 2;
         Dictionary<int, Socket> clientSocks = new();
         static int client_number = 1;
+        List<int> inRoom = new();
         void start()
         {
             // (1) 소켓 객체 생성 (TCP 소켓)
@@ -56,14 +58,26 @@ namespace MineServer
         void commandsRecv(int num, string data)
         {
             string[] command = data.Split(' ');
-            //if (command[0] == "/echo")
-            //{
-            //    socksend(num, data);
-            //}
-            //if (command[0] == "/tell")
-            //{
-            //    socksend(int.Parse(command[1]), data);
-            //}
+            if (command[0] == "/join")
+            {
+                inRoom.Add(num);
+                foreach (int i in inRoom)
+                {
+                    socksend(i, $"/join {num}\n");
+                }
+                foreach (int i in inRoom)
+                {
+                    if (i != num)
+                    {
+                        socksend(num, $"/join {i}\n");
+                    }
+                }
+                if (inRoom.Count == MAX)
+                {
+                    socksend(inRoom[0], $"/matchConnect {inRoom[1]}\n");
+                    socksend(inRoom[1], $"/matchConnect {inRoom[0]}\n");
+                }
+            }
             Console.WriteLine(data);
         }
 
@@ -71,7 +85,7 @@ namespace MineServer
         {
             Socket clientSock = clientSocks[num];
             byte[] buff = new byte[8192];
-
+            socksend(num, $"/Init {num}\n");
             while (true)
             {
                 try
