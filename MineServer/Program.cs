@@ -60,23 +60,36 @@ namespace MineServer
             string[] command = data.Split(' ');
             if (command[0] == "/join")
             {
-                inRoom.Add(num);
-                foreach (int i in inRoom)
+                if (inRoom.Contains(num) == false)
                 {
-                    socksend(i, $"/join {num}\n");
-                }
-                foreach (int i in inRoom)
-                {
-                    if (i != num)
+                    inRoom.Add(num);
+                    foreach (int i in inRoom)
                     {
-                        socksend(num, $"/join {i}\n");
+                        socksend(i, $"/join {num}\n");
+                    }
+                    foreach (int i in inRoom)
+                    {
+                        if (i != num)
+                        {
+                            socksend(num, $"/join {i}\n");
+                        }
+                    }
+                    if (inRoom.Count == MAX)
+                    {
+                        socksend(inRoom[0], $"/matchConnect {inRoom[1]}\n");
+                        socksend(inRoom[1], $"/matchConnect {inRoom[0]}\n");
+                        inRoom.RemoveAt(1);
+                        inRoom.RemoveAt(0);
                     }
                 }
-                if (inRoom.Count == MAX)
-                {
-                    socksend(inRoom[0], $"/matchConnect {inRoom[1]}\n");
-                    socksend(inRoom[1], $"/matchConnect {inRoom[0]}\n");
-                }
+            }
+            if (command[0] == "/end")
+            {
+                socksend(int.Parse(command[2]), $"/end {command[1]}");
+            }
+            if (command[0] == "/high")
+            {
+                socksend(int.Parse(command[2]), $"/high {command[1]}");
             }
             Console.WriteLine(data);
         }
