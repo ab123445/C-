@@ -92,6 +92,15 @@ namespace MineSearch
                         form1.sendToMainThread("/msg", "Match started!\n");
                         form1.sendToMainThread("/matchStart", $"{command[1]}");
                     }
+                    if (command[0] == "/end")
+                    {
+                        form1.sendToMainThread("/msg", $"Match ended.\n The winner is {command[1]}\n");
+                        form1.sendToMainThread("/end", command[1]);
+                    }
+                    if (command[0] == "/high")
+                    {
+
+                    }
                 }
             }
             catch

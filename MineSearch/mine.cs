@@ -69,7 +69,6 @@ namespace MineSearch
                         this.Text = "";
                     else
                         this.Text = $"{count}";
-                    //this.BackColor = Color.FromArgb(212, 225, 225, 225);
                     this.BackColor = Color.LightGray;
                     this.solved = true;
                     this.Enabled = false;
