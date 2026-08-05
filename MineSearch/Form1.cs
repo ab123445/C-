@@ -11,15 +11,15 @@ namespace MineSearch
 
         public const int MENU_HEIGHT = 30;
         List<List<Mine>> Mines = new();
-        public int point = 0;
+        private int point = 0;
         bool firstTouched = false;
         int opponent;
         bool isMatch = false;
         int difficulty = 0;
-        int total_Mine = 12;
+        int total_Mine = 5;
         int size = 7;
         int Left_Mines;
-        int highest = 0;
+        public int highest = 0;
         double seconds = 0;
 
         ClientSocket client = new();
@@ -72,6 +72,7 @@ namespace MineSearch
                 this.Width += (size + 3) * Mine.X - ClientRectangle.Width;
                 this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HEIGHT;
                 Restart();
+                timer1.Start();
             }
             if (command == "/end")
             {
@@ -82,6 +83,35 @@ namespace MineSearch
                     for (int j = 0; j < size; j++)
                     {
                         Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
+                    }
+                }
+                isMatch = false;
+            }
+            if (command == "/win")
+            {
+                MessageBox.Show("You won!");
+                sendToMainThread("/msg", $"Match ended.\n");
+                sendToMainThread("/msg", $"The winner is {client.ClientCode}\n");
+                sendToMainThread("/msg", $"Opponent's score is {data}. ");
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        Mines[i][j].Enabled = false;
+                    }
+                }
+                isMatch = false;
+            }
+            if (command == "/lose")
+            {
+                MessageBox.Show("You lost.");
+                sendToMainThread("/msg", $"Match ended.\n The winner is {client.ClientCode}\n");
+                sendToMainThread("/msg", $"Opponent's score is {data}. ");
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        Mines[i][j].Enabled = false;
                     }
                 }
                 isMatch = false;
@@ -436,9 +466,15 @@ namespace MineSearch
             if (isMatch == true)
             {
                 seconds -= 0.1;
-                if (seconds == 0)
+                if (seconds <= 0)
                 {
+                    timer1.Stop();
+                    if (point > highest)
+                    {
+                        highest = point;
+                    }
                     client.socksend($"/high {highest} {opponent}"); //상대에게 최고점을 보내주기
+                    
                 }
             }
             time_txtbox.Text = $"{seconds:F1}s";

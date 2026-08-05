@@ -99,7 +99,14 @@ namespace MineSearch
                     }
                     if (command[0] == "/high")
                     {
-
+                        if (form1.highest > int.Parse(command[1]))
+                        {
+                            form1.sendToMainThread("/win", command[1]);
+                        }
+                        if (form1.highest < int.Parse(command[1]))
+                        {
+                            form1.sendToMainThread("/lose", command[1]);
+                        }
                     }
                 }
             }
