@@ -11,7 +11,6 @@ namespace MineSearch
 
         public const int MENU_HEIGHT = 30;
         List<List<Mine>> Mines = new();
-        private int point = 0;
         bool firstTouched = false;
         int opponent;
         bool isMatch = false;
@@ -21,6 +20,7 @@ namespace MineSearch
         int Left_Mines;
         public int highest = 0;
         double seconds = 0;
+        int score = 0;
 
         ClientSocket client = new();
 
@@ -64,9 +64,12 @@ namespace MineSearch
                 opponent = int.Parse(data);
                 isMatch = true;
                 size = 9;
-                total_Mine = 5;
+                total_Mine = 20;
                 seconds = 60;
                 difficulty++;
+                score = 0;
+                highest = 0;
+                
                 difficultybutton.Text = "2단계(고정)";
                 setConsole(size, size * Mine.Y - 20);
                 this.Width += (size + 3) * Mine.X - ClientRectangle.Width;
@@ -93,6 +96,7 @@ namespace MineSearch
                 sendToMainThread("/msg", $"Match ended.\n");
                 sendToMainThread("/msg", $"The winner is {client.ClientCode}\n");
                 sendToMainThread("/msg", $"Opponent's score is {data}. ");
+                difficultybutton.Text = "2단계";
                 for (int i = 0; i < size; i++)
                 {
                     for (int j = 0; j < size; j++)
@@ -105,8 +109,10 @@ namespace MineSearch
             if (command == "/lose")
             {
                 MessageBox.Show("You lost.");
-                sendToMainThread("/msg", $"Match ended.\n The winner is {client.ClientCode}\n");
+                sendToMainThread("/msg", $"Match ended.\n");
+                sendToMainThread("/msg", $"The winner is {client.ClientCode}\n");
                 sendToMainThread("/msg", $"Opponent's score is {data}. ");
+                difficultybutton.Text = "2단계";
                 for (int i = 0; i < size; i++)
                 {
                     for (int j = 0; j < size; j++)
@@ -180,7 +186,7 @@ namespace MineSearch
             }
             return mines_count;
         }
-        public void surround_open(Mine me)
+        void surround_open(Mine me)
         {
             Mine m;
             for (int x = -1; x <= 1; x++)
@@ -200,7 +206,6 @@ namespace MineSearch
                         if (m.Text == "Flag")
                             continue;
                         m.Mine_Open(Mines_Count(m));
-                        point++;
                     }
                 }
             }
@@ -224,8 +229,9 @@ namespace MineSearch
                             m = Mines[nowX][nowY];
                             if (m.Enabled == false)
                                 continue;
+                            if (m.Text == "Flag")
+                                continue;
                             m.Mine_Open(Mines_Count(m));
-                            point++;
                             if (Mines_Count(m) == 0)
                                 auto_open(m);
                         }
@@ -313,7 +319,7 @@ namespace MineSearch
 
             me.Mine_Open(Mines_Count(me));
             auto_open(me);
-            point++;
+            point_txtBox.Text = $"{score}점";
 
             if (me.IsMine == true && me.Text != "Flag")
             {
@@ -380,7 +386,29 @@ namespace MineSearch
         private void lose()
         {
             
-            timer1.Stop();
+            
+            if (isMatch == false)
+            {
+                MessageBox.Show($"Game Over\n{score}점");
+                DialogResult aaa = MessageBox.Show("다시 하시겠습니까?", "", MessageBoxButtons.YesNo);
+                if (aaa == DialogResult.Yes)
+                {
+                    Restart();
+                }
+                timer1.Stop();
+            }
+            if (isMatch == true)
+            {
+                if (score > highest)
+                {
+                    MessageBox.Show($"최고점!\n{score}점");
+                    highest = score;
+                }
+                else
+                {
+                    MessageBox.Show($"Game Over\n{score}점");
+                }
+            }
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -388,23 +416,7 @@ namespace MineSearch
                     Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
                 }
             }
-            if (isMatch == false)
-            {
-                MessageBox.Show($"Game Over\npoint : {point}점");
-                DialogResult aaa = MessageBox.Show("다시 하시겠습니까?", "", MessageBoxButtons.YesNo);
-                if (aaa == DialogResult.Yes)
-                {
-                    Restart();
-                }
-            }
-            if (isMatch == true)
-            {
-                if (point > highest)
-                {
-                    MessageBox.Show($"최고점!\npoint : {point}점");
-                    highest = point;
-                }
-            }
+            score = 0;
         }
         private void win()
         {
@@ -457,6 +469,11 @@ namespace MineSearch
             }
         }
 
+        public void addScore()
+        {
+            score++;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (isMatch == false)
@@ -469,9 +486,10 @@ namespace MineSearch
                 if (seconds <= 0)
                 {
                     timer1.Stop();
-                    if (point > highest)
+                    seconds = 0;
+                    if (score > highest)
                     {
-                        highest = point;
+                        highest = score;
                     }
                     client.socksend($"/high {highest} {opponent}"); //상대에게 최고점을 보내주기
                     
@@ -495,14 +513,20 @@ namespace MineSearch
             CreateMine();
             firstTouched = false;
             Left_Mines = total_Mine;
-            point = 0;
+            score = 0;
+            point_txtBox.Text = $"{score}점";
+
             if (isMatch == false)
             {
                 seconds = 0;
             }
             time_txtbox.Text = $"{seconds}s";
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-            timer1.Stop();
+            if (isMatch == false)
+            {
+                timer1.Stop();
+            }
+
         }
 
         private void RestartButton_Click(object sender, EventArgs e)
@@ -568,10 +592,11 @@ namespace MineSearch
                 CreateMine();
                 firstTouched = false;
                 Left_Mines = total_Mine;
-                point = 0;
+                score = 0;
                 seconds = 0;
                 time_txtbox.Text = $"{seconds}s";
                 count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
+                point_txtBox.Text = $"{score}점";
                 timer1.Stop();
             }
             else if (isMatch == true)

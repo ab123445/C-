@@ -36,6 +36,7 @@
             count_txtbox = new ToolStripTextBox();
             difficultybutton = new ToolStripMenuItem();
             WaitingBtn = new ToolStripMenuItem();
+            point_txtBox = new ToolStripTextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             ConsoleListBox = new ListBox();
             menuStrip1.SuspendLayout();
@@ -43,7 +44,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton, WaitingBtn });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton, WaitingBtn, point_txtBox });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(704, 27);
@@ -100,6 +101,13 @@
             WaitingBtn.Text = "대기실 입장하기";
             WaitingBtn.Click += WaitingBtn_Click;
             // 
+            // point_txtBox
+            // 
+            point_txtBox.Alignment = ToolStripItemAlignment.Right;
+            point_txtBox.BackColor = Color.FromArgb(224, 224, 224);
+            point_txtBox.Name = "point_txtBox";
+            point_txtBox.Size = new Size(70, 23);
+            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
@@ -142,5 +150,6 @@
         private ToolStripMenuItem difficultybutton;
         private ListBox ConsoleListBox;
         private ToolStripMenuItem WaitingBtn;
+        private ToolStripTextBox point_txtBox;
     }
 }

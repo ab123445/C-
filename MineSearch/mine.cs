@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 
 namespace MineSearch
 {
@@ -13,6 +14,7 @@ namespace MineSearch
         public const int Y = 60;
         public bool IsMine;
         public bool solved;
+        Form1 form1;
         //public bool opened = false;
         private int idx_y;
         public int getIdxY()
@@ -55,6 +57,7 @@ namespace MineSearch
 
         public void Mine_Open(int count)
         {
+            form1 = Application.OpenForms["Form1"] as Form1;
             if (this.Text != "Flag")
             {
                 if (IsMine == true)
@@ -69,6 +72,11 @@ namespace MineSearch
                         this.Text = "";
                     else
                         this.Text = $"{count}";
+                    if (this.Enabled == true)
+                    {
+                        form1.addScore();
+                    }
+                    
                     this.BackColor = Color.LightGray;
                     this.solved = true;
                     this.Enabled = false;
