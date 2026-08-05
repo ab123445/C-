@@ -12,3 +12,17 @@ C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\MineServer\obj\Debug
 C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\MineServer\obj\Debug\net10.0\MineServer.pdb
 C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\MineServer\obj\Debug\net10.0\MineServer.genruntimeconfig.cache
 C:\Users\D412\OneDrive\바탕 화면\수강생203\변지온\MineServer\obj\Debug\net10.0\ref\MineServer.dll
+C:\Users\USER\OneDrive\바탕 화면\MineServer\bin\Debug\net10.0\MineServer.exe
+C:\Users\USER\OneDrive\바탕 화면\MineServer\bin\Debug\net10.0\MineServer.deps.json
+C:\Users\USER\OneDrive\바탕 화면\MineServer\bin\Debug\net10.0\MineServer.runtimeconfig.json
+C:\Users\USER\OneDrive\바탕 화면\MineServer\bin\Debug\net10.0\MineServer.dll
+C:\Users\USER\OneDrive\바탕 화면\MineServer\bin\Debug\net10.0\MineServer.pdb
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.AssemblyInfoInputs.cache
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.AssemblyInfo.cs
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.dll
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\refint\MineServer.dll
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.pdb
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\MineServer.genruntimeconfig.cache
+C:\Users\USER\OneDrive\바탕 화면\MineServer\obj\Debug\net10.0\ref\MineServer.dll
