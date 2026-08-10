@@ -35,9 +35,10 @@
             // richTextBox1
             // 
             richTextBox1.Enabled = false;
+            richTextBox1.Font = new Font("맑은 고딕", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 129);
             richTextBox1.Location = new Point(12, 12);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(560, 228);
+            richTextBox1.Size = new Size(560, 468);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
