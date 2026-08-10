@@ -21,6 +21,7 @@ namespace MineSearch
         public int highest = 0;
         double seconds = 0;
         int score = 0;
+        int ready = 3;
 
         ClientSocket client = new();
 
@@ -41,7 +42,7 @@ namespace MineSearch
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
             time_txtbox.Text = $"{seconds}s";
             timer1.Interval = 100;
-            //timer1.Start();
+            timer2.Interval = 1000;
         }
 
         public void sendToMainThread(string command, string data)
@@ -61,6 +62,7 @@ namespace MineSearch
             }
             if (command == "/matchStart")
             {
+                WaitingBtn.Text = "기권";
                 opponent = int.Parse(data);
                 isMatch = true;
                 size = 9;
@@ -69,16 +71,25 @@ namespace MineSearch
                 difficulty++;
                 score = 0;
                 highest = 0;
-                
+
                 difficultybutton.Text = "2단계(고정)";
                 setConsole(size, size * Mine.Y - 20);
                 this.Width += (size + 3) * Mine.X - ClientRectangle.Width;
                 this.Height += size * Mine.Y - ClientRectangle.Height + MENU_HEIGHT;
                 Restart();
-                timer1.Start();
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        Mines[i][j].Enabled = false;
+                    }
+                }
+                timer2.Start();
+                sendToMainThread("/msg", $"매치 시작까지 남은 시간: {ready}초\n");
             }
             if (command == "/end")
             {
+                WaitingBtn.Text = "대기실 입장하기";
                 MessageBox.Show($"You lost. The winner is {data}.");
                 timer1.Stop();
                 for (int i = 0; i < size; i++)
@@ -92,27 +103,30 @@ namespace MineSearch
             }
             if (command == "/win")
             {
+                timer1.Stop();
+                WaitingBtn.Text = "대기실 입장하기";
+                difficultybutton.Text = "2단계";
+                highest_txtbox.Text = "";
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        Mines[i][j].Enabled = false;
+                    }
+                }
                 MessageBox.Show("You won!");
                 sendToMainThread("/msg", $"Match ended.\n");
                 sendToMainThread("/msg", $"The winner is {client.ClientCode}\n");
-                sendToMainThread("/msg", $"Opponent's score is {data}. ");
-                difficultybutton.Text = "2단계";
-                for (int i = 0; i < size; i++)
+                if (int.Parse(data) == -1)
                 {
-                    for (int j = 0; j < size; j++)
-                    {
-                        Mines[i][j].Enabled = false;
-                    }
+                    sendToMainThread("/msg", "Opponent withdrew.");
                 }
+                else
+                    sendToMainThread("/msg", $"Opponent's score is {data}. ");
                 isMatch = false;
             }
-            if (command == "/lose")
+            if (command == "/lose") //게임이 끝나고 판 뒤집을때 검은판으로 뒤집기
             {
-                MessageBox.Show("You lost.");
-                sendToMainThread("/msg", $"Match ended.\n");
-                sendToMainThread("/msg", $"The winner is {client.ClientCode}\n");
-                sendToMainThread("/msg", $"Opponent's score is {data}. ");
-                difficultybutton.Text = "2단계";
                 for (int i = 0; i < size; i++)
                 {
                     for (int j = 0; j < size; j++)
@@ -120,6 +134,13 @@ namespace MineSearch
                         Mines[i][j].Enabled = false;
                     }
                 }
+                WaitingBtn.Text = "대기실 입장하기";
+                highest_txtbox.Text = "";
+                MessageBox.Show("You lost.");
+                sendToMainThread("/msg", $"Match ended.\n");
+                sendToMainThread("/msg", $"The winner is {opponent}\n");
+                sendToMainThread("/msg", $"Opponent's score is {data}. ");
+                difficultybutton.Text = "2단계";
                 isMatch = false;
             }
         }
@@ -127,6 +148,8 @@ namespace MineSearch
         {
             ConsoleListBox.Items.Add(data);
         }
+
+
 
         void setConsole(int x, int height)
         {
@@ -385,8 +408,8 @@ namespace MineSearch
 
         private void lose()
         {
-            
-            
+
+
             if (isMatch == false)
             {
                 MessageBox.Show($"Game Over\n{score}점");
@@ -403,6 +426,7 @@ namespace MineSearch
                 {
                     MessageBox.Show($"최고점!\n{score}점");
                     highest = score;
+                    highest_txtbox.Text = $"최고 점수: {highest}점";
                 }
                 else
                 {
@@ -413,7 +437,7 @@ namespace MineSearch
             {
                 for (int j = 0; j < size; j++)
                 {
-                    Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
+                    Mines[i][j].Mine_Open(Mines_Count(Mines[i][j])); //최고점수 기록버그
                 }
             }
             score = 0;
@@ -472,6 +496,10 @@ namespace MineSearch
         public void addScore()
         {
             score++;
+            if (score > highest)
+            {
+                highest_txtbox.Text = $"최고 점수: {score}점";
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -492,10 +520,31 @@ namespace MineSearch
                         highest = score;
                     }
                     client.socksend($"/high {highest} {opponent}"); //상대에게 최고점을 보내주기
-                    
+
                 }
             }
             time_txtbox.Text = $"{seconds:F1}s";
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            ready -= 1;
+            if (ready <= 0)
+            {
+                timer2.Stop();
+                sendToMainThread("/msg", "매치 시작!\n");
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        Mines[i][j].Enabled = true;
+                    }
+                }
+                timer1.Start();
+                ready = 3;
+            }
+            else
+                sendToMainThread("/msg", $"매치 시작까지 남은 시간: {ready}초\n");
         }
 
         private void Restart()
@@ -519,13 +568,10 @@ namespace MineSearch
             if (isMatch == false)
             {
                 seconds = 0;
+                timer1.Stop();
             }
             time_txtbox.Text = $"{seconds}s";
             count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-            if (isMatch == false)
-            {
-                timer1.Stop();
-            }
 
         }
 
@@ -642,7 +688,29 @@ namespace MineSearch
         private void WaitingBtn_Click(object sender, EventArgs e)
         {
             if (isMatch == false)
+            {
                 client.socksend($"/join {client.ClientCode}");
+                
+            }
+            if (isMatch == true)
+            {
+                client.socksend($"/high -1 {opponent}");
+                timer1.Stop();
+                MessageBox.Show("You lost.");
+                sendToMainThread("/msg", $"Match ended.\n");
+                difficultybutton.Text = "2단계";
+                for (int i = 0; i < size; i++)
+                {
+                    for (int j = 0; j < size; j++)
+                    {
+                        Mines[i][j].Enabled = false;
+                    }
+                }
+                isMatch = false;
+                WaitingBtn.Text = "대기실 입장하기";
+            }
         }
+
+
     }
 }

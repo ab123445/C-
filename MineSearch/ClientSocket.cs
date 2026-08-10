@@ -89,7 +89,6 @@ namespace MineSearch
                     }
                     if (command[0] == "/matchConnect")
                     {
-                        form1.sendToMainThread("/msg", "Match started!\n");
                         form1.sendToMainThread("/matchStart", $"{command[1]}");
                     }
                     if (command[0] == "/end")

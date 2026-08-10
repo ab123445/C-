@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            menuStrip1 = new MenuStrip();
+            timer1 = new System.Windows.Forms.Timer(components);
+            ConsoleListBox = new ListBox();
+            timer2 = new System.Windows.Forms.Timer(components);
             time_txtbox = new ToolStripTextBox();
             RestartButton = new ToolStripMenuItem();
             RuleButton = new ToolStripMenuItem();
@@ -37,19 +39,26 @@
             difficultybutton = new ToolStripMenuItem();
             WaitingBtn = new ToolStripMenuItem();
             point_txtBox = new ToolStripTextBox();
-            timer1 = new System.Windows.Forms.Timer(components);
-            ConsoleListBox = new ListBox();
+            menuStrip1 = new MenuStrip();
+            highest_txtbox = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
+            // timer1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton, WaitingBtn, point_txtBox });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(704, 27);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            timer1.Tick += timer1_Tick;
+            // 
+            // ConsoleListBox
+            // 
+            ConsoleListBox.FormattingEnabled = true;
+            ConsoleListBox.Location = new Point(430, 40);
+            ConsoleListBox.Name = "ConsoleListBox";
+            ConsoleListBox.Size = new Size(160, 394);
+            ConsoleListBox.TabIndex = 1;
+            // 
+            // timer2
+            // 
+            timer2.Tick += timer2_Tick;
             // 
             // time_txtbox
             // 
@@ -108,17 +117,23 @@
             point_txtBox.Name = "point_txtBox";
             point_txtBox.Size = new Size(70, 23);
             // 
-            // timer1
+            // menuStrip1
             // 
-            timer1.Tick += timer1_Tick;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { time_txtbox, RestartButton, RuleButton, count_txtbox, difficultybutton, WaitingBtn, highest_txtbox, point_txtBox });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(704, 27);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // ConsoleListBox
+            // highest_txtbox
             // 
-            ConsoleListBox.FormattingEnabled = true;
-            ConsoleListBox.Location = new Point(430, 40);
-            ConsoleListBox.Name = "ConsoleListBox";
-            ConsoleListBox.Size = new Size(160, 394);
-            ConsoleListBox.TabIndex = 1;
+            highest_txtbox.AutoSize = false;
+            highest_txtbox.BackColor = Color.FromArgb(224, 224, 224);
+            highest_txtbox.ImageScaling = ToolStripItemImageScaling.None;
+            highest_txtbox.Margin = new Padding(10, 0, 0, 0);
+            highest_txtbox.Name = "highest_txtbox";
+            highest_txtbox.Size = new Size(100, 23);
             // 
             // Form1
             // 
@@ -140,16 +155,17 @@
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
-        private ToolStripTextBox time_txtbox;
         private System.Windows.Forms.Timer timer1;
+        private ListBox ConsoleListBox;
+        private System.Windows.Forms.Timer timer2;
+        private ToolStripTextBox time_txtbox;
         private ToolStripMenuItem RestartButton;
         private ToolStripMenuItem RuleButton;
         private ToolStripTextBox count_txtbox;
         private ToolStripMenuItem difficultybutton;
-        private ListBox ConsoleListBox;
         private ToolStripMenuItem WaitingBtn;
         private ToolStripTextBox point_txtBox;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem highest_txtbox;
     }
 }
