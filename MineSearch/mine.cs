@@ -83,7 +83,25 @@ namespace MineSearch
                 }
             }
         }
-
+        public void Mine_Openb()
+        {
+            if (Enabled == true)
+            {
+                if (IsMine == true)
+                {
+                    this.Text = "!!!";
+                    this.BackColor = Color.Yellow;
+                    this.Enabled = false;
+                }
+                if (IsMine == false)
+                {
+                    this.BackColor = Color.Black;
+                    this.solved = true;
+                    this.Enabled = false;
+                }
+            }
+            
+        }
         public void Set_Flag(ref int Left)
         {
             if (this.Text != "Flag" && Enabled == true)

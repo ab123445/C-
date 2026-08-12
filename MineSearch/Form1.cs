@@ -96,7 +96,7 @@ namespace MineSearch
                 {
                     for (int j = 0; j < size; j++)
                     {
-                        Mines[i][j].Mine_Open(Mines_Count(Mines[i][j]));
+                        Mines[i][j].Mine_Openb();
                     }
                 }
                 isMatch = false;
@@ -111,6 +111,7 @@ namespace MineSearch
                 {
                     for (int j = 0; j < size; j++)
                     {
+                        Mines[i][j].Mine_Openb();
                         Mines[i][j].Enabled = false;
                     }
                 }
@@ -131,6 +132,7 @@ namespace MineSearch
                 {
                     for (int j = 0; j < size; j++)
                     {
+                        Mines[i][j].Mine_Openb();
                         Mines[i][j].Enabled = false;
                     }
                 }
@@ -437,7 +439,7 @@ namespace MineSearch
             {
                 for (int j = 0; j < size; j++)
                 {
-                    Mines[i][j].Mine_Open(Mines_Count(Mines[i][j])); //최고점수 기록버그
+                    Mines[i][j].Mine_Openb();
                 }
             }
             score = 0;
