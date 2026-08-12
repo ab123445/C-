@@ -95,8 +95,7 @@ namespace MineSearch
                 }
                 if (IsMine == false)
                 {
-                    this.BackColor = Color.Black;
-                    this.solved = true;
+                    this.BackColor = Color.DarkGray;
                     this.Enabled = false;
                 }
             }
