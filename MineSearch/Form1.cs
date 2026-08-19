@@ -218,30 +218,7 @@ namespace MineSearch
             }
             return mines_count;
         }
-        void surround_open(Mine me)
-        {
-            Mine m;
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int y = -1; y <= 1; y++)
-                {
-                    int nowX = me.getIdxX() + x;
-                    int nowY = me.getIdxY() + y;
-                    if (nowX >= 0 && nowY >= 0 &&
-                        nowX < size && nowY < size)
-                    {
-                        if (x == 0 && y == 0)
-                            continue;
-                        m = Mines[nowX][nowY];
-                        if (m.Enabled == false)
-                            continue;
-                        if (m.Text == "Flag")
-                            continue;
-                        m.Mine_Open(Mines_Count(m));
-                    }
-                }
-            }
-        }
+       
         public void auto_open(Mine me)
         {
             Mine m;
@@ -353,7 +330,7 @@ namespace MineSearch
             auto_open(me);
             point_txtBox.Text = $"{score}점";
 
-            if (me.IsMine == true && me.Text != "Flag")
+            if (me.IsMine == true && me.Text != "Flag") //f
             {
                 lose();
             }
@@ -396,7 +373,7 @@ namespace MineSearch
                 win();
             }
         }
-        public void button_MouseDown(object sender, MouseEventArgs e)
+        public void button_MouseDown(object sender, MouseEventArgs e) //q
         {
             Button button = sender as Button;
             if (button == null) return;
@@ -415,7 +392,7 @@ namespace MineSearch
             }
         }
 
-        private void lose()
+        private void lose() //오류
         {
 
             for (int i = 0; i < size; i++)
@@ -436,7 +413,7 @@ namespace MineSearch
                 }
                 timer1.Stop();
             }
-            if (isMatch == true)
+            if (isMatch == true) //here
             {
                 if (score > highest)
                 {
@@ -536,6 +513,7 @@ namespace MineSearch
                     if (score > highest)
                     {
                         highest = score;
+                        highest_txtbox.Text = $"최고 점수: {score}점";
                     }
                     client.socksend($"/high {highest} {opponent}"); //상대에게 최고점을 보내주기
 
