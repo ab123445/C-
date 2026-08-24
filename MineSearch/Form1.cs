@@ -338,7 +338,7 @@ namespace MineSearch
                 win();
 
         }
-        public void right_click(Mine me)
+        public void right_click(Mine me) //not flag
         {
             if (me.Enabled == false)
             {
@@ -373,7 +373,7 @@ namespace MineSearch
                 win();
             }
         }
-        public void button_MouseDown(object sender, MouseEventArgs e) //q
+        public void button_MouseDown(object sender, MouseEventArgs e) //사용되지 않은 버튼
         {
             Button button = sender as Button;
             if (button == null) return;
@@ -385,7 +385,7 @@ namespace MineSearch
                 {
                     left_click(me);
                 }
-                else if (e.Button == MouseButtons.Right)
+                if (e.Button == MouseButtons.Right)
                 {
                     right_click(me);
                 }
@@ -652,36 +652,12 @@ namespace MineSearch
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right) return;
             Control control = GetChildAtPoint(e.Location);
             Mine me = control as Mine;
             if (me == null) return;
             if (isFinished == true) return;
-            if (me.Enabled == false)
-            {
-                Mine m;
-                if (check_surround_flags(me) == Mines_Count(me))
-                {
-                    for (int x = -1; x <= 1; x++)
-                    {
-                        for (int y = -1; y <= 1; y++)
-                        {
-                            int nowX = me.getIdxX() + x;
-                            int nowY = me.getIdxY() + y;
-
-                            if (nowX >= 0 && nowY >= 0 &&
-                                nowX < size && nowY < size)
-                            {
-                                m = Mines[nowX][nowY];
-                                if (x == 0 && y == 0)
-                                    continue;
-                                if (m.Text == "Flag")
-                                    continue;
-                                left_click(m);
-                            }
-                        }
-                    }
-                }
-            }
+            right_click(me);
 
         }
 
