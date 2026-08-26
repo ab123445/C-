@@ -330,12 +330,11 @@ namespace MineSearch
             auto_open(me);
             point_txtBox.Text = $"{score}점";
 
-            if (me.IsMine == true && me.Text != "Flag") //f
-            {
-                lose();
-            }
-            else
-                win();
+            //if (me.IsMine == true && me.Text != "Flag") //f
+            //{
+            //    lose();
+            //}
+            win();
 
         }
         public void right_click(Mine me) //not flag
@@ -360,17 +359,22 @@ namespace MineSearch
                                     continue;
                                 if (m.Text == "Flag")
                                     continue;
+                                if (m.IsMine == true && m.Text != "Flag")
+                                {
+                                    lose();
+                                    return;
+                                }
                                 left_click(m);
                             }
                         }
                     }
                 }
+                
             }
             else if (me.Enabled == true)
             {
                 me.Set_Flag(ref Left_Mines);
                 count_txtbox.Text = $"필요한 깃발: {Left_Mines}";
-                win();
             }
         }
         public void button_MouseDown(object sender, MouseEventArgs e) //사용되지 않은 버튼
@@ -384,6 +388,10 @@ namespace MineSearch
                 if (e.Button == MouseButtons.Left)
                 {
                     left_click(me);
+                    if (me.IsMine == true && me.Text != "Flag")
+                    {
+                        lose();
+                    }
                 }
                 if (e.Button == MouseButtons.Right)
                 {
@@ -650,9 +658,8 @@ namespace MineSearch
             }
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        private void Form1_MouseClick(object sender, MouseEventArgs e) //사용된 버튼
         {
-            if (e.Button == MouseButtons.Right) return;
             Control control = GetChildAtPoint(e.Location);
             Mine me = control as Mine;
             if (me == null) return;
