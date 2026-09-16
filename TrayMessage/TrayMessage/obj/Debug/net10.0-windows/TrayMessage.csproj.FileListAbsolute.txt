@@ -1,0 +1,17 @@
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\bin\Debug\net10.0-windows\TrayMessage.exe
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\bin\Debug\net10.0-windows\TrayMessage.deps.json
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\bin\Debug\net10.0-windows\TrayMessage.runtimeconfig.json
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\bin\Debug\net10.0-windows\TrayMessage.dll
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\bin\Debug\net10.0-windows\TrayMessage.pdb
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.Form1.resources
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.Form2.resources
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.csproj.GenerateResource.cache
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.AssemblyInfoInputs.cache
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.AssemblyInfo.cs
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.csproj.CoreCompileInputs.cache
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.dll
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\refint\TrayMessage.dll
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.pdb
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\TrayMessage.genruntimeconfig.cache
+C:\Users\D410\Desktop\수강생207\변지온\TrayMessage\TrayMessage\obj\Debug\net10.0-windows\ref\TrayMessage.dll
