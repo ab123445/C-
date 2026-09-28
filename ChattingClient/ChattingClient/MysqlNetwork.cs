@@ -50,7 +50,7 @@ namespace WinFormsApp1
             form.sendToMsgBox("서버가 동작하지 않습니다.");
         }
 
-        public long sendQueryData(string query)
+        public long sendQueryData_insert_update_delete(string query)
         {
             lock (conn)
             {
@@ -63,7 +63,10 @@ namespace WinFormsApp1
                 return data;
             }
         }
-        public DataTable sendSendQuery(string query)
+
+
+        //s
+        public DataTable sendSelectQuery(string query)
         {
             lock (conn)
             {

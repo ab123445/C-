@@ -1,16 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "+k9qPRol9mE=",
+  "dgSpecHash": "y2joE5jGk2k=",
   "success": true,
-  "projectFilePath": "C:\\Users\\D410\\Desktop\\수강생207\\변지온\\ChattingClient\\ChattingClient\\ChattingClient.csproj",
+  "projectFilePath": "C:\\Users\\7_1\\Desktop\\수강생601\\변지온\\ChattingClient\\ChattingClient\\ChattingClient.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\D410\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
-    "C:\\Users\\D410\\.nuget\\packages\\google.protobuf\\3.35.0\\google.protobuf.3.35.0.nupkg.sha512",
-    "C:\\Users\\D410\\.nuget\\packages\\k4os.compression.lz4\\1.3.8\\k4os.compression.lz4.1.3.8.nupkg.sha512",
-    "C:\\Users\\D410\\.nuget\\packages\\k4os.compression.lz4.streams\\1.3.8\\k4os.compression.lz4.streams.1.3.8.nupkg.sha512",
-    "C:\\Users\\D410\\.nuget\\packages\\k4os.hash.xxhash\\1.0.8\\k4os.hash.xxhash.1.0.8.nupkg.sha512",
-    "C:\\Users\\D410\\.nuget\\packages\\mysql.data\\26.7.0\\mysql.data.26.7.0.nupkg.sha512",
-    "C:\\Users\\D410\\.nuget\\packages\\zstdsharp.port\\0.8.8\\zstdsharp.port.0.8.8.nupkg.sha512"
+    "C:\\Users\\7_1\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
+    "C:\\Users\\7_1\\.nuget\\packages\\google.protobuf\\3.35.0\\google.protobuf.3.35.0.nupkg.sha512",
+    "C:\\Users\\7_1\\.nuget\\packages\\k4os.compression.lz4\\1.3.8\\k4os.compression.lz4.1.3.8.nupkg.sha512",
+    "C:\\Users\\7_1\\.nuget\\packages\\k4os.compression.lz4.streams\\1.3.8\\k4os.compression.lz4.streams.1.3.8.nupkg.sha512",
+    "C:\\Users\\7_1\\.nuget\\packages\\k4os.hash.xxhash\\1.0.8\\k4os.hash.xxhash.1.0.8.nupkg.sha512",
+    "C:\\Users\\7_1\\.nuget\\packages\\mysql.data\\26.7.0\\mysql.data.26.7.0.nupkg.sha512",
+    "C:\\Users\\7_1\\.nuget\\packages\\zstdsharp.port\\0.8.8\\zstdsharp.port.0.8.8.nupkg.sha512"
   ],
   "logs": []
 }
