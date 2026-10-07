@@ -33,6 +33,7 @@
             flowLayoutPanel1 = new FlowLayoutPanel();
             button_send2 = new Button();
             textBox_query2 = new TextBox();
+            lblName = new Label();
             SuspendLayout();
             // 
             // button_send1
@@ -77,11 +78,22 @@
             textBox_query2.Size = new Size(217, 23);
             textBox_query2.TabIndex = 5;
             // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            lblName.Location = new Point(277, 10);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(54, 21);
+            lblName.TabIndex = 6;
+            lblName.Text = "label1";
+            // 
             // FormBase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(611, 562);
+            Controls.Add(lblName);
             Controls.Add(textBox_query2);
             Controls.Add(button_send2);
             Controls.Add(flowLayoutPanel1);
@@ -101,5 +113,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button_send2;
         private TextBox textBox_query2;
+        private Label lblName;
     }
 }

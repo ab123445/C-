@@ -6,24 +6,33 @@ namespace WinFormsApp1
 {
     public partial class FormBase : Form
     {
+        string name;
         public FormBase()
         {
             InitializeComponent();
         }
 
-        internal void sendToMsgBox(string v)
+        internal void sendToMainThread(string c, string d)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new Action(() => sendToMsgBox(v)));
+                this.BeginInvoke(new Action(() => sendToMainThread(c, d)));
                 return;
             }
-            Settings(v);
+            if (c == "/msgbox")
+            {
+                Settings(d);
+            }
+            if (c == "/setName")
+            {
+                name = d;
+                lblName.Text = name;
+            }
         }
 
-        private void Settings(string v)
+        private void Settings(string d)
         {
-            MessageBox.Show(v);
+            MessageBox.Show(d);
         }
         MysqlNetwork net;
 

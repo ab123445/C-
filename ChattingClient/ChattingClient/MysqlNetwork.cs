@@ -47,7 +47,7 @@ namespace WinFormsApp1
         {
             FormBase form = (FormBase)Application.OpenForms["FormBase"];
             if (form == null) return;
-            form.sendToMsgBox("서버가 동작하지 않습니다.");
+            form.sendToMainThread("/msgbox", "서버가 동작하지 않습니다.");
         }
 
         public long sendQueryData_insert_update_delete(string query)
