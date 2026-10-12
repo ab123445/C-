@@ -64,7 +64,13 @@ namespace ChattingServer
             }
             if (command[0] == "/tell")
             {
-                socksend(int.Parse(command[1]), $"/tell {num}");
+                foreach (int i in clientSocks.Keys)
+                {
+                    if (i != num)
+                    {
+                        socksend(i, data);
+                    }
+                }
             }
             //if (command[0] == "/join")
             //{

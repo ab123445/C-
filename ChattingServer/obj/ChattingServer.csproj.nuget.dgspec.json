@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sw_306\\Desktop\\수강생605\\변지온\\MineServer\\ChattingServer.csproj": {}
+    "C:\\Users\\D411\\Desktop\\수강생602\\변지온\\ChattingServer\\ChattingServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sw_306\\Desktop\\수강생605\\변지온\\MineServer\\ChattingServer.csproj": {
+    "C:\\Users\\D411\\Desktop\\수강생602\\변지온\\ChattingServer\\ChattingServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sw_306\\Desktop\\수강생605\\변지온\\MineServer\\ChattingServer.csproj",
+        "projectUniqueName": "C:\\Users\\D411\\Desktop\\수강생602\\변지온\\ChattingServer\\ChattingServer.csproj",
         "projectName": "ChattingServer",
-        "projectPath": "C:\\Users\\sw_306\\Desktop\\수강생605\\변지온\\MineServer\\ChattingServer.csproj",
-        "packagesPath": "C:\\Users\\sw_306\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sw_306\\Desktop\\수강생605\\변지온\\MineServer\\obj\\",
+        "projectPath": "C:\\Users\\D411\\Desktop\\수강생602\\변지온\\ChattingServer\\ChattingServer.csproj",
+        "packagesPath": "C:\\Users\\D411\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\D411\\Desktop\\수강생602\\변지온\\ChattingServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sw_306\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\D411\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

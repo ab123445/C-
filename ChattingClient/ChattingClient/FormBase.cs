@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic;
+using MineSearch;
 using System.Data;
 using System.Drawing.Text;
 
@@ -7,6 +8,7 @@ namespace WinFormsApp1
     public partial class FormBase : Form
     {
         string name;
+        ClientSocket client = new();
         public FormBase()
         {
             InitializeComponent();
@@ -27,6 +29,18 @@ namespace WinFormsApp1
             {
                 name = d;
                 lblName.Text = name;
+            }
+            if (c == "/tell") //name te te te
+            {
+                DateTime dt = DateTime.Now;
+                string[] command = d.Split(" ");
+                string senderName = command[0];
+                string content = "";
+                for (int i = 1; i < command.Length - 1; i++)
+                {
+                    content += " " + command[i];
+                }
+                ShowingMessage(content, senderName, dt.Hour, dt.Minute);
             }
         }
 
@@ -51,14 +65,18 @@ namespace WinFormsApp1
         //mysql
         private void FormBase_Load(object sender, EventArgs e)
         {
+            name = (client.ClientCode).ToString();
+            lblName.Text = name;
             net = new MysqlNetwork();
-            //textBox_query.Text = "SELECT * FROM users;";
-            //textBox_query.Text = "SELECT * FROM users;";
-            //textBox_query.Text = "SELECT * FROM users;";
-            //textBox_query.Text = "INSERT INTO `student`.`ranking` (`name`, `point`) VALUES ('변지온', 1200);";
-            //textBox_query.Text = "SELECT * FROM ranking;";
+            Thread t1 = new Thread(new ThreadStart(() => client.start()));
+            t1.IsBackground = true;
+            t1.Start();
+
         }
-        
+        /* tell을 받아서 showingMessage를 실행
+         * 
+         * 
+         */
         private void button_send_Click(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
@@ -82,7 +100,10 @@ namespace WinFormsApp1
             net.sendQueryData_insert_update_delete(
                 $"INSERT INTO t_chat (name, text, nowdate) VALUES ('{sender}', '{text}', '{dtime}');");
         }
-
+        /* /tell 인수로 name 쓰기
+         * 
+         * 
+         */ 
 
         private void ShowingMessage(string text, string sender, int hour, int minute)
         {
@@ -151,6 +172,13 @@ namespace WinFormsApp1
         }
         private void ShowingMyMessage(string text, int hour, int minute)
         {
+            string[] command = text.Split(' ');
+            if (command[0] == "/setName")
+            {
+                client.socksend($"/setName {command[1]}");
+                return;
+            }
+            client.socksend($"/tell {name} {text}"); //
             TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
             Label label1 = new Label();
             Label label2 = new Label();

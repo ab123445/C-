@@ -84,9 +84,9 @@
             lblName.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
             lblName.Location = new Point(277, 10);
             lblName.Name = "lblName";
-            lblName.Size = new Size(54, 21);
+            lblName.Size = new Size(42, 21);
             lblName.TabIndex = 6;
-            lblName.Text = "label1";
+            lblName.Text = "이름";
             // 
             // FormBase
             // 
