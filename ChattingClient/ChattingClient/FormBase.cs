@@ -88,7 +88,7 @@ namespace WinFormsApp1
         private void button_send2_Click(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-           // dt.ToLongDateString()
+            // dt.ToLongDateString()
             string data = textBox_query2.Text;
             ShowingMessage(data, "슬기샘", dt.Hour, dt.Minute);
             saveMessage(data, "슬기샘", dt);
@@ -103,7 +103,7 @@ namespace WinFormsApp1
         /* /tell 인수로 name 쓰기
          * 
          * 
-         */ 
+         */
 
         private void ShowingMessage(string text, string sender, int hour, int minute)
         {
@@ -159,7 +159,7 @@ namespace WinFormsApp1
             label3.TabIndex = 2;
             if (hour > 12)
             {
-                label3.Text = $"오후 {hour-12}:{minute}";
+                label3.Text = $"오후 {hour - 12}:{minute}";
             }
             else if (hour == 12)
             {
@@ -172,12 +172,6 @@ namespace WinFormsApp1
         }
         private void ShowingMyMessage(string text, int hour, int minute)
         {
-            string[] command = text.Split(' ');
-            if (command[0] == "/setName")
-            {
-                client.socksend($"/setName {command[1]}");
-                return;
-            }
             client.socksend($"/tell {name} {text}"); //
             TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
             Label label1 = new Label();
@@ -247,6 +241,10 @@ namespace WinFormsApp1
 
         }
 
-
+        private void btnName_Click(object sender, EventArgs e)
+        {
+            client.socksend($"/setName {txtBoxName.Text}");
+            txtBoxName.Text = "";
+        }
     }
 }
