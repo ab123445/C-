@@ -1,7 +1,9 @@
+using ChattingClient;
 using Microsoft.VisualBasic;
 using MineSearch;
 using System.Data;
 using System.Drawing.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WinFormsApp1
 {
@@ -12,6 +14,7 @@ namespace WinFormsApp1
         public FormBase()
         {
             InitializeComponent();
+
         }
 
         internal void sendToMainThread(string c, string d)
@@ -30,7 +33,7 @@ namespace WinFormsApp1
                 name = d;
                 lblName.Text = name;
             }
-            if (c == "/tell") //name te te te
+            if (c == "/tell") //(ela) (hi a) >> () (ela hi)
             {
                 DateTime dt = DateTime.Now;
                 string[] command = d.Split(" ");
@@ -65,13 +68,14 @@ namespace WinFormsApp1
         //mysql
         private void FormBase_Load(object sender, EventArgs e)
         {
-            name = (client.ClientCode).ToString();
             lblName.Text = name;
             net = new MysqlNetwork();
             Thread t1 = new Thread(new ThreadStart(() => client.start()));
             t1.IsBackground = true;
             t1.Start();
-
+            Login login = new();
+            login.ShowDialog();
+            client.socksend($"/setName {login.getName()}");
         }
         /* tell을 받아서 showingMessage를 실행
          * 
@@ -237,14 +241,6 @@ namespace WinFormsApp1
             {
                 label3.Text = $"오전 {hour}:{minute}";
             }
-
-
         }
-
-        //private void btnName_Click(object sender, EventArgs e)
-        //{
-        //    client.socksend($"/setName {txtBoxName.Text}");
-        //    txtBoxName.Text = "";
-        //}
     }
 }

@@ -14,6 +14,8 @@ namespace ChattingClient
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new FormBase());
+
+
         }
     }
 }

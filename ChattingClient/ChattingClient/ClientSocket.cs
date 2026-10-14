@@ -97,11 +97,12 @@ namespace MineSearch
                     if (command[0] == "/tell")
                     {
                         string content = "";
-                        for (int i = 1; i < command.Length - 1; i++) //name text text text
+                        for (int i = 1; i < command.Length; i++) //name text text text
                         {
-                            content += " " + command[i];
+                            content += command[i] + " ";
                         }
                         SendMsg("/tell", content);
+                        socksend(content);
                     }
                 }
             }
