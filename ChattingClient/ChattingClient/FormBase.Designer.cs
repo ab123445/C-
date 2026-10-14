@@ -34,8 +34,6 @@
             button_send2 = new Button();
             textBox_query2 = new TextBox();
             lblName = new Label();
-            txtBoxName = new TextBox();
-            btnName = new Button();
             SuspendLayout();
             // 
             // button_send1
@@ -90,30 +88,11 @@
             lblName.TabIndex = 6;
             lblName.Text = "이름";
             // 
-            // txtBoxName
-            // 
-            txtBoxName.Location = new Point(231, 8);
-            txtBoxName.Name = "txtBoxName";
-            txtBoxName.Size = new Size(100, 23);
-            txtBoxName.TabIndex = 7;
-            // 
-            // btnName
-            // 
-            btnName.Location = new Point(337, 10);
-            btnName.Name = "btnName";
-            btnName.Size = new Size(75, 23);
-            btnName.TabIndex = 8;
-            btnName.Text = "이름 변경";
-            btnName.UseVisualStyleBackColor = true;
-            btnName.Click += btnName_Click;
-            // 
             // FormBase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(611, 562);
-            Controls.Add(btnName);
-            Controls.Add(txtBoxName);
             Controls.Add(lblName);
             Controls.Add(textBox_query2);
             Controls.Add(button_send2);
@@ -135,7 +114,5 @@
         private Button button_send2;
         private TextBox textBox_query2;
         private Label lblName;
-        private TextBox txtBoxName;
-        private Button btnName;
     }
 }

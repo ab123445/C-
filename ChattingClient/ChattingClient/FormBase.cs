@@ -241,10 +241,10 @@ namespace WinFormsApp1
 
         }
 
-        private void btnName_Click(object sender, EventArgs e)
-        {
-            client.socksend($"/setName {txtBoxName.Text}");
-            txtBoxName.Text = "";
-        }
+        //private void btnName_Click(object sender, EventArgs e)
+        //{
+        //    client.socksend($"/setName {txtBoxName.Text}");
+        //    txtBoxName.Text = "";
+        //}
     }
 }
