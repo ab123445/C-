@@ -13,3 +13,17 @@ C:\Users\D411\Desktop\수강생602\변지온\ChattingServer\obj\Debug\net10.0\Ch
 C:\Users\D411\Desktop\수강생602\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.genruntimeconfig.cache
 C:\Users\D411\Desktop\수강생602\변지온\ChattingServer\obj\Debug\net10.0\ref\ChattingServer.dll
 C:\Users\D411\Desktop\수강생602\변지온\ChattingServer\obj\Debug\net10.0\Chatting.6ADAD46F.Up2Date
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\bin\Debug\net10.0\ChattingServer.exe
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\bin\Debug\net10.0\ChattingServer.deps.json
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\bin\Debug\net10.0\ChattingServer.runtimeconfig.json
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\bin\Debug\net10.0\ChattingServer.dll
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\bin\Debug\net10.0\ChattingServer.pdb
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.AssemblyInfoInputs.cache
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.AssemblyInfo.cs
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.csproj.CoreCompileInputs.cache
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.dll
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\refint\ChattingServer.dll
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.pdb
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ChattingServer.genruntimeconfig.cache
+C:\Users\D410\Desktop\수강생606\변지온\ChattingServer\obj\Debug\net10.0\ref\ChattingServer.dll

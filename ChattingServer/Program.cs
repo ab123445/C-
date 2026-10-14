@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ChattingServer
@@ -71,6 +72,10 @@ namespace ChattingServer
                         socksend(i, data);
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine(data);
             }
             //if (command[0] == "/join")
             //{
