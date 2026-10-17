@@ -31,8 +31,6 @@
             button_send1 = new Button();
             textBox_query = new TextBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            button_send2 = new Button();
-            textBox_query2 = new TextBox();
             lblName = new Label();
             SuspendLayout();
             // 
@@ -42,7 +40,7 @@
             button_send1.Name = "button_send1";
             button_send1.Size = new Size(75, 23);
             button_send1.TabIndex = 0;
-            button_send1.Text = "button1";
+            button_send1.Text = "보내기";
             button_send1.UseVisualStyleBackColor = true;
             button_send1.Click += button_send_Click;
             // 
@@ -61,23 +59,6 @@
             flowLayoutPanel1.Size = new Size(298, 363);
             flowLayoutPanel1.TabIndex = 3;
             // 
-            // button_send2
-            // 
-            button_send2.Location = new Point(256, 456);
-            button_send2.Name = "button_send2";
-            button_send2.Size = new Size(75, 23);
-            button_send2.TabIndex = 4;
-            button_send2.Text = "button2";
-            button_send2.UseVisualStyleBackColor = true;
-            button_send2.Click += button_send2_Click;
-            // 
-            // textBox_query2
-            // 
-            textBox_query2.Location = new Point(33, 457);
-            textBox_query2.Name = "textBox_query2";
-            textBox_query2.Size = new Size(217, 23);
-            textBox_query2.TabIndex = 5;
-            // 
             // lblName
             // 
             lblName.AutoSize = true;
@@ -92,10 +73,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(611, 562);
+            ClientSize = new Size(376, 562);
             Controls.Add(lblName);
-            Controls.Add(textBox_query2);
-            Controls.Add(button_send2);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(textBox_query);
             Controls.Add(button_send1);
@@ -111,8 +90,6 @@
         private Button button_send1;
         private TextBox textBox_query;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Button button_send2;
-        private TextBox textBox_query2;
         private Label lblName;
     }
 }

@@ -89,14 +89,6 @@ namespace WinFormsApp1
             saveMessage(data, "³ª", dt);
 
         }
-        private void button_send2_Click(object sender, EventArgs e)
-        {
-            DateTime dt = DateTime.Now;
-            // dt.ToLongDateString()
-            string data = textBox_query2.Text;
-            ShowingMessage(data, "½½±â»ù", dt.Hour, dt.Minute);
-            saveMessage(data, "½½±â»ù", dt);
-        }
 
         private void saveMessage(string text, string sender, DateTime dt)
         {
