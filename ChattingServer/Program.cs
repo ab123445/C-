@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Mysqlx.Crud;
+using System;
+using System.Data;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using WinFormsApp1;
 
 namespace ChattingServer
 {
@@ -13,11 +16,13 @@ namespace ChattingServer
         {
             Program server = new Program();
             server.start();
+            server.loadMessage();
         }
 
         Socket serverSock;
         const int MAX = 2;
         Dictionary<int, Socket> clientSocks = new();
+        Dictionary<int, string> clientNames = new();
        
         static int client_number = 1;
         void start()
@@ -56,12 +61,32 @@ namespace ChattingServer
             serverclose();
         }
 
+        MysqlNetwork net = new();
+        private void saveMessage(string text, string sender)
+        {
+            DateTime dt = DateTime.Now;
+            string dtime = dt.ToString("yyyy-MM-dd HH:mm:ss");
+            net.sendQueryData_insert_update_delete(
+                $"INSERT INTO t_chat (name, text, nowdate) VALUES ('{sender}', '{text}', '{dtime}');");
+        }
+        private void loadMessage()
+        {
+            DataTable table =
+            net.sendSelectQuery("SELECT * FROM t_chat where Date(nowdate)='2026-10-19' LIMIT 1000;");
+
+            foreach (DataRow row in table.Rows)
+            {
+                string s = row["text"].ToString();
+                Console.WriteLine(s);
+            }
+        }
         void commandsRecv(int num, string data)
         {
             string[] command = data.Split(' ');
             if (command[0] == "/setName")
             {
                 socksend(num, $"/setName {command[1]}");
+                clientNames[num] = command[1];
             }
             if (command[0] == "/tell")
             {
@@ -73,43 +98,18 @@ namespace ChattingServer
                     }
                 }
             }
+            if (command[0] == "/saveMessage")
+            {
+                saveMessage(command[1], clientNames[num]);
+            }
+            if (command[0] == "/load")
+            {
+
+            }
             else
             {
                 Console.WriteLine(data);
             }
-            //if (command[0] == "/join")
-            //{
-            //    if (inRoom.Contains(num) == false)
-            //    {
-            //        inRoom.Add(num);
-            //        foreach (int i in inRoom)
-            //        {
-            //            socksend(i, $"/join {num}\n");
-            //        }
-            //        foreach (int i in inRoom)
-            //        {
-            //            if (i != num)
-            //            {
-            //                socksend(num, $"/join {i}\n");
-            //            }
-            //        }
-            //        if (inRoom.Count == MAX)
-            //        {
-            //            socksend(inRoom[0], $"/matchConnect {inRoom[1]}\n");
-            //            socksend(inRoom[1], $"/matchConnect {inRoom[0]}\n");
-            //            inRoom.RemoveAt(1);
-            //            inRoom.RemoveAt(0);
-            //        }
-            //    }
-            //}
-            //if (command[0] == "/end")
-            //{
-            //    socksend(int.Parse(command[2]), $"/end {command[1]}");
-            //}
-            //if (command[0] == "/high")
-            //{
-            //    socksend(int.Parse(command[2]), $"/high {command[1]}");
-            //}
             Console.WriteLine(data);
         }
 
