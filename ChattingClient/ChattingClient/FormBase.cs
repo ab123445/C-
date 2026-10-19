@@ -51,25 +51,13 @@ namespace WinFormsApp1
         {
             MessageBox.Show(d);
         }
-        MysqlNetwork net;
 
-        private void SelectUsingAdapter()
-        {
-            DataTable dt = net.sendSelectQuery("SELECT * FROM ranking;");
 
-            //name
-            foreach (DataRow dataRow in dt.Rows)
-            {
-                string name = dataRow["name"].ToString();
-
-            }
-        }
         // INSERT INTO t_chat (name, text, hour, minute) VALUES ('s0', 'f', 1, 3);
         //mysql
         private void FormBase_Load(object sender, EventArgs e)
         {
             lblName.Text = name;
-            net = new MysqlNetwork();
             Thread t1 = new Thread(new ThreadStart(() => client.start()));
             t1.IsBackground = true;
             t1.Start();
@@ -86,15 +74,13 @@ namespace WinFormsApp1
             DateTime dt = DateTime.Now;
             string data = textBox_query.Text;
             ShowingMyMessage(data, dt.Hour, dt.Minute);
-            saveMessage(data, "나", dt);
+            saveMessage(data, name);
 
         }
 
-        private void saveMessage(string text, string sender, DateTime dt)
+        private void saveMessage(string text, string sender)
         {
-            string dtime = dt.ToString("yyyy-MM-dd HH:mm:ss");
-            net.sendQueryData_insert_update_delete(
-                $"INSERT INTO t_chat (name, text, nowdate) VALUES ('{sender}', '{text}', '{dtime}');");
+            client.socksend($"/saveMessage {text} {name}");
         }
         /* /tell 인수로 name 쓰기
          * 

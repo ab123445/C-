@@ -102,7 +102,6 @@ namespace MineSearch
                             content += command[i] + " ";
                         }
                         SendMsg("/tell", content);
-                        socksend(content);
                     }
                 }
             }

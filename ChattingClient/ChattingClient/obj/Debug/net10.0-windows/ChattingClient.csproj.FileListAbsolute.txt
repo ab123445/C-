@@ -180,3 +180,4 @@ C:\Users\USER\OneDrive\바탕 화면\ChattingClient\ChattingClient\obj\Debug\net
 C:\Users\USER\OneDrive\바탕 화면\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.pdb
 C:\Users\USER\OneDrive\바탕 화면\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.genruntimeconfig.cache
 C:\Users\USER\OneDrive\바탕 화면\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ref\ChattingClient.dll
+C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Login.resources
