@@ -103,6 +103,15 @@ namespace MineSearch
                         }
                         SendMsg("/tell", content);
                     }
+                    if (command[0] == "/load")
+                    {
+                        string content = "";
+                        for (int i = 1; i < command.Length; i++) //name text text text
+                        {
+                            content += command[i] + " ";
+                        }
+                        SendMsg("/load", content);
+                    }
                 }
             }
             catch

@@ -1,6 +1,7 @@
 using ChattingClient;
 using Microsoft.VisualBasic;
 using MineSearch;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing.Text;
 using static System.Net.Mime.MediaTypeNames;
@@ -9,6 +10,7 @@ namespace WinFormsApp1
 {
     public partial class FormBase : Form
     {
+        int roomNumber = 1;
         string name;
         ClientSocket client = new();
         public FormBase()
@@ -45,6 +47,29 @@ namespace WinFormsApp1
                 }
                 ShowingMessage(content, senderName, dt.Hour, dt.Minute);
             }
+            if (c == "/load") // (eln) (yyyy-MM-dd HH:mm:ss) (s s s)
+            {
+
+                string[] command = d.Split(" ");
+                string senderName = command[0];
+
+                string AMPM = command[2];
+                string[] time = command[3].Split(":");
+                int hour = int.Parse(time[0]);
+                int minute = int.Parse(time[1]);
+                if (AMPM == "오후")
+                    hour += 12;
+
+                string content = "";
+                for (int i = 4; i < command.Length - 1; i++)
+                {
+                    content += " " + command[i];
+                }
+                if (senderName != name)
+                    ShowingMessage(content, senderName, hour, minute);
+                if (senderName == name)
+                    ShowingMyMessage(content, hour, minute);
+            }
         }
 
         private void Settings(string d)
@@ -64,6 +89,9 @@ namespace WinFormsApp1
             Login login = new();
             login.ShowDialog();
             client.socksend($"/setName {login.getName()}");
+            client.socksend($"/load");
+            Rooms rooms = new();
+            rooms.Show();
         }
         /* tell을 받아서 showingMessage를 실행
          * 
@@ -74,11 +102,12 @@ namespace WinFormsApp1
             DateTime dt = DateTime.Now;
             string data = textBox_query.Text;
             ShowingMyMessage(data, dt.Hour, dt.Minute);
+            client.socksend($"/tell {name} {data}");
             saveMessage(data, name);
 
         }
 
-        private void saveMessage(string text, string sender)
+        private void saveMessage(string text, string sender) //이거 틀림 text를 못받아온다. db에 text[0]까지만 저장됨
         {
             client.socksend($"/saveMessage {text} {name}");
         }
@@ -154,7 +183,7 @@ namespace WinFormsApp1
         }
         private void ShowingMyMessage(string text, int hour, int minute)
         {
-            client.socksend($"/tell {name} {text}"); //
+            //
             TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
             Label label1 = new Label();
             Label label2 = new Label();
