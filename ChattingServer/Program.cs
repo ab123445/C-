@@ -16,7 +16,6 @@ namespace ChattingServer
         {
             Program server = new Program();
             server.start();
-            server.loadMessage();
         }
 
         Socket serverSock;
@@ -69,15 +68,19 @@ namespace ChattingServer
             net.sendQueryData_insert_update_delete(
                 $"INSERT INTO t_chat (name, text, nowdate) VALUES ('{sender}', '{text}', '{dtime}');");
         }
-        private void loadMessage()
+        private void loadMessage(int num) //where Date(nowdate)='2026-10-19'
         {
             DataTable table =
-            net.sendSelectQuery("SELECT * FROM t_chat where Date(nowdate)='2026-10-19' LIMIT 1000;");
+            net.sendSelectQuery("SELECT * FROM t_chat  LIMIT 1000;");
 
             foreach (DataRow row in table.Rows)
             {
-                string s = row["text"].ToString();
-                Console.WriteLine(s);
+                string name = row["name"].ToString();
+                string text = row["text"].ToString();
+                string nowdate = row["nowdate"].ToString();
+                //Console.WriteLine(nowdate);
+                socksend(num, $"/load {name} {nowdate} {text}\n");
+                Console.WriteLine($"/load {name} {nowdate} {text}");
             }
         }
         void commandsRecv(int num, string data)
@@ -102,9 +105,9 @@ namespace ChattingServer
             {
                 saveMessage(command[1], clientNames[num]);
             }
-            if (command[0] == "/load")
+            if (command[0] == "/load") //load 이름 날짜 내용
             {
-
+                loadMessage(num);
             }
             else
             {
