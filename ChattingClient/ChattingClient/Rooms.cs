@@ -14,7 +14,18 @@ namespace ChattingClient
         {
             InitializeComponent();
         }
-        private void Rooms_Load(object sender, EventArgs e)
+
+        private void BtnRoom1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnRoom2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnRoom3_Click(object sender, EventArgs e)
         {
 
         }

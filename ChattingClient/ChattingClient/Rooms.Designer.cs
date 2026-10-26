@@ -28,28 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BtnRoom1 = new Button();
-            this.BtnRoom2 = new Button();
+            BtnRoom1 = new Button();
+            BtnRoom2 = new Button();
             BtnRoom3 = new Button();
             SuspendLayout();
             // 
             // BtnRoom1
             // 
-            this.BtnRoom1.Location = new Point(12, 12);
-            this.BtnRoom1.Name = "BtnRoom1";
-            this.BtnRoom1.Size = new Size(181, 53);
-            this.BtnRoom1.TabIndex = 0;
-            this.BtnRoom1.Text = "1번 방";
-            this.BtnRoom1.UseVisualStyleBackColor = true;
+            BtnRoom1.Location = new Point(12, 12);
+            BtnRoom1.Name = "BtnRoom1";
+            BtnRoom1.Size = new Size(181, 53);
+            BtnRoom1.TabIndex = 0;
+            BtnRoom1.Text = "1번 방";
+            BtnRoom1.UseVisualStyleBackColor = true;
+            BtnRoom1.Click += BtnRoom1_Click;
             // 
             // BtnRoom2
             // 
-            this.BtnRoom2.Location = new Point(12, 71);
-            this.BtnRoom2.Name = "BtnRoom2";
-            this.BtnRoom2.Size = new Size(181, 57);
-            this.BtnRoom2.TabIndex = 1;
-            this.BtnRoom2.Text = "2번 방";
-            this.BtnRoom2.UseVisualStyleBackColor = true;
+            BtnRoom2.Location = new Point(12, 71);
+            BtnRoom2.Name = "BtnRoom2";
+            BtnRoom2.Size = new Size(181, 57);
+            BtnRoom2.TabIndex = 1;
+            BtnRoom2.Text = "2번 방";
+            BtnRoom2.UseVisualStyleBackColor = true;
+            BtnRoom2.Click += BtnRoom2_Click;
             // 
             // BtnRoom3
             // 
@@ -59,6 +61,7 @@
             BtnRoom3.TabIndex = 2;
             BtnRoom3.Text = "3번 방";
             BtnRoom3.UseVisualStyleBackColor = true;
+            BtnRoom3.Click += BtnRoom3_Click;
             // 
             // Rooms
             // 
@@ -66,12 +69,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(205, 220);
             Controls.Add(BtnRoom3);
-            Controls.Add(this.BtnRoom2);
-            Controls.Add(this.BtnRoom1);
+            Controls.Add(BtnRoom2);
+            Controls.Add(BtnRoom1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Rooms";
             Text = "Rooms";
-            Load += Rooms_Load;
             ResumeLayout(false);
         }
 

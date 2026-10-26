@@ -13,7 +13,7 @@ namespace ChattingClient
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormBase());
+            Application.Run(new Rooms()); //room에서 Login이, formBase가 켜지게 바꿔야 함.
 
 
         }

@@ -13,10 +13,16 @@ namespace WinFormsApp1
         int roomNumber = 1;
         string name;
         ClientSocket client = new();
+
         public FormBase()
         {
             InitializeComponent();
 
+        }
+
+        public void setRoom(int a)
+        {
+            roomNumber = a;
         }
 
         internal void sendToMainThread(string c, string d)
@@ -35,20 +41,24 @@ namespace WinFormsApp1
                 name = d;
                 lblName.Text = name;
             }
-            if (c == "/tell") //(ela) (hi a) >> () (ela hi)
+            if (c == "/tell") //(roomNumber) (ela) (hi arn)
             {
-                DateTime dt = DateTime.Now;
                 string[] command = d.Split(" ");
-                string senderName = command[0];
-                string content = "";
-                for (int i = 1; i < command.Length - 1; i++)
+                int roomNum = int.Parse(command[0]);
+                if (roomNum == roomNumber)
                 {
-                    content += " " + command[i];
+                    DateTime dt = DateTime.Now;
+                    string senderName = command[1];
+                    string content = "";
+                    for (int i = 2; i < command.Length - 1; i++)
+                    {
+                        content += " " + command[i];
+                    }
+                    ShowingMessage(content, senderName, dt.Hour, dt.Minute);
                 }
-                ShowingMessage(content, senderName, dt.Hour, dt.Minute);
             }
             if (c == "/load") // (eln) (yyyy-MM-dd HH:mm:ss) (s s s)
-            {
+            { //여기도 roomNumber 넣은다음에 바꿔야함
 
                 string[] command = d.Split(" ");
                 string senderName = command[0];
@@ -102,14 +112,14 @@ namespace WinFormsApp1
             DateTime dt = DateTime.Now;
             string data = textBox_query.Text;
             ShowingMyMessage(data, dt.Hour, dt.Minute);
-            client.socksend($"/tell {name} {data}");
-            saveMessage(data, name);
+            client.socksend($"/tell {roomNumber} {name} {data}");
+            saveMessage(roomNumber, data);
 
         }
 
-        private void saveMessage(string text, string sender) //이거 틀림 text를 못받아온다. db에 text[0]까지만 저장됨
+        private void saveMessage(int roomNumber, string text) //이거 틀림 text를 못받아온다. db에 text[0]까지만 저장됨
         {
-            client.socksend($"/saveMessage {text} {name}");
+            client.socksend($"/saveMessage {roomNumber} {text}");
         }
         /* /tell 인수로 name 쓰기
          * 
