@@ -61,12 +61,12 @@ namespace ChattingServer
         }
 
         MysqlNetwork net = new();
-        private void saveMessage(string text, string sender)
+        private void saveMessage(int roomNumber, string sender, string text)
         {
             DateTime dt = DateTime.Now;
             string dtime = dt.ToString("yyyy-MM-dd HH:mm:ss");
             net.sendQueryData_insert_update_delete(
-                $"INSERT INTO t_chat (name, text, nowdate) VALUES ('{sender}', '{text}', '{dtime}');");
+                $"INSERT INTO t_chat (name, text, nowdate, room) VALUES ('{sender}', '{text}', '{dtime}', '{roomNumber}');");
         }
         private void loadMessage(int num) //where Date(nowdate)='2026-10-19'
         {
@@ -101,9 +101,14 @@ namespace ChattingServer
                     }
                 }
             }
-            if (command[0] == "/saveMessage")
+            if (command[0] == "/saveMessage") //saveMessage roomNumber text text text
             {
-                saveMessage(command[1], clientNames[num]);
+                string content = "";
+                for (int i = 2; i < command.Length; i++)
+                {
+                    content += command[i] + " ";
+                }
+                saveMessage(int.Parse(command[1]), clientNames[num], content);
             }
             if (command[0] == "/load") //load 이름 날짜 내용
             {
