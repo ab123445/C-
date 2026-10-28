@@ -14,10 +14,10 @@ namespace WinFormsApp1
         string name;
         ClientSocket client = new();
 
-        public FormBase()
+        public FormBase(string name, int roomNumber)
         {
             InitializeComponent();
-
+            this.name = name;
         }
 
         public void setRoom(int a)
@@ -92,16 +92,13 @@ namespace WinFormsApp1
         //mysql
         private void FormBase_Load(object sender, EventArgs e)
         {
-            lblName.Text = name;
-            Thread t1 = new Thread(new ThreadStart(() => client.start()));
+            client.start();
+            Thread t1 = new Thread(new ThreadStart(() => client.work()));
             t1.IsBackground = true;
             t1.Start();
-            Login login = new();
-            login.ShowDialog();
-            client.socksend($"/setName {login.getName()}");
-            client.socksend($"/load");
-            Rooms rooms = new();
-            rooms.Show();
+            client.socksend($"/setName {name}");
+            client.socksend($"/load {roomNumber}");
+            lblName.Text = name;
         }
         /* tell을 받아서 showingMessage를 실행
          * 

@@ -26,6 +26,8 @@ namespace ChattingClient
             return Name;
         }
 
+
+
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             Name = txtBoxName.Text;

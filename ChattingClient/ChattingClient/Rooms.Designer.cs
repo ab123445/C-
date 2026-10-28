@@ -74,6 +74,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Rooms";
             Text = "Rooms";
+            Load += Rooms_Load;
             ResumeLayout(false);
         }
 

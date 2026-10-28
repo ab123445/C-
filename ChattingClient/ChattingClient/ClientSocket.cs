@@ -31,6 +31,11 @@ namespace MineSearch
                 return;
             }
 
+            
+        }
+
+        public void work()
+        {
             byte[] receiverBuff = new byte[8192];
 
             while (connecting == true)
