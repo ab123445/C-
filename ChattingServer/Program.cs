@@ -68,7 +68,7 @@ namespace ChattingServer
             net.sendQueryData_insert_update_delete(
                 $"INSERT INTO t_chat (name, text, nowdate, room) VALUES ('{sender}', '{text}', '{dtime}', '{roomNumber}');");
         }
-        private void loadMessage(int num) //where Date(nowdate)='2026-10-19'
+        private void loadMessage(int num, int roomNum) //where Date(nowdate)='2026-10-19'
         {
             DataTable table =
             net.sendSelectQuery("SELECT * FROM t_chat  LIMIT 1000;");
@@ -78,8 +78,13 @@ namespace ChattingServer
                 string name = row["name"].ToString();
                 string text = row["text"].ToString();
                 string nowdate = row["nowdate"].ToString();
+                int room = int.Parse(row["rooms"].ToString());
                 //Console.WriteLine(nowdate);
-                socksend(num, $"/load {name} {nowdate} {text}\n");
+                if (room == roomNum)
+                {
+                    socksend(num, $"/load {name} {nowdate} {text}\n");
+                }
+                
                 Console.WriteLine($"/load {name} {nowdate} {text}");
             }
         }
@@ -112,13 +117,13 @@ namespace ChattingServer
             }
             if (command[0] == "/load") //load 이름 날짜 내용
             {
-                loadMessage(num);
+                loadMessage(num, int.Parse(command[1]));
+                Console.WriteLine(data);
             }
             else
             {
                 Console.WriteLine(data);
             }
-            Console.WriteLine(data);
         }
 
         void sockrecv(int num)
