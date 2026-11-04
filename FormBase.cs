@@ -1,0 +1,262 @@
+using ChattingClient;
+using Microsoft.VisualBasic;
+using MineSearch;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing.Text;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace WinFormsApp1
+{
+    public partial class FormBase : Form
+    {
+        int roomNumber = 1;
+        string name;
+        ClientSocket client;
+
+        public FormBase(ClientSocket c, string name, int roomNum)
+        {
+            InitializeComponent();
+            this.name = name;
+            roomNumber = roomNum;
+            client = c;
+        }
+
+        public void setRoom(int a)
+        {
+            roomNumber = a;
+        }
+
+        internal void sendToMainThread(string c, string d)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => sendToMainThread(c, d)));
+                return;
+            }
+            if (c == "/msgbox")
+            {
+                Settings(d);
+            }
+            if (c == "/setName")
+            {
+                name = d;
+                lblName.Text = name;
+            }
+            if (c == "/tell") //(roomNumber) (ela) (hi arn)
+            {
+                string[] command = d.Split(" ");
+                int roomNum = int.Parse(command[0]);
+                if (roomNum == roomNumber)
+                {
+                    DateTime dt = DateTime.Now;
+                    string senderName = command[1];
+                    string content = "";
+                    for (int i = 2; i < command.Length - 1; i++)
+                    {
+                        content += " " + command[i];
+                    }
+                    ShowingMessage(content, senderName, dt.Hour, dt.Minute);
+                }
+            }
+            if (c == "/load") // (eln) (yyyy-MM-dd HH:mm:ss) (s s s)
+            { //여기도 roomNumber 넣은다음에 바꿔야함
+
+                string[] command = d.Split(" ");
+                string senderName = command[0];
+
+                string AMPM = command[2];///////
+                string[] time = command[3].Split(":");
+                int hour = int.Parse(time[0]);
+                int minute = int.Parse(time[1]);
+                if (AMPM == "오후")
+                    hour += 12;
+
+                string content = "";
+                for (int i = 4; i < command.Length - 1; i++)
+                {
+                    content += " " + command[i];
+                }
+                if (senderName != name)
+                    ShowingMessage(content, senderName, hour, minute);
+                if (senderName == name)
+                    ShowingMyMessage(content, hour, minute);
+            }
+        }
+
+        private void Settings(string d)
+        {
+            MessageBox.Show(d);
+        }
+
+
+        // INSERT INTO t_chat (name, text, hour, minute) VALUES ('s0', 'f', 1, 3);
+        //mysql
+        private void FormBase_Load(object sender, EventArgs e)
+        {
+            client.start();
+            Thread t1 = new Thread(new ThreadStart(() => client.work()));
+            t1.IsBackground = true;
+            t1.Start();
+            client.socksend($"/setName {name}\n");
+            client.socksend($"/load {roomNumber}");
+            lblName.Text = name;
+        }
+        /* tell을 받아서 showingMessage를 실행
+         * 
+         * 
+         */
+        private void button_send_Click(object sender, EventArgs e)
+        {
+            DateTime dt = DateTime.Now;
+            string data = textBox_query.Text;
+            ShowingMyMessage(data, dt.Hour, dt.Minute);
+            client.socksend($"/tell {roomNumber} {name} {data}");
+            saveMessage(roomNumber, data);
+
+        }
+
+        private void saveMessage(int roomNumber, string text) //이거 틀림 text를 못받아온다. db에 text[0]까지만 저장됨
+        {
+            client.socksend($"/saveMessage {roomNumber} {text}");
+        }
+        /* /tell 인수로 name 쓰기
+         * 
+         * 
+         */
+
+        private void ShowingMessage(string text, string sender, int hour, int minute)
+        {
+            TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
+            Label label1 = new Label();
+            Label label2 = new Label();
+            Label label3 = new Label();
+            flowLayoutPanel1.Controls.Add(tableLayoutPanel1);
+            flowLayoutPanel1.ScrollControlIntoView(tableLayoutPanel1);
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(label1, 0, 1);
+            tableLayoutPanel1.Controls.Add(label2, 0, 0);
+            tableLayoutPanel1.Controls.Add(label3, 1, 1);
+            tableLayoutPanel1.Location = new Point(1, 1);
+            tableLayoutPanel1.BackColor = Color.Red;
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(290, 44);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = SystemColors.ActiveCaption;
+            label1.Location = new Point(3, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(27, 15);
+            label1.TabIndex = 0;
+            label1.Text = $"{text}";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(3, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(43, 15);
+            label2.TabIndex = 1;
+            label2.Text = $"{sender}";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(148, 22);
+            label3.Name = "label3";
+            label3.Size = new Size(31, 15);
+            label3.TabIndex = 2;
+            if (hour > 12)
+            {
+                label3.Text = $"오후 {hour - 12}:{minute}";
+            }
+            else if (hour == 12)
+            {
+                label3.Text = $"오후 {hour}:{minute}";
+            }
+            else
+            {
+                label3.Text = $"오전 {hour}:{minute}";
+            }
+        }
+        private void ShowingMyMessage(string text, int hour, int minute)
+        {
+            //
+            TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
+            Label label1 = new Label();
+            Label label2 = new Label();
+            Label label3 = new Label();
+            flowLayoutPanel1.Controls.Add(tableLayoutPanel1);
+            flowLayoutPanel1.ScrollControlIntoView(tableLayoutPanel1);
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(label1, 1, 1);
+            tableLayoutPanel1.Controls.Add(label2, 1, 0);
+            tableLayoutPanel1.Controls.Add(label3, 0, 1);
+            tableLayoutPanel1.Location = new Point(1, 1);
+            tableLayoutPanel1.BackColor = Color.Aqua;
+
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(290, 44);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = SystemColors.ActiveCaption;
+            label1.Location = new Point(3, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(27, 15);
+            label1.TabIndex = 0;
+            label1.Text = $"{text}";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(3, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(43, 15);
+            label2.TabIndex = 1;
+            label2.Text = $"나";
+            // UPDATE t_chat SET nowdate='2026-09-28 19:30:39' WHERE  idx=1;
+            // UPDATE t_chat SET nowdate=now() WHERE  idx=1;
+            // label3
+            // INSERT INTO t_chat (name, text, hour, minute) VALUES ('s0', 'f', 1, 3);
+            label3.AutoSize = true;
+            label3.Location = new Point(148, 22);
+            label3.Name = "label3";
+            label3.Size = new Size(31, 15);
+            label3.TabIndex = 2;
+            if (hour > 12)
+            {
+                label3.Text = $"오후 {hour - 12}:{minute}";
+            }
+            else if (hour == 12)
+            {
+                label3.Text = $"오후 {hour}:{minute}";
+            }
+            else
+            {
+                label3.Text = $"오전 {hour}:{minute}";
+            }
+        }
+    }
+}
