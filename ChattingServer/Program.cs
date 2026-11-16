@@ -63,6 +63,7 @@ namespace ChattingServer
         MysqlNetwork net = new();
         private void saveMessage(int roomNumber, string sender, string text)
         {
+            sender = sender.Trim();
             DateTime dt = DateTime.Now;
             string dtime = dt.ToString("yyyy-MM-dd HH:mm:ss");
             net.sendQueryData_insert_update_delete(
@@ -78,14 +79,16 @@ namespace ChattingServer
                 string name = row["name"].ToString();
                 string text = row["text"].ToString();
                 string nowdate = row["nowdate"].ToString();
-                int room = int.Parse(row["rooms"].ToString());
+                int room = int.Parse(row["room"].ToString());
                 //Console.WriteLine(nowdate);
                 if (room == roomNum)
                 {
+
                     socksend(num, $"/load {name} {nowdate} {text}\n");
+                    Console.WriteLine($"/load {name} {nowdate} {text}");
                 }
                 
-                Console.WriteLine($"/load {name} {nowdate} {text}");
+                
             }
         }
         void commandsRecv(int num, string data)
@@ -93,7 +96,7 @@ namespace ChattingServer
             string[] command = data.Split(' ');
             if (command[0] == "/setName")
             {
-                socksend(num, $"/setName {command[1]}");
+                socksend(num, $"/setName {command[1]}\n");
                 clientNames[num] = command[1];
             }
             if (command[0] == "/tell")
