@@ -6,18 +6,20 @@ using System.Data;
 using System.Drawing.Text;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace WinFormsApp1
+namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
 {
     public partial class FormBase : Form
     {
         int roomNumber = 1;
         string name;
-        ClientSocket client = new();
+        ClientSocket client;
 
-        public FormBase(string name, int roomNumber)
+        public FormBase(ClientSocket c, string name, int roomNum)
         {
             InitializeComponent();
             this.name = name;
+            roomNumber = roomNum;
+            client = c;
         }
 
         public void setRoom(int a)
@@ -63,7 +65,7 @@ namespace WinFormsApp1
                 string[] command = d.Split(" ");
                 string senderName = command[0];
 
-                string AMPM = command[2];
+                string AMPM = command[2];///////
                 string[] time = command[3].Split(":");
                 int hour = int.Parse(time[0]);
                 int minute = int.Parse(time[1]);
@@ -96,7 +98,7 @@ namespace WinFormsApp1
             Thread t1 = new Thread(new ThreadStart(() => client.work()));
             t1.IsBackground = true;
             t1.Start();
-            client.socksend($"/setName {name}");
+            client.socksend($"/setName {name}\n");
             client.socksend($"/load {roomNumber}");
             lblName.Text = name;
         }

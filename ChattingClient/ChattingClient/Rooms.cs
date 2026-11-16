@@ -16,6 +16,7 @@ namespace ChattingClient
         //ClientSocket client = new();
         string name = "";
         FormBase formBase;
+        ClientSocket client = new();
         public Rooms()
         {
             InitializeComponent();
@@ -23,23 +24,26 @@ namespace ChattingClient
 
         private void BtnRoom1_Click(object sender, EventArgs e)
         {
-            formBase.Close();
-            formBase = new(name, 1);
+            
+            //formBase.Close();
+            formBase = new(client, name, 1);
             formBase.Show();
         }
 
         private void BtnRoom2_Click(object sender, EventArgs e)
         {
-            formBase.Close();
-            formBase = new(name, 2);
+            //formBase.Close();
+            formBase = new(client, name, 2);
             formBase.Show();
+            
         }
 
         private void BtnRoom3_Click(object sender, EventArgs e)
         {
-            formBase.Close();
-            formBase = new(name, 3);
+            //formBase.Close();
+            formBase = new(client, name, 3);
             formBase.Show();
+            
         }
 
 
@@ -48,8 +52,6 @@ namespace ChattingClient
             Login login = new();
             login.ShowDialog();
             name = login.getName();
-            formBase = new(name, 1);
-            formBase.Show();
         }
     }
 }

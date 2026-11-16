@@ -8,7 +8,7 @@ using WinFormsApp1;
 
 namespace MineSearch
 {
-    internal class ClientSocket
+    public class ClientSocket
     {
         Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         //Form form1; // 선언만 위로 빼고, 대입은 start() 안에서 합니다.
