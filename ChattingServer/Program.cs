@@ -72,7 +72,8 @@ namespace ChattingServer
         private void loadMessage(int num, int roomNum) //where Date(nowdate)='2026-10-19'
         {
             DataTable table =
-            net.sendSelectQuery("SELECT * FROM t_chat  LIMIT 1000;");
+            //net.sendSelectQuery("SELECT * FROM t_chat LIMIT 1000;");
+            net.sendSelectQuery($"SELECT * FROM t_chat WHERE room={roomNum} LIMIT 1000;");
 
             foreach (DataRow row in table.Rows)
             {
@@ -84,8 +85,8 @@ namespace ChattingServer
                 if (room == roomNum)
                 {
 
-                    socksend(num, $"/load {name} {nowdate} {text}\n");
-                    Console.WriteLine($"/load {name} {nowdate} {text}");
+                    socksend(num, $"/load {room} {name} {nowdate} {text}\n");
+                    Console.WriteLine($"/load {room} {name} {nowdate} {text}");
                 }
                 
                 
