@@ -22,10 +22,10 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
             client = c;
         }
 
-        public void setRoom(int a)
-        {
-            roomNumber = a;
-        }
+        //public void setRoom(int a)
+        //{
+        //    roomNumber = a;
+        //}
 
         internal void sendToMainThread(string c, string d)
         {
@@ -59,21 +59,26 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
                     ShowingMessage(content, senderName, dt.Hour, dt.Minute);
                 }
             }
-            if (c == "/load") // (eln) (yyyy-MM-dd HH:mm:ss) (s s s)
-            { //여기도 roomNumber 넣은다음에 바꿔야함
+            if (c == "/load") // (room) (eln) (yyyy-MM-dd 오후 HH:mm:ss) (s s s)/////////////////////////////////
+            {
 
                 string[] command = d.Split(" ");
-                string senderName = command[0];
+                int mRoom = int.Parse(command[0]);
+                if (mRoom != roomNumber)
+                {
+                    return;
+                }
+                string senderName = command[1];
 
-                string AMPM = command[2];///////
-                string[] time = command[3].Split(":");
+                string AMPM = command[3];///////
+                string[] time = command[4].Split(":");
                 int hour = int.Parse(time[0]);
                 int minute = int.Parse(time[1]);
                 if (AMPM == "오후")
                     hour += 12;
 
                 string content = "";
-                for (int i = 4; i < command.Length - 1; i++)
+                for (int i = 5; i < command.Length - 1; i++)
                 {
                     content += " " + command[i];
                 }
@@ -82,6 +87,30 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
                 if (senderName == name)
                     ShowingMyMessage(content, hour, minute);
             }
+        }
+
+        public void LoadMessages(string s)
+        {
+            string[] command = s.Split(" ");
+            
+            string senderName = command[1];
+
+            string AMPM = command[3];///////
+            string[] time = command[4].Split(":");
+            int hour = int.Parse(time[0]);
+            int minute = int.Parse(time[1]);
+            if (AMPM == "오후")
+                hour += 12;
+
+            string content = "";
+            for (int i = 5; i < command.Length - 1; i++)
+            {
+                content += " " + command[i];
+            }
+            if (senderName != name)
+                ShowingMessage(content, senderName, hour, minute);
+            if (senderName == name)
+                ShowingMyMessage(content, hour, minute);
         }
 
         private void Settings(string d)
@@ -99,7 +128,7 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
             t1.IsBackground = true;
             t1.Start();
             client.socksend($"/setName {name}\n");
-            client.socksend($"/load {roomNumber}");
+            
             lblName.Text = name;
         }
         /* tell을 받아서 showingMessage를 실행
@@ -257,6 +286,13 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
             {
                 label3.Text = $"오전 {hour}:{minute}";
             }
+        }
+
+
+        public void loadChatdata_room(string s)
+        {
+            client.socksend($"/load {roomNumber}");
+
         }
     }
 }

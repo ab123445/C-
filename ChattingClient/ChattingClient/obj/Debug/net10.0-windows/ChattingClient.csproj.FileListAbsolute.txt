@@ -183,3 +183,5 @@ C:\Users\USER\OneDrive\바탕 화면\ChattingClient\ChattingClient\obj\Debug\net
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Login.resources
 C:\Users\D410\Desktop\수강생606\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Rooms.resources
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Rooms.resources
+C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Login.resources
+C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Rooms.resources

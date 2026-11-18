@@ -1,4 +1,5 @@
-﻿using MineSearch;
+﻿using Google.Protobuf.WellKnownTypes;
+using MineSearch;
 using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ChattingClient
     {
         //ClientSocket client = new();
         string name = "";
-        FormBase formBase;
+        Dictionary<int, FormBase> formBases = new();
         ClientSocket client = new();
         public Rooms()
         {
@@ -24,16 +25,24 @@ namespace ChattingClient
 
         private void BtnRoom1_Click(object sender, EventArgs e)
         {
-            
+            FormBase formBase = new(client, name, 1);
+
+            Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
+            t1.Start();
+
             //formBase.Close();
-            formBase = new(client, name, 1);
+            formBases.Add(1, formBase);
             formBase.Show();
         }
 
         private void BtnRoom2_Click(object sender, EventArgs e)
         {
             //formBase.Close();
-            formBase = new(client, name, 2);
+            FormBase formBase = new(client, name, 2);
+
+            Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
+            t1.Start();
+            formBases.Add(2, formBase);
             formBase.Show();
             
         }
@@ -41,7 +50,10 @@ namespace ChattingClient
         private void BtnRoom3_Click(object sender, EventArgs e)
         {
             //formBase.Close();
-            formBase = new(client, name, 3);
+            FormBase formBase = new(client, name, 3);
+            Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
+            t1.Start();
+            formBases.Add(3, formBase);
             formBase.Show();
             
         }
@@ -53,5 +65,15 @@ namespace ChattingClient
             login.ShowDialog();
             name = login.getName();
         }
+
+
+        public async void LoadChatData(Action<string> action)
+        {
+            string s = null;
+            action(s);
+
+
+        }
+
     }
 }
