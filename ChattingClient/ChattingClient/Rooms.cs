@@ -16,7 +16,7 @@ namespace ChattingClient
     {
         //ClientSocket client = new();
         string name = "";
-        Dictionary<int, FormBase> formBases = new();
+        Dictionary<int, FormChat> formBases = new();
         ClientSocket client = new();
         public Rooms()
         {
@@ -25,7 +25,7 @@ namespace ChattingClient
 
         private void BtnRoom1_Click(object sender, EventArgs e)
         {
-            FormBase formBase = new(client, name, 1);
+            FormChat formBase = new(client, name, 1);
 
             Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
             t1.Start();
@@ -38,7 +38,7 @@ namespace ChattingClient
         private void BtnRoom2_Click(object sender, EventArgs e)
         {
             //formBase.Close();
-            FormBase formBase = new(client, name, 2);
+            FormChat formBase = new(client, name, 2);
 
             Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
             t1.Start();
@@ -50,7 +50,7 @@ namespace ChattingClient
         private void BtnRoom3_Click(object sender, EventArgs e)
         {
             //formBase.Close();
-            FormBase formBase = new(client, name, 3);
+            FormChat formBase = new(client, name, 3);
             Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
             t1.Start();
             formBases.Add(3, formBase);
@@ -58,7 +58,19 @@ namespace ChattingClient
             
         }
 
-
+        internal void sendToMainThread(string c, string d)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => sendToMainThread(c, d)));
+                return;
+            }
+            if (c == "/load")
+            {
+                int chatnum = int.Parse(d.Split(" ")[0]);
+                formBases[chatnum].LoadMessages(d);
+            }
+        }
         private void Rooms_Load(object sender, EventArgs e)
         {
             Login login = new();
@@ -71,9 +83,6 @@ namespace ChattingClient
         {
             string s = null;
             action(s);
-
-
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChattingClient;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -67,9 +68,17 @@ namespace MineSearch
 
         public bool SendMsg(string command, string data)
         {
-            FormBase form1 = Application.OpenForms["FormBase"] as FormBase;
+            FormChat form1 = Application.OpenForms["FormChat"] as FormChat;
             if (form1 == null) return false;
             form1.sendToMainThread(command, data);
+            return true;
+        }
+
+        public bool SendToRoom(string command, string data)
+        {
+            Rooms room = Application.OpenForms["Rooms"] as Rooms;
+            if (room == null) return false;
+            room.sendToMainThread(command, data);
             return true;
         }
 
@@ -111,11 +120,11 @@ namespace MineSearch
                     if (command[0] == "/load")
                     {
                         string content = "";
-                        for (int i = 1; i < command.Length; i++) //name text text text
+                        for (int i = 1; i < command.Length; i++) //room name nowdate text text text
                         {
                             content += command[i] + " ";
                         }
-                        SendMsg("/load", content);
+                        SendToRoom("/load", content);
                     }
                 }
             }

@@ -41,7 +41,7 @@
             BtnRoom1.TabIndex = 0;
             BtnRoom1.Text = "1번 방";
             BtnRoom1.UseVisualStyleBackColor = true;
-            BtnRoom1.Click += BtnRoom1_ClickAsync;
+            BtnRoom1.Click += BtnRoom1_Click;
             // 
             // BtnRoom2
             // 

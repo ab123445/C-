@@ -106,7 +106,6 @@ C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\bin\D
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\bin\Debug\net10.0-windows\runtimes\win-x64\native\krb5_64.dll
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\bin\Debug\net10.0-windows\runtimes\win-x64\native\krbcc64.dll
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.csproj.AssemblyReference.cache
-C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\WinFormsApp1.FormBase.resources
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.csproj.GenerateResource.cache
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.AssemblyInfoInputs.cache
@@ -185,3 +184,4 @@ C:\Users\D410\Desktop\수강생606\변지온\ChattingClient\ChattingClient\obj\D
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Rooms.resources
 C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Login.resources
 C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Rooms.resources
+C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\WinFormsApp1.FormChat.resources

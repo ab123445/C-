@@ -7,7 +7,7 @@
     <Compile Update="Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormBase.cs">
+    <Compile Update="FormChat.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
