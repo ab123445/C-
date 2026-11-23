@@ -1,10 +1,6 @@
 using ChattingClient;
 using Microsoft.VisualBasic;
 using MineSearch;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
 {
@@ -123,8 +119,8 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
         //mysql
         private void FormBase_Load(object sender, EventArgs e)
         {
-            client.start();
-            Thread t1 = new Thread(new ThreadStart(() => client.work()));
+            client.start()22222;
+            Thread t1 = new Thread(new ThreadStart(() => client.work())); //여기있는 클라이언트 start 지워야 함
             t1.IsBackground = true;
             t1.Start();
             client.socksend($"/setName {name}\n");
@@ -291,7 +287,26 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
 
         public void loadChatdata_room(string s)
         {
-            client.socksend($"/load {roomNumber}");
+            string[] command = s.Split(" ");
+
+            string senderName = command[1];
+
+            string AMPM = command[3];///////
+            string[] time = command[4].Split(":");
+            int hour = int.Parse(time[0]);
+            int minute = int.Parse(time[1]);
+            if (AMPM == "오후")
+                hour += 12;
+
+            string content = "";
+            for (int i = 5; i < command.Length - 1; i++)
+            {
+                content += " " + command[i];
+            }
+            if (senderName != name)
+                ShowingMessage(content, senderName, hour, minute);
+            if (senderName == name)
+                ShowingMyMessage(content, hour, minute);
 
 
         }

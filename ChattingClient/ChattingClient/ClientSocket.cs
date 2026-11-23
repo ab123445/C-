@@ -78,7 +78,8 @@ namespace MineSearch
         {
             Rooms room = Application.OpenForms["Rooms"] as Rooms;
             if (room == null) return false;
-            room.sendToMainThread(command, data);
+            //room.sendToMainThread(command, data);
+            room.LoadChatData_finish(command, data);
             return true;
         }
 

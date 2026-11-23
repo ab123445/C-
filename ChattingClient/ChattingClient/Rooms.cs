@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Windows.Forms;
 using WinFormsApp1;
@@ -16,8 +17,8 @@ namespace ChattingClient
     {
         //ClientSocket client = new();
         string name = "";
-        Dictionary<int, FormChat> formBases = new();
-        ClientSocket client = new();
+        Dictionary<int, FormChat> formChats = new();
+        ClientSocket client;
         public Rooms()
         {
             InitializeComponent();
@@ -25,64 +26,80 @@ namespace ChattingClient
 
         private void BtnRoom1_Click(object sender, EventArgs e)
         {
+            LoadChatData(1);
             FormChat formBase = new(client, name, 1);
 
-            Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
-            t1.Start();
+            //Thread t1 = new Thread(() => LoadChatData(1,formBase.loadChatdata_room));
+            //t1.Start();
 
             //formBase.Close();
-            formBases.Add(1, formBase);
+            formChats.Add(1, formBase);
             formBase.Show();
         }
 
         private void BtnRoom2_Click(object sender, EventArgs e)
         {
-            //formBase.Close();
+            LoadChatData(2);
             FormChat formBase = new(client, name, 2);
 
-            Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
-            t1.Start();
-            formBases.Add(2, formBase);
+            //Thread t1 = new Thread(() => LoadChatData(2,formBase.loadChatdata_room));
+            //t1.Start();
+            formChats.Add(2, formBase);
             formBase.Show();
             
         }
 
         private void BtnRoom3_Click(object sender, EventArgs e)
         {
-            //formBase.Close();
+            LoadChatData(3);
             FormChat formBase = new(client, name, 3);
-            Thread t1 = new Thread(() => LoadChatData(formBase.loadChatdata_room));
-            t1.Start();
-            formBases.Add(3, formBase);
+            //Thread t1 = new Thread(() => LoadChatData(3,formBase.loadChatdata_room));
+            //t1.Start();
+            formChats.Add(3, formBase);
             formBase.Show();
             
         }
 
-        internal void sendToMainThread(string c, string d)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new Action(() => sendToMainThread(c, d)));
-                return;
-            }
-            if (c == "/load")
-            {
-                int chatnum = int.Parse(d.Split(" ")[0]);
-                formBases[chatnum].LoadMessages(d);
-            }
-        }
         private void Rooms_Load(object sender, EventArgs e)
         {
+            client = new();
             Login login = new();
             login.ShowDialog();
             name = login.getName();
+            client.start();
         }
 
 
-        public async void LoadChatData(Action<string> action)
+        //public async void LoadChatData(int roomNumber, Action<string> action)
+        //{
+        //    client.socksend($"/load {roomNumber}");
+
+
+        //    string s = null;
+        //    action(s);
+        //}
+
+
+        public async void LoadChatData(int roomNumber)
         {
-            string s = null;
-            action(s);
+            client.socksend($"/load {roomNumber}");
+        }
+
+        public void LoadChatData_finish(string command, string data)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => LoadChatData_finish(command, data)));
+                return;
+            }
+            //
+            //
+           int chatnum = int.Parse(data.Split(" ")[0]);
+            FormChat fc = formChats[chatnum];
+            fc.loadChatdata_room(data);
+
+            //formChats.Add(3, formBase);
+            //action(s);
         }
     }
 }

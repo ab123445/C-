@@ -185,3 +185,4 @@ C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\D
 C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Login.resources
 C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\ChattingClient.Rooms.resources
 C:\Users\D411\Desktop\수강생602\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\WinFormsApp1.FormChat.resources
+C:\Users\sw_306\Desktop\수강생605\변지온\ChattingClient\ChattingClient\obj\Debug\net10.0-windows\WinFormsApp1.FormChat.resources
