@@ -8,10 +8,13 @@ namespace WinFormsApp1
 {
     public partial class MysqlNetwork
     {
-        private readonly string HOST = "www.pcall.kr";
+        //private readonly string HOST = "www.pcall.kr";
+        private readonly string HOST = "ghdwo.com";
         private readonly string ID = "stu_all";
-        private readonly string PW = "code";
-        private readonly string DB = "student";
+        //private readonly string PW = "code";
+        private readonly string PW = "8600";
+        //private readonly string DB = "student";
+        private readonly string DB = "stu_all";
         MySqlConnection conn;
 
         public bool isConnected { get; private set; }
@@ -52,13 +55,21 @@ namespace WinFormsApp1
         {
             lock (conn)
             {
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                long data = cmd.ExecuteNonQuery();
-                if (data > 0)
-                    data = cmd.LastInsertedId;
-                else
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    long data = cmd.ExecuteNonQuery();
+                    if (data > 0)
+                        data = cmd.LastInsertedId;
+                    else
+                        return -1;
+                    return data;
+                }
+                catch
+                {
+                    sendError();
                     return -1;
-                return data;
+                }
             }
         }
 
@@ -68,13 +79,22 @@ namespace WinFormsApp1
         {
             lock (conn)
             {
-                MySqlDataAdapter adpt = new MySqlDataAdapter(query, conn);
-                DataSet ds = new DataSet();
-                adpt.Fill(ds, DB);
-                foreach (DataTable dt in ds.Tables)
+                try
                 {
-                    return dt;
+                    MySqlDataAdapter adpt = new MySqlDataAdapter(query, conn);
+                    DataSet ds = new DataSet();
+                    adpt.Fill(ds, DB);
+                    foreach (DataTable dt in ds.Tables)
+                    {
+                        return dt;
+                    }
                 }
+                catch
+                {
+                    sendError();
+                    return null;
+                }
+                
             }
             return null;
         }
