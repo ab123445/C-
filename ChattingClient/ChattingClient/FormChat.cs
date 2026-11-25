@@ -119,10 +119,6 @@ namespace WinFormsApp1 //저장될 때 이름에 \n 이 써짐
         //mysql
         private void FormBase_Load(object sender, EventArgs e)
         {
-            client.start()22222;
-            Thread t1 = new Thread(new ThreadStart(() => client.work())); //여기있는 클라이언트 start 지워야 함
-            t1.IsBackground = true;
-            t1.Start();
             client.socksend($"/setName {name}\n");
             
             lblName.Text = name;

@@ -15,6 +15,7 @@ namespace MineSearch
         //Form form1; // 선언만 위로 빼고, 대입은 start() 안에서 합니다.
         bool connecting = false;
         public int ClientCode;
+        bool isLocal = false;
         
         public void start()
         {
@@ -29,7 +30,7 @@ namespace MineSearch
             catch (Exception e)
             {
                 SendMsg("/msg", $"Connection Failed: {e.Message}");
-                return;
+                isLocal = true;
             }
 
             
@@ -49,8 +50,15 @@ namespace MineSearch
 
         public void socksend(string data)
         {
-            byte[] buff = Encoding.UTF8.GetBytes(data);
-            if (sock.Connected) sock.Send(buff, SocketFlags.None);
+            if (isLocal == false)
+            {
+                byte[] buff = Encoding.UTF8.GetBytes(data);
+                if (sock.Connected) sock.Send(buff, SocketFlags.None);
+            }
+            else
+            {
+
+            }
         }
 
         public void clientclose()

@@ -67,6 +67,9 @@ namespace ChattingClient
             login.ShowDialog();
             name = login.getName();
             client.start();
+            Thread t1 = new Thread(new ThreadStart(() => client.work())); //여기있는 클라이언트 start 지워야 함
+            t1.IsBackground = true;
+            t1.Start();
         }
 
 
